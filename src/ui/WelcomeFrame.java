@@ -2,7 +2,6 @@ package ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
 
 public class WelcomeFrame extends BaseFrame {
     public WelcomeFrame(String title) {
@@ -16,8 +15,7 @@ public class WelcomeFrame extends BaseFrame {
 
         // Panel principal para centrar los elementos
         JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
-        mainPanel.setBackground(Color.decode("#F9F9F9"));
+        mainPanel.setBackground(null);
 
         // Espaciado superior
         mainPanel.add(Box.createVerticalStrut(20));
@@ -44,30 +42,23 @@ public class WelcomeFrame extends BaseFrame {
         // Texto de bienvenida
         JLabel welcomeText = new JLabel("<html><div style='text-align: center'>¡Te damos la bienvenida a Catffee!</div></html>");
         
-        Font fredokaFont = null;
-        try {
-            fredokaFont = Font.createFont(Font.TRUETYPE_FONT, new java.io.File("resources/fonts/Fredoka-SemiBold.ttf"));
-        } catch (FontFormatException | IOException e) {
-            e.printStackTrace();
-        } 
-
-        fredokaFont = fredokaFont.deriveFont(40f); // Ajustar el tamaño de la fuente
-        
-        welcomeText.setFont(fredokaFont);
+        welcomeText.setFont(new Font("Fredoka SemiBold", Font.PLAIN, 40));
         welcomeText.setPreferredSize(new Dimension(380, 145));
         mainPanel.add(welcomeText);
 
         // Espaciado entre el texto de bienvenida y el texto descriptivo
-        mainPanel.add(Box.createVerticalStrut(10));
+        mainPanel.add(Box.createVerticalStrut(49));
 
         // Texto descriptivo
         JLabel descriptionText = new JLabel("<html><div style='text-align: center'>Relájate, disfruta de un buen café y pasa un rato con nuestros adorables gatos. ¡Haz clic para empezar!</div></html>");
-        descriptionText.setFont(new Font("Arial", Font.PLAIN, 14));
+
+        descriptionText.setFont(new Font("Fredoka Regular", Font.PLAIN, 24));
+        descriptionText.setPreferredSize(new Dimension(300, 146));
         descriptionText.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(descriptionText);
 
         // Espaciado entre el texto descriptivo y el botón
-        mainPanel.add(Box.createVerticalStrut(20));
+        mainPanel.add(Box.createVerticalStrut(268));
 
         // Botón de comenzar
         JButton startButton = new JButton("¡Comenzar!");
