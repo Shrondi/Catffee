@@ -1,6 +1,9 @@
 package ui;
 
 import javax.swing.*;
+
+import components.RoundedButton;
+
 import java.awt.*;
 
 public class WelcomeFrame extends BaseFrame {
@@ -56,7 +59,7 @@ public class WelcomeFrame extends BaseFrame {
         mainPanel.add(separator);
 
         // Espaciado entre el texto de bienvenida y el texto descriptivo
-        mainPanel.add(Box.createVerticalStrut(49));
+        mainPanel.add(Box.createVerticalStrut(24));
 
         // Texto descriptivo
         JLabel descriptionText = new JLabel("<html><div style='text-align: center'>Relájate, disfruta de un buen café y pasa un rato con nuestros adorables gatos. ¡Haz clic para empezar!</div></html>");
@@ -67,14 +70,15 @@ public class WelcomeFrame extends BaseFrame {
         mainPanel.add(descriptionText);
 
         // Espaciado entre el texto descriptivo y el botón
-        mainPanel.add(Box.createVerticalStrut(268));
+        mainPanel.add(Box.createVerticalStrut(134));
 
         // Botón de comenzar
-        JButton startButton = new JButton("¡Comenzar!");
+        RoundedButton startButton = new RoundedButton("¡Comenzar!", 16);
         startButton.setBackground(Color.decode("#C67C4E")); // Color marrón
         startButton.setForeground(Color.WHITE);
-        startButton.setFocusPainted(false);
-        startButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        startButton.setBorderPainted(false);
+        startButton.setPreferredSize(new Dimension(327, 56));
+        startButton.setFont(new Font("Sora Semibold", Font.PLAIN, 16));
         mainPanel.add(startButton);
 
         // Agregar el panel principal al centro de la ventana
