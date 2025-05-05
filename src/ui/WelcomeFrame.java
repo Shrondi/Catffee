@@ -46,6 +46,15 @@ public class WelcomeFrame extends BaseFrame {
         welcomeText.setPreferredSize(new Dimension(380, 145));
         mainPanel.add(welcomeText);
 
+        // Espaciado entre la imagen y el texto
+        mainPanel.add(Box.createVerticalStrut(25));
+
+        // Línea horizontal
+        JSeparator separator = new JSeparator(SwingConstants.HORIZONTAL);
+        separator.setForeground(Color.BLACK); // Establecer el color de la línea
+        separator.setPreferredSize(new Dimension(319, 2)); // Establecer un tamaño visible
+        mainPanel.add(separator);
+
         // Espaciado entre el texto de bienvenida y el texto descriptivo
         mainPanel.add(Box.createVerticalStrut(49));
 
