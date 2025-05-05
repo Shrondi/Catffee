@@ -31,7 +31,10 @@ public class WelcomeFrame extends BaseFrame {
         add(topPanel, BorderLayout.NORTH);
 
         // Imagen del gato
-        JLabel catImage = new JLabel(new ImageIcon("../../resources/images/logo.png"));
+        ImageIcon logo = new ImageIcon("resources/images/logo.png");
+        logo = new ImageIcon(logo.getImage().getScaledInstance(228, 228, Image.SCALE_SMOOTH));
+
+        JLabel catImage = new JLabel(logo);
         catImage.setAlignmentX(Component.CENTER_ALIGNMENT);
         mainPanel.add(catImage);
 
