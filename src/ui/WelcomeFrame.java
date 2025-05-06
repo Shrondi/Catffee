@@ -29,8 +29,15 @@ public class WelcomeFrame extends BaseFrame {
     }
 
     private void addLanguageButton() {
-        JButton languageButton = new JButton("Idioma >");
+        RoundedButton languageButton = new RoundedButton("Idioma >", 16);
+        languageButton.setBackground(Color.decode("#FFFFFF"));
+        languageButton.setForeground(Color.decode("#6B6B6B"));
+        languageButton.setBorderPainted(false);
+        languageButton.setPreferredSize(new Dimension(99, 20));
+        languageButton.setFont(new Font("Sora Regular", Font.PLAIN, 12));
+
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        topPanel.setBorder(BorderFactory.createEmptyBorder(10, 5, 0, 10)); // Margen superior
         topPanel.setBackground(Color.decode("#F9F9F9"));
         topPanel.add(languageButton);
         add(topPanel, BorderLayout.NORTH);
