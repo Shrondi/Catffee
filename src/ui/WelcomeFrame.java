@@ -10,18 +10,20 @@ public class WelcomeFrame extends BaseFrame {
     public WelcomeFrame(String title) {
         super(title);
 
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout()); //Layout de la ventana
 
-        JPanel mainPanel = new JPanel();
+        JPanel mainPanel = new JPanel(); // Panel principal
         mainPanel.setBackground(null);
         mainPanel.add(Box.createVerticalStrut(20));
 
         addLanguageButton();
+
         addCatImage(mainPanel);
         addWelcomeText(mainPanel);
         addSeparator(mainPanel);
         addDescriptionText(mainPanel);
-        addStartButton(mainPanel);
+        
+        addStartButton();
 
         add(mainPanel, BorderLayout.CENTER);
     }
@@ -68,13 +70,21 @@ public class WelcomeFrame extends BaseFrame {
         mainPanel.add(Box.createVerticalStrut(134)); // Espaciado
     }
 
-    private void addStartButton(JPanel mainPanel) {
+    private void addStartButton() {
+
         RoundedButton startButton = new RoundedButton("¡Comenzar!", 16);
         startButton.setBackground(Color.decode("#C67C4E"));
         startButton.setForeground(Color.WHITE);
         startButton.setBorderPainted(false);
         startButton.setPreferredSize(new Dimension(327, 56));
         startButton.setFont(new Font("Sora Semibold", Font.PLAIN, 16));
-        mainPanel.add(startButton);
+
+        JPanel buttonPanel = new JPanel(); // Panel para contener el botón
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+        buttonPanel.add(startButton);
+        buttonPanel.setBackground(null);
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0)); // Margen inferior
+
+        add(buttonPanel, BorderLayout.SOUTH); //Añadir boton a la ventana
     }
 }
