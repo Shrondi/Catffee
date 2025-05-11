@@ -12,8 +12,4 @@ public class BaseFrame extends JFrame {
         setResizable(false); // Deshabilitar el cambio de tamaño
         getContentPane().setBackground(Color.decode("#F9F9F9"));
     }
-
-    public void initialize() {
-        setVisible(true);
-    }
 }
