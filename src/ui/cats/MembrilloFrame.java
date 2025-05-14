@@ -6,10 +6,10 @@ import components.RoundedPanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class AlfilFrame extends JFrame {
+public class MembrilloFrame extends JFrame {
 
-    public AlfilFrame() {
-        setTitle("Perfil de Alfil");
+    public MembrilloFrame() {
+        setTitle("Perfil de Membrillo");
         setSize(412, 917);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -21,7 +21,7 @@ public class AlfilFrame extends JFrame {
 
         background.add(buildImagePanel());
         background.add(Box.createVerticalStrut(20));
-        background.add(buildInfoPanel("ALFIL", "4 años", "Macho", "Dormilón profesional y fan de las mantas suaves. Le encanta hacerse ovillo y ronronear a volumen máximo.", "Casas tranquilas con sofá libre."));
+        background.add(buildInfoPanel("MEMBRILLO", "6 años", "Macho", "Mimoso y melancólico. Membrillo parece un poeta en forma de gato. Le encanta tumbarse a mirar el vacío.", "Alguien sensible y con ganas de un amigo tranquilo."));
     }
 
     private JPanel buildImagePanel() {
@@ -34,9 +34,9 @@ public class AlfilFrame extends JFrame {
         imageRow.setOpaque(false);
 
         String[] paths = {
-            "resources/images/alfil1.png",
-            "resources/images/alfil2.png",
-            "resources/images/alfil3.png"
+            "resources/images/membrillo1.png",
+            "resources/images/membrillo2.png",
+            "resources/images/membrillo3.png"
         };
 
         for (String path : paths) {

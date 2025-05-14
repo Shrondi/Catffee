@@ -6,10 +6,10 @@ import components.RoundedPanel;
 import javax.swing.*;
 import java.awt.*;
 
-public class AlfilFrame extends JFrame {
+public class AbiFrame extends JFrame {
 
-    public AlfilFrame() {
-        setTitle("Perfil de Alfil");
+    public AbiFrame() {
+        setTitle("Perfil de Abi");
         setSize(412, 917);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -21,7 +21,8 @@ public class AlfilFrame extends JFrame {
 
         background.add(buildImagePanel());
         background.add(Box.createVerticalStrut(20));
-        background.add(buildInfoPanel("ALFIL", "4 años", "Macho", "Dormilón profesional y fan de las mantas suaves. Le encanta hacerse ovillo y ronronear a volumen máximo.", "Casas tranquilas con sofá libre."));
+        background.add(buildInfoPanel("ABI", "1 años", "Hembra", "Un torbellino adorable. Abi es juguetona y sociable, y siempre está lista para una aventura. \n" + //
+                        "¡O para robarte la silla!", "Familias activas o personas que pasen mucho tiempo en casa."));
     }
 
     private JPanel buildImagePanel() {
@@ -34,9 +35,9 @@ public class AlfilFrame extends JFrame {
         imageRow.setOpaque(false);
 
         String[] paths = {
-            "resources/images/alfil1.png",
-            "resources/images/alfil2.png",
-            "resources/images/alfil3.png"
+            "resources/images/abi1.png",
+            "resources/images/abi2.png",
+            "resources/images/abi3.png"
         };
 
         for (String path : paths) {
@@ -120,7 +121,7 @@ public class AlfilFrame extends JFrame {
         //ageLabel.setFont(new Font("Poppins Regular", Font.PLAIN, 20));
         ageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel genderLabel = new JLabel("♂ " + gender);
+        JLabel genderLabel = new JLabel("♀ " + gender);
         genderLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
         //genderLabel.setFont(new Font("Poppins Regular", Font.PLAIN, 20));
         genderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
