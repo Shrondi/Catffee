@@ -47,15 +47,14 @@ public class CatsFrame extends JFrame {
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         //Descripción
-        JTextArea description = new JTextArea("Estos gatetes son más que expertos\n" +
-                "en siestas y miradas adorables.\n" +
-                "¡Desliza, conócelos y quizás uno se\n" +
-                "robe tu corazón (y tu café)!");
+        JLabel description = new JLabel("<html>Estos gatetes son más que expertos<br>" +
+        "en siestas y miradas adorables.<br>" +
+        "¡Desliza, conócelos y quizás uno se<br>" +
+        "robe tu corazón (y tu café)!</html>");
 
         description.setFont(new Font("Fredoka Regular", Font.PLAIN, 20));
-        description.setEditable(false);
+        description.setForeground(Color.BLACK);
         description.setOpaque(false);
-        description.setLineWrap(false);
 
         RoundedPanel descriptionPanel = new RoundedPanel(16, Color.WHITE);
         descriptionPanel.setMaximumSize(new Dimension(378, 119));
