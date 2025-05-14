@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GradientPanel extends JPanel {
-    private Color startColor = new Color(189, 110, 54);  // BD6E36
-    private Color endColor = new Color(205, 205, 205);   // CDCDCD
+    private Color startColor = new Color(0xBD6E36);  // BD6E36
+    private Color endColor = new Color(0xCDCDCD);   // CDCDCD
     private boolean vertical = true; // Vertical por defecto
 
     public GradientPanel() {
@@ -21,6 +21,7 @@ public class GradientPanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g.create();
         int width = getWidth();
         int height = getHeight();
@@ -36,6 +37,5 @@ public class GradientPanel extends JPanel {
         g2d.fillRect(0, 0, width, height);
 
         g2d.dispose();
-        super.paintComponent(g);
     }
 }

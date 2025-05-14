@@ -5,7 +5,6 @@ import components.RoundedButton;
 import components.RoundedPanel;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 
 import java.awt.*;
 
@@ -55,8 +54,8 @@ public class CatsFrame extends JFrame {
 
         description.setFont(new Font("Fredoka Regular", Font.PLAIN, 20));
         description.setEditable(false);
-        description.setOpaque(true);
-        description.setBackground(Color.WHITE);
+        description.setOpaque(false);
+        description.setBackground(new Color(0, 0, 0, 0));
         description.setLineWrap(true);
         description.setWrapStyleWord(true);
         description.setBorder(BorderFactory.createEmptyBorder(26,17,18,0));
@@ -102,7 +101,7 @@ public class CatsFrame extends JFrame {
     private JPanel buildCatCard(String imagePath, String name) {
         RoundedPanel card = new RoundedPanel(16);
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
-        card.setBackground(Color.WHITE);
+        card.setOpaque(false);
         card.setPreferredSize(new Dimension(160, 220));
         card.setMaximumSize(new Dimension(160, 220));
         card.add(Box.createVerticalStrut(10)); // Espaciado
@@ -112,6 +111,7 @@ public class CatsFrame extends JFrame {
         Image scaled = icon.getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH);
         JLabel imgLabel = new JLabel(new ImageIcon(scaled));
         imgLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        imgLabel.setOpaque(false);
         imgLabel.add(Box.createVerticalStrut(8)); // Espaciado
 
         JLabel nameLabel = new JLabel(name);
@@ -119,12 +119,15 @@ public class CatsFrame extends JFrame {
         nameLabel.setForeground(Color.decode("#000000"));
         //nameLabel.setBorder(BorderFactory.createEmptyBorder(153, 55, 50, 55));
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        nameLabel.setOpaque(false);
         nameLabel.add(Box.createVerticalStrut(8)); // Espaciado
 
         RoundedButton adoptButton = new RoundedButton("Adóptame", 16);
         adoptButton.setBackground(Color.decode("#C67C4E"));
         //adoptButton.setBorder(BorderFactory.createEmptyBorder(177, 23, 14, 177));
         adoptButton.setForeground(Color.WHITE);
+        adoptButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        adoptButton.setOpaque(false);
         adoptButton.setBorderPainted(false);
         adoptButton.setPreferredSize(new Dimension(113, 22));
         adoptButton.setMaximumSize(new Dimension(113, 22));
