@@ -1,5 +1,6 @@
 import ui.ErrorFrame;
 import ui.WelcomeFrame;
+import ui.cats.AlfilFrame;
 import utils.FontsLoader;
 
 public class App {
@@ -11,10 +12,13 @@ public class App {
         // Ahora mismo se van añadiendo las ventanas a la vez para ver como quedan
         // Añadir mas tarde la navegacion entre ventanas
         
-        WelcomeFrame welcomeFrame = new WelcomeFrame("Catffee");
-        welcomeFrame.initialize();
+        // WelcomeFrame welcomeFrame = new WelcomeFrame("Catffee");
+        // welcomeFrame.initialize();
 
-        ErrorFrame errorFrame = new ErrorFrame("Error");
-        errorFrame.setVisible(true);
+        // ErrorFrame errorFrame = new ErrorFrame("Error");
+        // errorFrame.setVisible(true);
+
+        AlfilFrame alfilFrame = new AlfilFrame();
+        alfilFrame.setVisible(true);
     }
 }
