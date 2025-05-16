@@ -1,5 +1,6 @@
 import ui.CatsFrame;
 import ui.ErrorFrame;
+import ui.MainMenuFrame;
 import ui.WelcomeFrame;
 import utils.FontsLoader;
 
@@ -18,7 +19,10 @@ public class App {
         // ErrorFrame errorFrame = new ErrorFrame("Error");
         // errorFrame.setVisible(true);
 
-        CatsFrame catsFrame = new CatsFrame();
-        catsFrame.setVisible(true);
+        // CatsFrame catsFrame = new CatsFrame();
+        // catsFrame.setVisible(true);
+
+        MainMenuFrame mainMenuFrame = new MainMenuFrame();
+        mainMenuFrame.setVisible(true);
     }
 }

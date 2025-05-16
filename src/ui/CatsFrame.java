@@ -16,7 +16,7 @@ public class CatsFrame extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-        GradientPanel background = new GradientPanel(new Color(0xBD6E36), new Color(0xCDCDCD), true);
+        GradientPanel background = new GradientPanel(new Color(0xBD6E36), new Color(0xCDCDCD), GradientPanel.Direction.VERTICAL);
         background.setLayout(new BorderLayout());
         setContentPane(background);
 
