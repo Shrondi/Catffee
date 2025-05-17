@@ -1,6 +1,9 @@
 import ui.CatsFrame;
 import ui.ErrorFrame;
 import ui.WelcomeFrame;
+import ui.cats.AbiFrame;
+import ui.cats.AlfilFrame;
+import ui.cats.CherryFrame;
 import utils.FontsLoader;
 
 public class App {
@@ -18,7 +21,7 @@ public class App {
         // ErrorFrame errorFrame = new ErrorFrame("Error");
         // errorFrame.setVisible(true);
 
-        CatsFrame catsFrame = new CatsFrame();
-        catsFrame.setVisible(true);
+        AbiFrame abiFrame = new AbiFrame();
+        abiFrame.setVisible(true);
     }
 }
