@@ -3,18 +3,66 @@ package components;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class RoundedPasswordField extends JPasswordField {
     private int radius;
     private Color borderColor = Color.GRAY;
     private float borderWidth = 1.0f;
     private String placeholder = "";
-    private Color placeholderColor = new Color(150, 150, 150);
+    private Color placeholderColor = new Color(160, 160, 160);
+    private boolean showingPlaceholder = false;
 
     public RoundedPasswordField(int radius) {
         this.radius = radius;
         setOpaque(false);
         setBorder(new EmptyBorder(5, 10, 5, 10));
+
+        addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (showingPlaceholder) {
+                    setText("");
+                    setEchoChar('•');
+                    setForeground(Color.BLACK);
+                    showingPlaceholder = false;
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (getPassword().length == 0) {
+                    showPlaceholder();
+                }
+            }
+        });
+
+        // Inicialmente mostrar el placeholder
+        showPlaceholder();
+    }
+
+    private void showPlaceholder() {
+        showingPlaceholder = true;
+        setText(placeholder);
+        setEchoChar((char) 0); // Mostrar texto sin ocultar
+        setForeground(placeholderColor);
+    }
+
+    public void setPlaceholder(String placeholder) {
+        this.placeholder = placeholder;
+        if (!hasFocus() && (getPassword().length == 0 || showingPlaceholder)) {
+            showPlaceholder();
+        }
+    }
+
+    public void setPlaceholderColor(Color color) {
+        this.placeholderColor = color;
+    }
+
+    @Override
+    public char[] getPassword() {
+        return showingPlaceholder ? new char[0] : super.getPassword();
     }
 
     public void setBorderColor(Color color) {
@@ -27,15 +75,6 @@ public class RoundedPasswordField extends JPasswordField {
         repaint();
     }
 
-    public void setPlaceholder(String text) {
-        this.placeholder = text;
-        repaint();
-    }
-
-    public void setPlaceholderColor(Color color) {
-        this.placeholderColor = color;
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g.create();
@@ -43,14 +82,6 @@ public class RoundedPasswordField extends JPasswordField {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.fillRoundRect(0, 0, getWidth(), getHeight(), radius, radius);
         super.paintComponent(g2);
-
-        // Placeholder
-        if (getPassword().length == 0 && !isFocusOwner() && placeholder != null) {
-            g2.setColor(placeholderColor);
-            g2.setFont(getFont().deriveFont(Font.ITALIC));
-            g2.drawString(placeholder, getInsets().left + 5, getHeight() / 2 + getFont().getSize() / 2 - 2);
-        }
-
         g2.dispose();
     }
 
