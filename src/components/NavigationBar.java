@@ -60,10 +60,25 @@ public class NavigationBar extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        // Dibujar fondo redondeado oscuro
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        int width = getWidth();
+        int height = getHeight();
+
+        // Pintar fondo primero
         g2.setColor(Color.decode("#2C2C2C"));
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 0, 0);
+        g2.fillRoundRect(0, 0, width, height, 0, 0);
+
+        // Sombra interior
+        int shadowThickness = 8;
+        for (int i = 0; i < shadowThickness; i++) {
+            float opacity = 0.10f * (1f - (float) i / shadowThickness); // De 10% a 0%
+            g2.setColor(new Color(0, 0, 0, (int) (opacity * 255)));
+            g2.drawRoundRect(i, i, width - 2 * i - 1, height - 2 * i - 1, 0, 0);
+        }
+
+        g2.dispose();
     }
+
 }
