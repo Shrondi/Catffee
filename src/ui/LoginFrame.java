@@ -75,7 +75,6 @@ public class LoginFrame extends BaseFrame {
         emailLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         RoundedTextField emailField = new RoundedTextField(18);
-        emailField.setForeground(Color.GRAY);
         emailField.setPlaceholder("correo@email.com");
         emailField.setBackground(Color.decode("#F3F7FB"));
         emailField.setPreferredSize(new Dimension(342, 42));
@@ -93,9 +92,7 @@ public class LoginFrame extends BaseFrame {
         passLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         RoundedPasswordField passwordField = new RoundedPasswordField(18);
-        passwordField.setEchoChar((char) 0);
         passwordField.setPlaceholder("Contraseña");
-        passwordField.setForeground(Color.GRAY);
         passwordField.setBackground(Color.decode("#F3F7FB"));
         passwordField.setPreferredSize(new Dimension(342, 42));
         passwordField.setBorderColor(Color.decode("#D4D7E3"));
