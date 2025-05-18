@@ -1,0 +1,4 @@
+test@test,1234,Juan Pérez,/ruta/a/imagen1.jpg
+carlos@,1234,carlos lucena robles,
+prueba,prueba,prueba prueba,
+carlos,1234,lucena roble,
