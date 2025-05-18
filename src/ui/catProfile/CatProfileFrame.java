@@ -1,5 +1,6 @@
-package ui;
+package ui.catProfile;
 
+import ui.BaseFrame;
 import components.GradientPanel;
 import components.RoundedPanel;
 

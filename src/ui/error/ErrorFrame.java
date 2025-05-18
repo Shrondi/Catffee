@@ -1,5 +1,6 @@
-package ui;
+package ui.error;
 
+import ui.BaseFrame;
 import javax.swing.*;
 import java.awt.*;
 

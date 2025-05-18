@@ -1,9 +1,11 @@
-package ui;
+package ui.cats;
 
 import components.NavigationBar;
 import components.GradientPanel;
 import components.RoundedButton;
 import components.RoundedPanel;
+
+import ui.BaseFrame;
 
 import javax.swing.*;
 import java.awt.*;
