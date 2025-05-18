@@ -2,7 +2,7 @@ package ui.welcome;
 
 import javax.swing.*;
 
-import components.RoundedButton;
+import components.button.RoundedButton;
 import ui.BaseFrame;
 
 import java.awt.*;

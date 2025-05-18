@@ -1,8 +1,7 @@
 package ui.catProfile;
 
 import ui.BaseFrame;
-import components.GradientPanel;
-import components.RoundedPanel;
+import components.panel.*;
 
 import javax.swing.*;
 import java.awt.*;

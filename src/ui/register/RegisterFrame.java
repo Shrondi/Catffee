@@ -1,8 +1,8 @@
 package ui.register;
 
-import components.RoundedButton;
-import components.RoundedPasswordField;
-import components.RoundedTextField;
+import components.button.RoundedButton;
+import components.field.*;
+
 import javax.swing.*;
 import java.awt.*;
 import ui.BaseFrame;

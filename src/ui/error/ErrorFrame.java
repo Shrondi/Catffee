@@ -4,7 +4,7 @@ import ui.BaseFrame;
 import javax.swing.*;
 import java.awt.*;
 
-import components.RoundedButton;
+import components.button.RoundedButton;
 
 public class ErrorFrame extends BaseFrame {
     private JPanel mainPanel;

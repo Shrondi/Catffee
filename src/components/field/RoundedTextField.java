@@ -1,4 +1,4 @@
-package components;
+package components.field;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -6,63 +6,63 @@ import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-public class RoundedPasswordField extends JPasswordField {
+public class RoundedTextField extends JTextField {
     private int radius;
     private Color borderColor = Color.GRAY;
     private float borderWidth = 1.0f;
     private String placeholder = "";
     private Color placeholderColor = new Color(160, 160, 160);
-    private boolean showingPlaceholder = false;
+    private Color textColor = Color.BLACK;
+    private boolean showingPlaceholder = true;
 
-    public RoundedPasswordField(int radius) {
+    public RoundedTextField(int radius) {
         this.radius = radius;
         setOpaque(false);
         setBorder(new EmptyBorder(5, 10, 5, 10));
+        setForeground(placeholderColor); // inicial placeholder color
 
         addFocusListener(new FocusAdapter() {
             @Override
             public void focusGained(FocusEvent e) {
                 if (showingPlaceholder) {
                     setText("");
-                    setEchoChar('•');
-                    setForeground(Color.BLACK);
+                    setForeground(textColor);
                     showingPlaceholder = false;
                 }
             }
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (getPassword().length == 0) {
-                    showPlaceholder();
+                if (getText().isEmpty()) {
+                    setText(placeholder);
+                    setForeground(placeholderColor);
+                    showingPlaceholder = true;
                 }
             }
         });
-
-        // Inicialmente mostrar el placeholder
-        showPlaceholder();
     }
 
-    private void showPlaceholder() {
-        showingPlaceholder = true;
-        setText(placeholder);
-        setEchoChar((char) 0); // Mostrar texto sin ocultar
-        setForeground(placeholderColor);
-    }
-
+    /**
+     * Establece el texto del placeholder y actualiza el campo si está vacío o mostrando el placeholder anterior.
+     */
     public void setPlaceholder(String placeholder) {
         this.placeholder = placeholder;
-        if (!hasFocus() && (getPassword().length == 0 || showingPlaceholder)) {
-            showPlaceholder();
+
+        if (!hasFocus()) {
+            if (getText().isEmpty() || showingPlaceholder) {
+                showingPlaceholder = true;
+                setText(placeholder);
+                setForeground(placeholderColor);
+            }
         }
     }
 
-    public void setPlaceholderColor(Color color) {
-        this.placeholderColor = color;
-    }
-
+    /**
+     * Devuelve el texto real sin el placeholder.
+     */
     @Override
-    public char[] getPassword() {
-        return showingPlaceholder ? new char[0] : super.getPassword();
+    public String getText() {
+        return showingPlaceholder ? "" : super.getText();
     }
 
     public void setBorderColor(Color color) {

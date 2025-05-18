@@ -4,7 +4,8 @@ import javax.swing.*;
 
 import java.awt.*;
 
-import components.*;
+import components.field.*;
+import components.button.RoundedButton;
 import ui.BaseFrame;
 
 public class LoginFrame extends BaseFrame {
