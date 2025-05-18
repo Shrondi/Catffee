@@ -22,7 +22,7 @@ public class LoginListener implements ActionListener {
         String password = new String(loginFrame.passwordField.getPassword());
 
         if (userStorage.isValidUser(email, password)) {
-            loginFrame.showErrorMessage(false);
+            loginFrame.errorLabel.setVisible(false);
 
             // Avanza al siguiente frame
             RegisterFrame nextFrame = new RegisterFrame("Bienvenido");
@@ -33,7 +33,8 @@ public class LoginListener implements ActionListener {
 
             System.out.println("Login exitoso para: " + email);
         } else {
-            loginFrame.showErrorMessage(true);
+            loginFrame.errorLabel.setText("El correo y/o la contraseña son incorrectos");
+            loginFrame.errorLabel.setVisible(true);
 
             System.out.println("Login fallido para: " + email);
             // No deshabilitar el botón para permitir más intentos

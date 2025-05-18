@@ -13,8 +13,8 @@ public class LoginFrame extends BaseFrame {
     private final LoginListener listener = new LoginListener(this);
 
     private final Box contentBox;
-    private final JLabel errorLabel;
 
+    JLabel errorLabel;
     RoundedTextField emailField;
     RoundedPasswordField passwordField;
     RoundedButton loginButton;
@@ -36,7 +36,7 @@ public class LoginFrame extends BaseFrame {
         addPasswordField();
         addSpacing(9);
 
-        errorLabel = createErrorMessageLabel("El correo y/o la contraseña son incorrectos");
+        errorLabel = errorLabel();
         errorLabel.setVisible(false);
         contentBox.add(errorLabel);
         addSpacing(25);
@@ -61,10 +61,6 @@ public class LoginFrame extends BaseFrame {
         contentBox.setMaximumSize(new Dimension(342, 445));
 
         add(centerPanel, BorderLayout.CENTER);
-    }
-
-    public void showErrorMessage(boolean show) {
-        errorLabel.setVisible(show);
     }
 
     private void addTitle() {
@@ -128,8 +124,8 @@ public class LoginFrame extends BaseFrame {
         contentBox.add(loginButton);
     }
 
-    private JLabel createErrorMessageLabel(String message) {
-        JLabel label = new JLabel(message);
+    private JLabel errorLabel() {
+        JLabel label = new JLabel();
         label.setFont(new Font("Roboto Regular", Font.PLAIN, 13));
         label.setForeground(Color.RED);
         label.setPreferredSize(new Dimension(254, 21));
