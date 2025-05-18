@@ -18,8 +18,8 @@ public class LoginListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String email = loginFrame.getEmailField().getText().trim();
-        String password = new String(loginFrame.getPasswordField().getPassword());
+        String email = loginFrame.emailField.getText().trim();
+        String password = new String(loginFrame.passwordField.getPassword());
 
         if (userStorage.isValidUser(email, password)) {
             loginFrame.showErrorMessage(false);

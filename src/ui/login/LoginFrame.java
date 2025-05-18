@@ -13,9 +13,9 @@ public class LoginFrame extends BaseFrame {
     private final Box contentBox;
     private final JLabel errorLabel;
 
-    private RoundedTextField emailField;
-    private RoundedPasswordField passwordField;
-    private RoundedButton loginButton;
+    RoundedTextField emailField;
+    RoundedPasswordField passwordField;
+    RoundedButton loginButton;
 
     public LoginFrame(String title) {
         super(title);
@@ -62,18 +62,6 @@ public class LoginFrame extends BaseFrame {
 
     public void showErrorMessage(boolean show) {
         errorLabel.setVisible(show);
-    }
-
-    public RoundedTextField getEmailField() {
-        return emailField;
-    }
-
-    public RoundedPasswordField getPasswordField() {
-        return passwordField;
-    }
-
-    public RoundedButton getLoginButton() {
-        return loginButton;
     }
 
     private void addTitle() {
