@@ -10,6 +10,8 @@ import ui.BaseFrame;
 
 public class LoginFrame extends BaseFrame {
 
+    private final LoginListener listener = new LoginListener(this);
+
     private final Box contentBox;
     private final JLabel errorLabel;
 
@@ -40,6 +42,7 @@ public class LoginFrame extends BaseFrame {
         addSpacing(25);
 
         addLoginButton();
+        loginButton.addActionListener(listener);
         addSpacing(31);
 
         addRegisterLink();
