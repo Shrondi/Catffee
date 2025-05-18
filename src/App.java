@@ -8,7 +8,7 @@ public class App {
         FontsLoader.inicializar(); // Inicializar las fuentes
         UserStorage.init("usuarios.txt");
 
-        WelcomeFrame welcomeFrame = new WelcomeFrame("Bienvenida");
+        WelcomeFrame welcomeFrame = new WelcomeFrame("Catffee");
         welcomeFrame.setVisible(true);
     }
 }
