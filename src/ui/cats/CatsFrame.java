@@ -1,10 +1,8 @@
 package ui.cats;
 
-import components.NavigationBar;
-import components.GradientPanel;
-import components.RoundedButton;
-import components.RoundedPanel;
-
+import components.bar.*;
+import components.panel.*;
+import components.button.RoundedButton;
 import ui.BaseFrame;
 
 import javax.swing.*;
