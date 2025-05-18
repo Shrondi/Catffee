@@ -1,43 +1,59 @@
-package ui;
+package ui.register;
 
 import components.RoundedButton;
 import components.RoundedPasswordField;
 import components.RoundedTextField;
-import listeners.RegisterListeners;
-
 import javax.swing.*;
 import java.awt.*;
+import ui.BaseFrame;
 
 public class RegisterFrame extends BaseFrame {
 
-    private JLabel usuarioLabelHeader;
-    private JLabel nombreLabelHeader;
+    // Campos package-private
+    RoundedTextField usuarioField;
+    JLabel usuarioLabelHeader;
 
-    private RoundedTextField usuarioField;
-    private RoundedTextField nombreCompletoField;
+    RoundedTextField nombreCompletoField;
+    JLabel nombreLabelHeader;
 
-    private JLabel avatarLabel;
+    RoundedTextField correoField;
+    RoundedPasswordField passwordField;
+    RoundedPasswordField repeatPasswordField;
 
-    private final RegisterListeners listeners;
+    RoundedButton registerButton;
+    JLabel avatarLabel;
 
     public RegisterFrame(String title) {
         super(title);
 
-        listeners = new RegisterListeners(this);
+        // Inicializar campos
+        usuarioField = new RoundedTextField(20);
+        nombreCompletoField = new RoundedTextField(20);
+        correoField = new RoundedTextField(20);
+        passwordField = new RoundedPasswordField(20);
+        repeatPasswordField = new RoundedPasswordField(20);
+
+        // Configurar labels de encabezado
+        usuarioLabelHeader = new JLabel("@Usuario");
+        nombreLabelHeader = new JLabel("Nombre completo");
 
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
-
         container.add(topTitle());
         container.add(backButton());
         container.add(formPanel());
 
-        add(container); // Añadimos todo junto
+        add(container);
 
-        // Añadir listeners después de construir los campos y labels
+        // Listener para actualizar etiquetas en tiempo real
+        RegisterListener listeners = new RegisterListener(this);
         listeners.addTextListeners(usuarioField, usuarioLabelHeader, nombreCompletoField, nombreLabelHeader);
 
-        avatarLabel.addMouseListener(listeners.avatarClickListener());
+        // Listener para click en avatar
+        avatarLabel.addMouseListener(listeners);
+
+        // Listener para botón registrar
+        registerButton.addActionListener(listeners);
     }
 
     private JPanel topTitle() {
@@ -81,20 +97,21 @@ public class RegisterFrame extends BaseFrame {
         panel.add(headerInfo());
         panel.add(Box.createVerticalStrut(40));
 
-        String[][] fields = {
-                { "Usuario", "false" },
-                { "Nombre completo", "false" },
-                { "Correo", "false" },
-                { "Contraseña", "true" },
-                { "Repetir contraseña", "true" }
-        };
+        panel.add(createLabeledField("Usuario", usuarioField));
+        panel.add(Box.createVerticalStrut(10));
 
-        for (String[] field : fields) {
-            panel.add(createLabeledField(field[0], Boolean.parseBoolean(field[1])));
-            panel.add(Box.createVerticalStrut(10));
-        }
+        panel.add(createLabeledField("Nombre completo", nombreCompletoField));
+        panel.add(Box.createVerticalStrut(10));
 
+        panel.add(createLabeledField("Correo", correoField));
+        panel.add(Box.createVerticalStrut(10));
+
+        panel.add(createLabeledField("Contraseña", passwordField));
+        panel.add(Box.createVerticalStrut(10));
+
+        panel.add(createLabeledField("Repetir contraseña", repeatPasswordField));
         panel.add(Box.createVerticalStrut(20));
+
         panel.add(registerButton());
         panel.add(Box.createVerticalStrut(30));
 
@@ -113,8 +130,11 @@ public class RegisterFrame extends BaseFrame {
         header.add(avatarLabel);
         header.add(Box.createVerticalStrut(20));
 
-        nombreLabelHeader = centeredText("Nombre completo", new Font("Fredoka SemiBold", Font.PLAIN, 20));
-        usuarioLabelHeader = centeredText("@Usuario", new Font("Fredoka Regular", Font.PLAIN, 16));
+        nombreLabelHeader.setFont(new Font("Fredoka SemiBold", Font.PLAIN, 20));
+        nombreLabelHeader.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        usuarioLabelHeader.setFont(new Font("Fredoka Regular", Font.PLAIN, 16));
+        usuarioLabelHeader.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         header.add(nombreLabelHeader);
         header.add(Box.createVerticalStrut(10));
@@ -123,17 +143,7 @@ public class RegisterFrame extends BaseFrame {
         return header;
     }
 
-    private RoundedButton registerButton() {
-        RoundedButton button = new RoundedButton("Registrarse", 16);
-        button.setFont(new Font("Roboto Regular", Font.PLAIN, 14));
-        button.setBackground(Color.decode("#313131"));
-        button.setForeground(Color.WHITE);
-        button.setMaximumSize(new Dimension(342, 44));
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
-        return button;
-    }
-
-    private JPanel createLabeledField(String labelText, boolean isPassword) {
+    private JPanel createLabeledField(String labelText, JComponent field) {
         JPanel fieldPanel = new JPanel();
         fieldPanel.setLayout(new BoxLayout(fieldPanel, BoxLayout.Y_AXIS));
         fieldPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -144,24 +154,11 @@ public class RegisterFrame extends BaseFrame {
         label.setForeground(Color.BLACK);
         label.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JComponent field;
-        if ("Usuario".equals(labelText)) {
-            usuarioField = new RoundedTextField(20);
-            field = usuarioField;
-        } else if ("Nombre completo".equals(labelText)) {
-            nombreCompletoField = new RoundedTextField(20);
-            field = nombreCompletoField;
-        } else if (isPassword) {
-            field = new RoundedPasswordField(20);
-        } else {
-            field = new RoundedTextField(20);
-        }
-
+        // Configurar campo visualmente
         if (field instanceof RoundedTextField) {
             ((RoundedTextField) field).setBorderColor(Color.decode("#D4D7E3"));
             ((RoundedTextField) field).setBorderWidth(2.0f);
             ((RoundedTextField) field).setPlaceholder(labelText);
-
         } else if (field instanceof RoundedPasswordField) {
             ((RoundedPasswordField) field).setBorderColor(Color.decode("#D4D7E3"));
             ((RoundedPasswordField) field).setBorderWidth(2.0f);
@@ -179,13 +176,18 @@ public class RegisterFrame extends BaseFrame {
         return fieldPanel;
     }
 
-    private JLabel centeredText(String text, Font font) {
-        JLabel label = new JLabel(text);
-        label.setFont(font);
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        return label;
+    private RoundedButton registerButton() {
+        registerButton = new RoundedButton("Registrarse", 16);
+        registerButton.setFont(new Font("Roboto Regular", Font.PLAIN, 14));
+        registerButton.setBackground(Color.decode("#313131"));
+        registerButton.setForeground(Color.WHITE);
+        registerButton.setMaximumSize(new Dimension(342, 44));
+        registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        return registerButton;
     }
 
+    // Método para actualizar avatar (se puede usar desde listener)
     public void updateAvatarImage(String imagePath) {
         ImageIcon icon = new ImageIcon(imagePath);
         Image scaled = icon.getImage().getScaledInstance(155, 151, Image.SCALE_SMOOTH);

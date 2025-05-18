@@ -1,20 +1,26 @@
-package ui;
+package ui.login;
 
 import javax.swing.*;
 
 import java.awt.*;
 
 import components.*;
+import ui.BaseFrame;
 
 public class LoginFrame extends BaseFrame {
 
     private final Box contentBox;
+    private final JLabel errorLabel;
+
+    private RoundedTextField emailField;
+    private RoundedPasswordField passwordField;
+    private RoundedButton loginButton;
 
     public LoginFrame(String title) {
         super(title);
-    
+
         contentBox = Box.createVerticalBox();
-    
+
         addTitle();
         addSpacing(16);
 
@@ -27,7 +33,9 @@ public class LoginFrame extends BaseFrame {
         addPasswordField();
         addSpacing(9);
 
-        errorMessage("El correo y/o la contraseña son incorrectos");
+        errorLabel = createErrorMessageLabel("El correo y/o la contraseña son incorrectos");
+        errorLabel.setVisible(false);
+        contentBox.add(errorLabel);
         addSpacing(25);
 
         addLoginButton();
@@ -50,7 +58,22 @@ public class LoginFrame extends BaseFrame {
 
         add(centerPanel, BorderLayout.CENTER);
     }
-    
+
+    public void showErrorMessage(boolean show) {
+        errorLabel.setVisible(show);
+    }
+
+    public RoundedTextField getEmailField() {
+        return emailField;
+    }
+
+    public RoundedPasswordField getPasswordField() {
+        return passwordField;
+    }
+
+    public RoundedButton getLoginButton() {
+        return loginButton;
+    }
 
     private void addTitle() {
         JLabel titleLabel = new JLabel("Bienvenido de nuevo 🐾");
@@ -74,7 +97,7 @@ public class LoginFrame extends BaseFrame {
         emailLabel.setForeground(Color.decode("#0C1421"));
         emailLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        RoundedTextField emailField = new RoundedTextField(18);
+        emailField = new RoundedTextField(18);
         emailField.setPlaceholder("correo@email.com");
         emailField.setBackground(Color.decode("#F3F7FB"));
         emailField.setPreferredSize(new Dimension(342, 42));
@@ -91,7 +114,7 @@ public class LoginFrame extends BaseFrame {
         passLabel.setForeground(Color.decode("#0C1421"));
         passLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        RoundedPasswordField passwordField = new RoundedPasswordField(18);
+        passwordField = new RoundedPasswordField(18);
         passwordField.setPlaceholder("Contraseña");
         passwordField.setBackground(Color.decode("#F3F7FB"));
         passwordField.setPreferredSize(new Dimension(342, 42));
@@ -103,7 +126,7 @@ public class LoginFrame extends BaseFrame {
     }
 
     private void addLoginButton() {
-        RoundedButton loginButton = new RoundedButton("Iniciar sesión", 20);
+        loginButton = new RoundedButton("Iniciar sesión", 20);
         loginButton.setBackground(Color.decode("#313131"));
         loginButton.setForeground(Color.WHITE);
         loginButton.setFont(new Font("Roboto Regular", Font.PLAIN, 14));
@@ -113,13 +136,13 @@ public class LoginFrame extends BaseFrame {
         contentBox.add(loginButton);
     }
 
-    private void errorMessage(String message) {
-        JLabel errorLabel = new JLabel(message);
-        errorLabel.setFont(new Font("Roboto Regular", Font.PLAIN, 13));
-        errorLabel.setForeground(Color.RED);
-        errorLabel.setPreferredSize(new Dimension(254, 21));
-        errorLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        contentBox.add(errorLabel);
+    private JLabel createErrorMessageLabel(String message) {
+        JLabel label = new JLabel(message);
+        label.setFont(new Font("Roboto Regular", Font.PLAIN, 13));
+        label.setForeground(Color.RED);
+        label.setPreferredSize(new Dimension(254, 21));
+        label.setAlignmentX(Component.LEFT_ALIGNMENT);
+        return label;
     }
 
     private void addRegisterLink() {
