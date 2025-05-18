@@ -4,8 +4,10 @@ import javax.swing.*;
 
 import components.button.RoundedButton;
 import ui.BaseFrame;
+import utils.I18n;
 
 import java.awt.*;
+import java.util.Locale;
 
 public class WelcomeFrame extends BaseFrame {
 
@@ -44,17 +46,28 @@ public class WelcomeFrame extends BaseFrame {
     }
 
     private JPanel addLanguageButton() {
-        RoundedButton languageButton = new RoundedButton("Idioma >", 16);
-        languageButton.setBackground(Color.decode("#FFFFFF"));
-        languageButton.setForeground(Color.decode("#6B6B6B"));
-        languageButton.setBorderPainted(false);
-        languageButton.setPreferredSize(new Dimension(99, 20));
-        languageButton.setFont(new Font("Sora Regular", Font.PLAIN, 12));
+        String[] languages = {"Español", "English"};
+        JComboBox<String> languageSelector = new JComboBox<>(languages);
+        languageSelector.setSelectedItem(I18n.getCurrentLocale().getLanguage().equals("es") ? "Español" : "English");
+        languageSelector.setPreferredSize(new Dimension(100, 25));
+        languageSelector.setFont(new Font("Sora Regular", Font.PLAIN, 12));
+
+        languageSelector.addActionListener(e -> {
+            String selected = (String) languageSelector.getSelectedItem();
+            Locale newLocale = selected.equals("English")
+                ? Locale.UK
+                : new Locale.Builder().setLanguage("es").setRegion("ES").build();
+
+            I18n.setLocale(newLocale);
+            dispose();
+            new WelcomeFrame("Catffee").setVisible(true);
+        });
+
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.setBorder(BorderFactory.createEmptyBorder(10, 5, 0, 10)); // Margen superior
         topPanel.setBackground(Color.decode("#F9F9F9"));
-        topPanel.add(languageButton);
+        topPanel.add(languageSelector);
 
         return topPanel;
     }
