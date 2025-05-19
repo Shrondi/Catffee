@@ -139,6 +139,8 @@ public class CatsFrame extends BaseFrame {
         adoptButton.setBackground(Color.decode("#C67C4E"));
         adoptButton.setForeground(Color.WHITE);
         adoptButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        adoptButton.setOpaque(false);
+        adoptButton.setBorderPainted(false);
         adoptButton.setPreferredSize(new Dimension(113, 22));
         adoptButton.setMaximumSize(new Dimension(113, 22));
         adoptButton.setFont(new Font("Sora Semibold", Font.PLAIN, 12));
