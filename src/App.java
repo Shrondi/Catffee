@@ -1,3 +1,4 @@
+import ui.cats.CatsFrame;
 import ui.welcome.WelcomeFrame;
 import utils.FontsLoader;
 import utils.UserStorage;

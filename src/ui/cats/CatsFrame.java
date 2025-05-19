@@ -146,8 +146,9 @@ public class CatsFrame extends BaseFrame {
         adoptButton.setFont(new Font("Sora Semibold", Font.PLAIN, 12));
 
         card.add(imgLabel);
-
+        card.add(Box.createVerticalStrut(10));
         card.add(nameLabel);
+        card.add(Box.createVerticalStrut(7));
         card.add(adoptButton);
 
         return card;
