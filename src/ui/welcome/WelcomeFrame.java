@@ -50,7 +50,7 @@ public class WelcomeFrame extends BaseFrame {
         JComboBox<String> languageSelector = new JComboBox<>(languages);
         languageSelector.setSelectedItem(I18n.getCurrentLocale().getLanguage().equals("es") ? "Español" : "English");
         languageSelector.setPreferredSize(new Dimension(100, 25));
-        languageSelector.setFont(new Font("Sora Regular", Font.PLAIN, 12));
+        languageSelector.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 12));
 
         languageSelector.addActionListener(e -> {
             String selected = (String) languageSelector.getSelectedItem();
