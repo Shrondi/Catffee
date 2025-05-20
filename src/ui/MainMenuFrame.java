@@ -2,15 +2,15 @@ package ui;
 
 import javax.swing.*;
 
-import components.GradientPanel;
 import components.RoundedPanel;
+import components.RoundedButton;
 
 import java.awt.*;
 
 public class MainMenuFrame extends JFrame {
 
     public MainMenuFrame() {
-        setTitle("Cat Café");
+        setTitle("Menu Principal");
         setSize(412, 917);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
@@ -20,74 +20,96 @@ public class MainMenuFrame extends JFrame {
     }
 
     private JPanel buildMainPanel() {
-        JPanel mainPanel = new JPanel(null); // Layout absoluto
-        mainPanel.setPreferredSize(new Dimension(412, 917));
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBackground(new Color(0xF7F7F7));
 
-        // Top bar negra
-        JPanel topPanel = buildTopBar();
-        topPanel.setBounds(0, 0, 412, 266);
-        mainPanel.add(topPanel);
+        // Panel superior con imagen y bienvenida
+        JPanel headerPanel = buildTopSection();
+        headerPanel.setMaximumSize(new Dimension(412, 330));
+        mainPanel.add(headerPanel);
 
         // Panel de productos con scroll
         JScrollPane scrollPane = buildProductScrollPane();
-        scrollPane.setBounds(0, 320, 412, 600);
         mainPanel.add(scrollPane);
-
-        JPanel welcomePanel = buildWelcomePanel();
-        welcomePanel.setBounds(12, 190, 387, 260); // Este es el tamaño "real" del panel marrón
-        mainPanel.add(welcomePanel);
-        mainPanel.setComponentZOrder(welcomePanel, 0); // Al frente
-
-        // 👇 Esto pone el welcomePanel en el frente visual (por encima de topPanel y scroll)
-        mainPanel.setComponentZOrder(welcomePanel, 0);
 
         return mainPanel;
     }
 
-    private JPanel buildTopBar() {
-        GradientPanel topPanel = new GradientPanel(
-            new Color(0x11, 0x11, 0x11),
-            new Color(0x31, 0x31, 0x31),
-            GradientPanel.Direction.DIAGONAL_TR_BL
-        );
-        topPanel.setPreferredSize(new Dimension(412, 266));
-        topPanel.setLayout(new BorderLayout());
+    private JPanel buildTopSection() {
+        // Panel contenedor con OverlayLayout
+        JPanel container = new JPanel();
+        container.setLayout(new OverlayLayout(container));
+        container.setPreferredSize(new Dimension(412, 330));
+        container.setMaximumSize(new Dimension(412, 330));
 
-        return topPanel;
-    }
+        // Imagen escalada
+        ImageIcon icon = new ImageIcon("resources/images/cabecera_bienvenida.png");
+        Image scaled = icon.getImage().getScaledInstance(412, 330, Image.SCALE_SMOOTH);
+        JLabel imageLabel = new JLabel(new ImageIcon(scaled));
+        imageLabel.setAlignmentX(0.5f);
+        imageLabel.setAlignmentY(0.5f);
 
-    private JPanel buildWelcomePanel() {
-        RoundedPanel welcomePanel = new RoundedPanel(20, new Color(0x94, 0x72, 0x57));
-        welcomePanel.setLayout(null);
-        welcomePanel.setOpaque(true); // Para que pinte el fondo marrón
+        // Panel con texto encima
+        JPanel textPanel = new JPanel(new BorderLayout());
+        textPanel.setOpaque(false);
+        textPanel.setAlignmentX(0.5f);
+        textPanel.setAlignmentY(0.5f);
 
-        // Imagen del gato sobresaliendo hacia arriba
-        JLabel catLabel = new JLabel(new ImageIcon("resources/images/cat_waving.png"));
-        catLabel.setBounds(83, -60, 265, 265); // Y negativo para que sobresalga hacia arriba
-        welcomePanel.add(catLabel);
-
-        // Texto de bienvenida
-        JLabel welcomeText = new JLabel("<html><div style='text-align: center;'>Bienvenido,<br><b>Nombre</b> ☕</div></html>");
-        welcomeText.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 32));
+        JLabel welcomeText = new JLabel("<html><div style='text-align: left;'>Bienvenido,<br><b>Nombre ☕</b></div></html>");
         welcomeText.setForeground(Color.WHITE);
-        welcomeText.setHorizontalAlignment(SwingConstants.CENTER);
-        welcomeText.setBounds(43, 180, 239, 80); // Asegúrate que quepa en la altura del panel
-        welcomePanel.add(welcomeText);
+        welcomeText.setFont(new Font("Segoe UI Emoji", Font.BOLD, 32));
+        welcomeText.setHorizontalAlignment(SwingConstants.LEFT);
+        welcomeText.setVerticalAlignment(SwingConstants.BOTTOM);
+        welcomeText.setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 0)); // margen izquierdo aumentado
 
-        return welcomePanel;
+        textPanel.add(welcomeText, BorderLayout.CENTER);
+
+        // Añadir primero imagen, luego texto (para que quede encima)
+        container.add(textPanel);
+        container.add(imageLabel);
+
+        return container;
     }
 
     private JScrollPane buildProductScrollPane() {
+        // Panel vertical que contendrá el título y la cuadrícula
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+        contentPanel.setBackground(new Color(0xF7F7F7));
+        contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
+        // Título
+        JLabel destacadosLabel = new JLabel("PRODUCTOS DESTACADOS");
+        destacadosLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 20));
+        destacadosLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        destacadosLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 16, 0));
+        contentPanel.add(destacadosLabel);
+
+        // Grid de productos
         JPanel productGrid = new JPanel(new GridLayout(0, 2, 12, 12));
         productGrid.setBackground(new Color(0xF7F7F7));
-        productGrid.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        productGrid.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        for (int i = 0; i < 8; i++) {
-            productGrid.add(createProductBox("Producto " + (i + 1), "2.50€"));
+        String[] names = {"Meowcha", "Catpuccino", "Gatogalletas", "Pawffins", "Empanacat", "Pink Paw"};
+        String[] descriptions = {"Moka", "Deep Foam", "Crumble-cookies", "Muffin choco", "Carne o verdura", "Limonada frutos"};
+        String[] prices = {"3.50€", "3.20€", "2.50€", "2.80€", "2.80€", "3.20€"};
+        String[] images = {
+            "resources/images/meowcha.png",
+            "resources/images/catpuccino.png",
+            "resources/images/gatogalletas.png",
+            "resources/images/pawffins.png",
+            "resources/images/empanacat.png",
+            "resources/images/pink_paw.png"
+        };
+
+        for (int i = 0; i < names.length; i++) {
+            productGrid.add(createProductBox(names[i], descriptions[i], prices[i], images[i]));
         }
 
-        JScrollPane scrollPane = new JScrollPane(productGrid);
+        contentPanel.add(productGrid);
+
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
         scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
@@ -98,31 +120,69 @@ public class MainMenuFrame extends JFrame {
         return scrollPane;
     }
 
-    private JPanel createProductBox(String title, String price) {
-        JPanel box = new JPanel();
-        box.setPreferredSize(new Dimension(150, 180));
-        box.setBackground(Color.WHITE);
-        box.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 1));
+    private JPanel createProductBox(String title, String subtitle, String price, String imagePath) {
+        RoundedPanel box = new RoundedPanel(16);
         box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
-        box.setAlignmentX(Component.CENTER_ALIGNMENT);
+        box.setPreferredSize(new Dimension(160, 240));
+        box.setMaximumSize(new Dimension(160, 240));
+        box.setBackground(Color.WHITE);
+        box.add(Box.createVerticalStrut(10));
 
-        JLabel img = new JLabel(new ImageIcon("resources/images/meowcha.png"));
-        img.setPreferredSize(new Dimension(140, 100));
+        // Imagen
+        ImageIcon icon = new ImageIcon(imagePath);
+        Image scaled = icon.getImage().getScaledInstance(140, 130, Image.SCALE_SMOOTH);
+        JLabel img = new JLabel(new ImageIcon(scaled));
+        img.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 22));
         img.setAlignmentX(Component.CENTER_ALIGNMENT);
 
+        // Título
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("Poppins", Font.BOLD, 16));
+        titleLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 16));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 22));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel priceLabel = new JLabel(price);
-        priceLabel.setFont(new Font("Poppins", Font.PLAIN, 14));
-        priceLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        // Descripción
+        JLabel subtitleLabel = new JLabel(subtitle);
+        subtitleLabel.setFont(new Font("Sora Regular", Font.PLAIN, 12));
+        subtitleLabel.setForeground(Color.GRAY);
+        subtitleLabel.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 22));
+        subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        box.add(Box.createVerticalStrut(10));
+        // Precio
+        JLabel priceLabel = new JLabel(price);
+        priceLabel.setFont(new Font("Poppins", Font.BOLD, 18));
+        priceLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        // Botón "+"
+        RoundedButton plusButton = new RoundedButton("+", 8);
+        plusButton.setFont(new Font("Poppins", Font.BOLD, 14));
+        plusButton.setBackground(new Color(0xC67C4E));
+        plusButton.setForeground(Color.WHITE);
+        plusButton.setContentAreaFilled(false);
+        plusButton.setOpaque(false);
+        plusButton.setBorderPainted(false);
+        plusButton.setPreferredSize(new Dimension(55, 55));
+        plusButton.setMaximumSize(new Dimension(55, 55));
+
         box.add(img);
-        box.add(Box.createVerticalStrut(10));
         box.add(titleLabel);
-        box.add(priceLabel);
+        box.add(subtitleLabel);
+
+        // Contenedor inferior para precio y botón
+        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 0)); // 8 píxeles de espacio horizontal
+        bottomPanel.setOpaque(false);
+        bottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+
+        bottomPanel.add(priceLabel);
+        bottomPanel.add(plusButton);
+
+        box.add(img);
+        box.add(Box.createVerticalStrut(5));
+        box.add(titleLabel);
+        box.add(Box.createVerticalStrut(5));
+        box.add(subtitleLabel);
+        box.add(Box.createVerticalStrut(5));
+        box.add(bottomPanel);
 
         return box;
     }
