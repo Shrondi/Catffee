@@ -63,14 +63,14 @@ public class CatsFrame extends BaseFrame {
 
         String[] cats = { "Alfil", "Cherry", "Abi", "Flush", "Gulliver", "Membrillo", "Mazinger", "Sylvestre" };
         String[] images = {
-                "resources/images/alfil.png",
-                "resources/images/cherry.png",
-                "resources/images/abi.png",
-                "resources/images/flush.png",
-                "resources/images/gulliver.png",
-                "resources/images/membrillo.png",
-                "resources/images/mazinger.png",
-                "resources/images/sylvestre.png"
+                "resources/images/alfil1.png",
+                "resources/images/cherry1.png",
+                "resources/images/abi1.png",
+                "resources/images/flush1.png",
+                "resources/images/gulliver1.png",
+                "resources/images/membrillo1.png",
+                "resources/images/mazinger1.png",
+                "resources/images/sylvestre1.png"
         };
 
         // GridBagLayout con desplazamiento en columna derecha
