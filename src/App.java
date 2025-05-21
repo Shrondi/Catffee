@@ -1,4 +1,7 @@
+import java.awt.Menu;
+
 import ui.welcome.WelcomeFrame;
+import ui.menu.MenuFrame;
 import utils.FontsLoader;
 import utils.UserStorage;
 
@@ -8,7 +11,10 @@ public class App {
         FontsLoader.inicializar(); // Inicializar las fuentes
         UserStorage.init("usuarios.txt");
 
-        WelcomeFrame welcomeFrame = new WelcomeFrame("Catffee");
-        welcomeFrame.setVisible(true);
+        // WelcomeFrame welcomeFrame = new WelcomeFrame("Catffee");
+        // welcomeFrame.setVisible(true);
+
+        MenuFrame menuFrame = new MenuFrame();
+        menuFrame.setVisible(true);
     }
 }

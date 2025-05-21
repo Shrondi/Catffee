@@ -28,7 +28,9 @@ public class MenuFrame extends JFrame {
         backgroundPanel.setLayout(new BorderLayout());
 
         // Imagen de fondo
-        ImageIcon backgroundIcon = new ImageIcon("resources/images/pattern_bg.png");
+        ImageIcon backgroundIcon = new ImageIcon("resources/images/menu_bg.jpeg");
+        Image scaledBackground = backgroundIcon.getImage().getScaledInstance(750, 917, Image.SCALE_SMOOTH);
+        backgroundIcon = new ImageIcon(scaledBackground);
         JLabel backgroundLabel = new JLabel(backgroundIcon);
         backgroundLabel.setLayout(new BorderLayout());
 
@@ -54,8 +56,23 @@ public class MenuFrame extends JFrame {
         scrollPane.getVerticalScrollBar().setOpaque(false);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
-        backgroundPanel.add(buildTopBar(), BorderLayout.NORTH);
-        backgroundPanel.add(scrollPane, BorderLayout.CENTER);
+        // Usar JLayeredPane para superponer el contenido sobre la imagen de fondo
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(new Dimension(412, 917));
+
+        backgroundLabel.setBounds(0, 0, 412, 917);
+        layeredPane.add(backgroundLabel, Integer.valueOf(0));
+
+        JPanel layeredContent = new JPanel(new BorderLayout());
+        layeredContent.setOpaque(false);
+        layeredContent.setBounds(0, 0, 412, 917);
+        layeredContent.add(buildTopBar(), BorderLayout.NORTH);
+        layeredContent.add(scrollPane, BorderLayout.CENTER);
+
+        layeredPane.add(layeredContent, Integer.valueOf(1));
+
+        backgroundPanel.setLayout(new BorderLayout());
+        backgroundPanel.add(layeredPane, BorderLayout.CENTER);
 
         contentPanel.setPreferredSize(new Dimension(412, 1000));
 
