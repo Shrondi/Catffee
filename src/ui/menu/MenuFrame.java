@@ -1,5 +1,6 @@
 package ui.menu;
 
+import components.bar.NavigationBar;
 import components.button.RoundedButton;
 import components.panel.RoundedPanel;
 
@@ -18,6 +19,8 @@ public class MenuFrame extends JFrame {
         setResizable(false);
 
         setContentPane(buildMainPanel());
+
+        add(new NavigationBar("Carta"), BorderLayout.SOUTH);
     }
 
     private JPanel buildMainPanel() {
@@ -34,7 +37,6 @@ public class MenuFrame extends JFrame {
         contentPanel.setOpaque(false);
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
 
-        contentPanel.add(buildTopBar());
         contentPanel.add(Box.createVerticalStrut(10));
         contentPanel.add(buildCategorySection("Cafés", getCoffeeProducts()));
         contentPanel.add(Box.createVerticalStrut(20));
@@ -52,7 +54,10 @@ public class MenuFrame extends JFrame {
         scrollPane.getVerticalScrollBar().setOpaque(false);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
 
+        backgroundPanel.add(buildTopBar(), BorderLayout.NORTH);
         backgroundPanel.add(scrollPane, BorderLayout.CENTER);
+
+        contentPanel.setPreferredSize(new Dimension(412, 1000));
 
         return backgroundPanel;
     }
@@ -78,13 +83,15 @@ public class MenuFrame extends JFrame {
         sectionPanel.setLayout(new BoxLayout(sectionPanel, BoxLayout.Y_AXIS));
 
         JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 24));
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 0));
+        titleLabel.setFont(new Font("Poppins SemiBold", Font.PLAIN, 25));
+        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 150, 0, 0));
 
         JSeparator separator = new JSeparator();
         separator.setForeground(Color.BLACK);
-        separator.setMaximumSize(new Dimension(350, 1));
+        separator.setMaximumSize(new Dimension(320, 2));
+        separator.setAlignmentX(Component.CENTER_ALIGNMENT);
+        separator.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 0));
 
         JPanel productContainer = new JPanel();
         productContainer.setOpaque(false);
@@ -119,7 +126,7 @@ public class MenuFrame extends JFrame {
         List<JPanel> list = new ArrayList<>();
         list.add(createProductBox("Meowcha", "Chocolate & Espresso", "3.50€", "resources/images/meowcha.png"));
         list.add(createProductBox("Catpuccino", "Espuma Suave & Canela", "3.20€", "resources/images/catpuccino.png"));
-        list.add(createProductBox("Purrlate", "Leche espumosa", "3.40€", "resources/images/purrlate.png"));
+        list.add(createProductBox("Purrlate", "Vainilla & Leche Cream", "3.40€", "resources/images/purrlate.png"));
         return list;
     }
 
