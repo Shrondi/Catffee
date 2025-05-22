@@ -46,14 +46,15 @@ public class MenuFrame extends JFrame {
         contentPanel.add(buildCategorySection("Bebidas frías", getColdDrinks()));
         contentPanel.add(Box.createVerticalStrut(20));
         contentPanel.add(buildCategorySection("Dulces", getDesserts()));
-        
+        contentPanel.add(Box.createVerticalStrut(100));
 
         JScrollPane scrollPane = new JScrollPane(contentPanel);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setBorder(null);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        //Mostrar la barra de desplazamiento vertical con ancho estándar
         scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
         scrollPane.getVerticalScrollBar().setOpaque(false);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
@@ -76,7 +77,7 @@ public class MenuFrame extends JFrame {
         backgroundPanel.setLayout(new BorderLayout());
         backgroundPanel.add(layeredPane, BorderLayout.CENTER);
 
-        contentPanel.setPreferredSize(new Dimension(412, 917));
+        contentPanel.setMaximumSize(new Dimension(412, Integer.MAX_VALUE));
 
         return backgroundPanel;
     }
@@ -123,12 +124,11 @@ public class MenuFrame extends JFrame {
             productContainer.add(Box.createHorizontalStrut(10));
         }
         
-        JScrollPane scroll = new JScrollPane(productContainer,
-        JScrollPane.VERTICAL_SCROLLBAR_NEVER,
-        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        JScrollPane scroll = new JScrollPane(productContainer, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
         scroll.setOpaque(false);
         scroll.getViewport().setOpaque(false);
         scroll.setBorder(null);
+        // Mostrar la barra de desplazamiento horizontal con altura estándar
         scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
         scroll.getHorizontalScrollBar().setOpaque(false);
         scroll.getHorizontalScrollBar().setUnitIncrement(16);
