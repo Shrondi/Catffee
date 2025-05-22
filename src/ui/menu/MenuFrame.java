@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.awt.event.MouseWheelEvent;
 
 public class MenuFrame extends JFrame {
 
@@ -29,7 +30,7 @@ public class MenuFrame extends JFrame {
 
         // Imagen de fondo
         ImageIcon backgroundIcon = new ImageIcon("resources/images/menu_bg.jpeg");
-        Image scaledBackground = backgroundIcon.getImage().getScaledInstance(750, 917, Image.SCALE_SMOOTH);
+        Image scaledBackground = backgroundIcon.getImage().getScaledInstance(650, 917, Image.SCALE_SMOOTH);
         backgroundIcon = new ImageIcon(scaledBackground);
         JLabel backgroundLabel = new JLabel(backgroundIcon);
         backgroundLabel.setLayout(new BorderLayout());
@@ -45,6 +46,7 @@ public class MenuFrame extends JFrame {
         contentPanel.add(buildCategorySection("Bebidas frías", getColdDrinks()));
         contentPanel.add(Box.createVerticalStrut(20));
         contentPanel.add(buildCategorySection("Dulces", getDesserts()));
+        
 
         JScrollPane scrollPane = new JScrollPane(contentPanel);
         scrollPane.setOpaque(false);
@@ -74,7 +76,7 @@ public class MenuFrame extends JFrame {
         backgroundPanel.setLayout(new BorderLayout());
         backgroundPanel.add(layeredPane, BorderLayout.CENTER);
 
-        contentPanel.setPreferredSize(new Dimension(412, 1000));
+        contentPanel.setPreferredSize(new Dimension(412, 917));
 
         return backgroundPanel;
     }
@@ -114,21 +116,37 @@ public class MenuFrame extends JFrame {
         productContainer.setOpaque(false);
         productContainer.setLayout(new BoxLayout(productContainer, BoxLayout.X_AXIS));
         productContainer.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        productContainer.setPreferredSize(new Dimension(800, 240));
 
         for (JPanel productBox : products) {
             productContainer.add(productBox);
             productContainer.add(Box.createHorizontalStrut(10));
         }
-
-        JScrollPane scroll = new JScrollPane(productContainer);
+        
+        JScrollPane scroll = new JScrollPane(productContainer,
+        JScrollPane.VERTICAL_SCROLLBAR_NEVER,
+        JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.setOpaque(false);
         scroll.getViewport().setOpaque(false);
         scroll.setBorder(null);
-        scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
         scroll.getHorizontalScrollBar().setOpaque(false);
         scroll.getHorizontalScrollBar().setUnitIncrement(16);
-        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+
+        //scroll.setWheelScrollingEnabled(true);
+        //scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        //funcion para reenviar el scroll al padre
+        scroll.addMouseWheelListener(e -> {
+            // Solo reenviar el scroll si es vertical (eje Y distinto de 0)
+            if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL && e.getPreciseWheelRotation() != 0) {
+                JScrollPane ancestorScroll = (JScrollPane) SwingUtilities.getAncestorOfClass(JScrollPane.class, scroll.getParent());
+                if (ancestorScroll != null) {
+                    ancestorScroll.dispatchEvent(SwingUtilities.convertMouseEvent(scroll, e, ancestorScroll));
+                    e.consume();
+                }
+            }
+        });
 
         sectionPanel.add(titleLabel);
         sectionPanel.add(Box.createVerticalStrut(5));
@@ -190,14 +208,12 @@ public class MenuFrame extends JFrame {
         priceLabel.setFont(new Font("Poppins", Font.BOLD, 18));
 
         RoundedButton plusButton = new RoundedButton("+", 8);
-        plusButton.setFont(new Font("Poppins", Font.BOLD, 14));
+        plusButton.setFont(new Font("Poppins", Font.BOLD, 15));
         plusButton.setBackground(new Color(0xC67C4E));
         plusButton.setForeground(Color.WHITE);
         plusButton.setContentAreaFilled(false);
         plusButton.setOpaque(false);
         plusButton.setBorderPainted(false);
-        plusButton.setPreferredSize(new Dimension(55, 55));
-        plusButton.setMaximumSize(new Dimension(55, 55));
 
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 0));
         bottomPanel.setOpaque(false);
