@@ -101,7 +101,7 @@ public class ProfileFrame extends BaseFrame {
                     JMenuItem spanishItem = new JMenuItem("Español");
                     languageMenu.add(englishItem);
                     languageMenu.add(spanishItem);
-                    languageMenu.show(arrowLabel, 0, arrowLabel.getHeight());
+                    languageMenu.show(arrowLabel, (arrowLabel.getWidth() - languageMenu.getPreferredSize().width) / 2, -languageMenu.getPreferredSize().height);
                 }
             });
             rightComponent = arrowLabel;
