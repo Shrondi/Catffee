@@ -88,7 +88,7 @@ public class ProfileFrame extends BaseFrame {
 
         JComponent rightComponent;
         if (labelText.equals("Idioma")) {
-            // Sustituimos el combo por un icono que lanza un menú emergente
+            // Sustituimos el combo por un icono que lanza un diálogo modal personalizado
             ImageIcon arrowIcon = new ImageIcon("resources/images/next_icon.png");
             Image scaledArrow = arrowIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
             JLabel arrowLabel = new JLabel(new ImageIcon(scaledArrow));
@@ -96,12 +96,34 @@ public class ProfileFrame extends BaseFrame {
             arrowLabel.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent e) {
-                    JPopupMenu languageMenu = new JPopupMenu();
-                    JMenuItem englishItem = new JMenuItem("Inglés");
-                    JMenuItem spanishItem = new JMenuItem("Español");
-                    languageMenu.add(englishItem);
-                    languageMenu.add(spanishItem);
-                    languageMenu.show(arrowLabel, (arrowLabel.getWidth() - languageMenu.getPreferredSize().width) / 2, -languageMenu.getPreferredSize().height);
+                    JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(option), "Selecciona idioma", true);
+                    dialog.setUndecorated(true);
+                    dialog.setSize(200, 120);
+                    Point location = option.getLocationOnScreen();
+                    int x = location.x + (option.getWidth() - dialog.getWidth()) / 2;
+                    int y = location.y + (option.getHeight() - dialog.getHeight()) / 2 - 30;
+                    dialog.setLocation(x, y);
+
+                    JPanel content = new JPanel();
+                    content.setBackground(Color.WHITE);
+                    content.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
+                    content.setLayout(new GridLayout(2, 1));
+
+                    JButton englishButton = new JButton("Inglés");
+                    englishButton.setFont(new Font("Sora", Font.PLAIN, 16));
+                    englishButton.setFocusPainted(false);
+                    englishButton.addActionListener(evt -> dialog.dispose());
+
+                    JButton spanishButton = new JButton("Español");
+                    spanishButton.setFont(new Font("Sora", Font.PLAIN, 16));
+                    spanishButton.setFocusPainted(false);
+                    spanishButton.addActionListener(evt -> dialog.dispose());
+
+                    content.add(englishButton);
+                    content.add(spanishButton);
+
+                    dialog.setContentPane(content);
+                    dialog.setVisible(true);
                 }
             });
             rightComponent = arrowLabel;
