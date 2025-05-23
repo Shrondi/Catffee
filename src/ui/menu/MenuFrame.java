@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.awt.event.MouseWheelEvent;
 
 public class MenuFrame extends JFrame {
 
@@ -46,6 +45,8 @@ public class MenuFrame extends JFrame {
         contentPanel.add(buildCategorySection("Bebidas frías", getColdDrinks()));
         contentPanel.add(Box.createVerticalStrut(20));
         contentPanel.add(buildCategorySection("Dulces", getDesserts()));
+        contentPanel.add(Box.createVerticalStrut(20));
+        contentPanel.add(buildCategorySection("Salados", getSalad()));
         contentPanel.add(Box.createVerticalStrut(100));
 
         JScrollPane scrollPane = new JScrollPane(contentPanel);
@@ -104,55 +105,28 @@ public class MenuFrame extends JFrame {
 
         JLabel titleLabel = new JLabel(title);
         titleLabel.setFont(new Font("Poppins SemiBold", Font.PLAIN, 25));
-        titleLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 150, 0, 0));
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
 
         JSeparator separator = new JSeparator();
         separator.setForeground(Color.BLACK);
         separator.setMaximumSize(new Dimension(320, 2));
         separator.setAlignmentX(Component.CENTER_ALIGNMENT);
-        separator.setBorder(BorderFactory.createEmptyBorder(0, 50, 0, 0));
+        separator.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
-        JPanel productContainer = new JPanel();
-        productContainer.setOpaque(false);
-        productContainer.setLayout(new BoxLayout(productContainer, BoxLayout.X_AXIS));
-        productContainer.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        productContainer.setPreferredSize(new Dimension(800, 240));
+        JPanel productGrid = new JPanel(new GridLayout(0, 2, 10, 15));
+        productGrid.setOpaque(false);
+        productGrid.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
         for (JPanel productBox : products) {
-            productContainer.add(productBox);
-            productContainer.add(Box.createHorizontalStrut(10));
+            productGrid.add(productBox);
         }
-        
-        JScrollPane scroll = new JScrollPane(productContainer, JScrollPane.VERTICAL_SCROLLBAR_NEVER, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scroll.setOpaque(false);
-        scroll.getViewport().setOpaque(false);
-        scroll.setBorder(null);
-        // Mostrar la barra de desplazamiento horizontal con altura estándar
-        scroll.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
-        scroll.getHorizontalScrollBar().setOpaque(false);
-        scroll.getHorizontalScrollBar().setUnitIncrement(16);
-
-        //scroll.setWheelScrollingEnabled(true);
-        //scroll.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
-        //funcion para reenviar el scroll al padre
-        scroll.addMouseWheelListener(e -> {
-            // Solo reenviar el scroll si es vertical (eje Y distinto de 0)
-            if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL && e.getPreciseWheelRotation() != 0) {
-                JScrollPane ancestorScroll = (JScrollPane) SwingUtilities.getAncestorOfClass(JScrollPane.class, scroll.getParent());
-                if (ancestorScroll != null) {
-                    ancestorScroll.dispatchEvent(SwingUtilities.convertMouseEvent(scroll, e, ancestorScroll));
-                    e.consume();
-                }
-            }
-        });
 
         sectionPanel.add(titleLabel);
         sectionPanel.add(Box.createVerticalStrut(5));
         sectionPanel.add(separator);
         sectionPanel.add(Box.createVerticalStrut(10));
-        sectionPanel.add(scroll);
+        sectionPanel.add(productGrid);
 
         return sectionPanel;
     }
@@ -162,20 +136,43 @@ public class MenuFrame extends JFrame {
         list.add(createProductBox("Meowcha", "Chocolate & Espresso", "3.50€", "resources/images/meowcha.png"));
         list.add(createProductBox("Catpuccino", "Espuma Suave & Canela", "3.20€", "resources/images/catpuccino.png"));
         list.add(createProductBox("Purrlate", "Vainilla & Leche Cream", "3.40€", "resources/images/purrlate.png"));
+        list.add(createProductBox("Whisker Beans", "Blend intenso", "2.80€", "resources/images/whisker_beans.png"));
+        list.add(createProductBox("Nap & Sip", "Infusión de Tarde", "2.60€", "resources/images/nap_sip.png"));
+        list.add(createProductBox("Feline Roast", "Café de Filtro Potente", "2.50€", "resources/images/feline_roast.png"));
+        list.add(createProductBox("Chai-miau", "Chai Latte Especiado", "3.60€", "resources/images/chai_miau.png"));
+        list.add(createProductBox("Ronromiel", "Manzanilla & Miel", "2.80€", "resources/images/ronromiel.png"));
+        list.add(createProductBox("Napresso", "Espresso Doble", "2.40€", "resources/images/napresso.png"));
+        list.add(createProductBox("Macatchiato", "Toqye de Caramelo", "3.30€", "resources/images/macatchiato.png"));
         return list;
     }
 
     private List<JPanel> getColdDrinks() {
         List<JPanel> list = new ArrayList<>();
-        list.add(createProductBox("Iced Whisker", "Espresso frío", "3.60€", "resources/images/icedwhisker.png"));
-        list.add(createProductBox("Gato Tonic", "Espresso con tónica", "3.80€", "resources/images/gatotonic.png"));
+        list.add(createProductBox("Iced Whisker", "Espresso frío", "3.60€", "resources/images/iced_whisker.png"));
+        list.add(createProductBox("Gato Tonic", "Espresso con tónica", "3.80€", "resources/images/gato_tonic.png"));
+        list.add(createProductBox("Cat-a-cola", "Refresco cola", "3.00€", "resources/images/cat_a_cola.png"));
+        list.add(createProductBox("MiauMilk Shake", "Batido oreo", "4.20€", "resources/images/miaumilk_shake.png"));
+        list.add(createProductBox("Pink Paw", "Limonada frutos", "3.20€", "resources/images/pink_paw.png"));
         return list;
     }
 
     private List<JPanel> getDesserts() {
         List<JPanel> list = new ArrayList<>();
         list.add(createProductBox("Pawffins", "Muffin choco", "2.80€", "resources/images/pawffins.png"));
-        list.add(createProductBox("Tarta Ronroneo", "Cheesecake", "4.20€", "resources/images/tarta.png"));
+        list.add(createProductBox("Tarta Ronroneo", "Cheesecake", "4.20€", "resources/images/tarta_ronroneo.png"));
+        list.add(createProductBox("Gatogalletas", "Crumble-cookies", "2.50€", "resources/images/gatogalletas.png"));
+        list.add(createProductBox("Churros Miau", "Churros con toppings", "3.50€", "resources/images/churros_miau.png"));
+        list.add(createProductBox("Brownie Bigotes", "Nueces & helado", "4.80€", "resources/images/brownie_bigotes.png"));
+        return list;
+    }
+
+    private List<JPanel> getSalad() {
+        List<JPanel> list = new ArrayList<>();
+        list.add(createProductBox("Empanacat", "Carne o verdura", "2.80€", "resources/images/empanacat.png"));
+        list.add(createProductBox("Toasty Cat", "Aguacate, huevos...", "4.80€", "resources/images/toasty_cat.png"));
+        list.add(createProductBox("Croissandwich", "Jamón, queso...", "4.20€", "resources/images/croissandwich.png"));
+        list.add(createProductBox("Tabla Gatera", "Variedad quesos", "5.50€", "resources/images/tabla_gatera.png"));
+        list.add(createProductBox("Wrap Whisker", "Pollo, verduras...", "4.90€", "resources/images/wrap_whisker.png"));
         return list;
     }
 
