@@ -13,7 +13,7 @@ public class CatsFrame extends BaseFrame {
     public CatsFrame(String title) {
         super(title);
 
-        GradientPanel background = new GradientPanel(new Color(0xBD6E36), new Color(0xCDCDCD), GradientPanel.Direction.VERTICAL);
+        GradientPanel background = new GradientPanel(new Color(0xBD6E36), new Color(0xCDCDCD), true);
         background.setLayout(new BorderLayout());
         setContentPane(background);
 
