@@ -22,17 +22,14 @@ public class NavigationBar extends JPanel {
     private JPanel createNavItem(String label, String iconFilename) {
         boolean isSelected = label.equals(selected);
 
-        // Panel para cada ítem
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setOpaque(false);
 
-        // Panel interno apilado verticalmente (icono + texto)
         JPanel inner = new JPanel();
         inner.setOpaque(false);
         inner.setLayout(new BoxLayout(inner, BoxLayout.Y_AXIS));
         inner.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        // Cargar imagen
         ImageIcon icon = loadIcon(iconFilename, 22, 22);
 
         JLabel iconLabel = new JLabel(icon);
@@ -44,12 +41,17 @@ public class NavigationBar extends JPanel {
         textLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         inner.add(iconLabel);
-        inner.add(Box.createVerticalStrut(4)); // pequeño espacio entre icono y texto
+        inner.add(Box.createVerticalStrut(4));
         inner.add(textLabel);
 
-        panel.add(inner); // centrado con GridBagLayout
+        panel.add(inner);
+
+        // Guardamos el label como propiedad cliente para acceso fácil
+        panel.putClientProperty("navLabel", label);
+
         return panel;
     }
+
 
     private ImageIcon loadIcon(String fileName, int width, int height) {
         ImageIcon original = new ImageIcon("resources/icons/" + fileName);
