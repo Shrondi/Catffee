@@ -1,6 +1,10 @@
 package ui.order;
 
 import javax.swing.*;
+
+import components.bar.NavigationBar;
+import controller.NavigationManager;
+
 import java.awt.*;
 
 import ui.BaseFrame;
@@ -14,6 +18,10 @@ public class OrderFrame extends BaseFrame {
 
         add(buildTopBar(), BorderLayout.NORTH);
         add(buildEmptyOrderPanel(), BorderLayout.CENTER);
+
+        NavigationBar navBar = new NavigationBar("Pedido");
+        new NavigationManager(this, navBar);
+        add(navBar, BorderLayout.SOUTH);
     }
 
     private JPanel buildTopBar() {
