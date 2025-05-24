@@ -3,20 +3,18 @@ package ui.menu;
 import components.bar.NavigationBar;
 import components.button.RoundedButton;
 import components.panel.RoundedPanel;
+import controller.NavigationManager;
+import ui.BaseFrame;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuFrame extends JFrame {
+public class MenuFrame extends BaseFrame {
 
-    public MenuFrame() {
-        setTitle("Carta");
-        setSize(412, 917);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setResizable(false);
+    public MenuFrame(String title) {
+        super(title);
 
         setContentPane(buildMainPanel());
 
