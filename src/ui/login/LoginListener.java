@@ -3,7 +3,7 @@ package ui.login;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import ui.register.RegisterFrame;
+import ui.home.HomeFrame;
 import utils.UserStorage;
 
 public class LoginListener implements ActionListener {
@@ -25,7 +25,7 @@ public class LoginListener implements ActionListener {
             loginFrame.errorLabel.setVisible(false);
 
             // Avanza al siguiente frame
-            RegisterFrame nextFrame = new RegisterFrame("Bienvenido");
+            HomeFrame nextFrame = new HomeFrame("Bienvenido");
             nextFrame.setVisible(true);
 
             loginFrame.setVisible(false);
