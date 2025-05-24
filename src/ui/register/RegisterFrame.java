@@ -21,6 +21,7 @@ public class RegisterFrame extends BaseFrame {
     RoundedPasswordField repeatPasswordField;
 
     RoundedButton registerButton;
+    JButton backButton;
     JLabel avatarLabel;
 
     public RegisterFrame(String title) {
@@ -54,6 +55,9 @@ public class RegisterFrame extends BaseFrame {
 
         // Listener para botón registrar
         registerButton.addActionListener(listeners);
+
+        // Listener para botón de volver hacia atrás
+        backButton.addActionListener(listeners);
     }
 
     private JPanel topTitle() {
@@ -78,7 +82,7 @@ public class RegisterFrame extends BaseFrame {
 
         ImageIcon icon = new ImageIcon("resources/images/back_icon.png");
         Image scaled = icon.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
-        JButton backButton = new JButton(new ImageIcon(scaled));
+        backButton = new JButton(new ImageIcon(scaled));
         backButton.setContentAreaFilled(false);
         backButton.setBorderPainted(false);
         backButton.setFocusPainted(false);

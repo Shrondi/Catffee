@@ -5,6 +5,9 @@ import utils.UserStorage;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
+import ui.login.LoginFrame;
+
 import java.awt.event.*;
 import java.io.File;
 
@@ -40,36 +43,48 @@ public class RegisterListener extends MouseAdapter implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String email = frame.correoField.getText().trim();
-        String password = new String(frame.passwordField.getPassword());
-        String confirmPassword = new String(frame.repeatPasswordField.getPassword());
-        String usuario = frame.usuarioField.getText().trim();
-        String nombreCompleto = frame.nombreCompletoField.getText().trim();
 
-        if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
-                || usuario.isEmpty() || nombreCompleto.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos.", "Campos incompletos", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        Object source = e.getSource();
 
-        if (!password.equals(confirmPassword)) {
-            JOptionPane.showMessageDialog(frame, "Las contraseñas no coinciden.", "Error de contraseña", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        if (source == frame.backButton){
+            frame.setVisible(false);
+            frame.dispose();
 
-        if (storage.emailExists(email)) {
-            JOptionPane.showMessageDialog(frame, "El email ya está registrado.", "Usuario existente", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+            LoginFrame login = new LoginFrame("Iniciar sesión");
+            login.setVisible(true);
 
-        String avatarPath = avatarFile != null ? avatarFile.getAbsolutePath() : "";
+        }else if (source == frame.registerButton){
+            String email = frame.correoField.getText().trim();
+            String password = new String(frame.passwordField.getPassword());
+            String confirmPassword = new String(frame.repeatPasswordField.getPassword());
+            String usuario = frame.usuarioField.getText().trim();
+            String nombreCompleto = frame.nombreCompletoField.getText().trim();
 
-        boolean added = storage.addUser(email, password, nombreCompleto, avatarPath);
-        if (added) {
-            JOptionPane.showMessageDialog(frame, "Registro exitoso. Ahora puedes iniciar sesión.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-            frame.dispose(); // Cierra la ventana de registro
-        } else {
-            JOptionPane.showMessageDialog(frame, "Error al registrar usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+            if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
+                    || usuario.isEmpty() || nombreCompleto.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos.", "Campos incompletos", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (!password.equals(confirmPassword)) {
+                JOptionPane.showMessageDialog(frame, "Las contraseñas no coinciden.", "Error de contraseña", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            if (storage.emailExists(email)) {
+                JOptionPane.showMessageDialog(frame, "El email ya está registrado.", "Usuario existente", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            String avatarPath = avatarFile != null ? avatarFile.getAbsolutePath() : "";
+
+            boolean added = storage.addUser(email, password, nombreCompleto, avatarPath);
+            if (added) {
+                JOptionPane.showMessageDialog(frame, "Registro exitoso. Ahora puedes iniciar sesión.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                frame.dispose(); // Cierra la ventana de registro
+            } else {
+                JOptionPane.showMessageDialog(frame, "Error al registrar usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
 
