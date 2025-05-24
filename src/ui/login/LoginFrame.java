@@ -18,6 +18,7 @@ public class LoginFrame extends BaseFrame {
     RoundedTextField emailField;
     RoundedPasswordField passwordField;
     RoundedButton loginButton;
+    JLabel registerLabel;
 
     public LoginFrame(String title) {
         super(title);
@@ -46,6 +47,7 @@ public class LoginFrame extends BaseFrame {
         addSpacing(31);
 
         addRegisterLink();
+        registerLabel.addMouseListener(new LoginListener(this));
 
         // Centrar Box en medio de la ventana con un JPanel
         JPanel centerPanel = new JPanel();
@@ -134,7 +136,7 @@ public class LoginFrame extends BaseFrame {
     }
 
     private void addRegisterLink() {
-        JLabel registerLabel = new JLabel("<html>¿No tienes ninguna cuenta? <a href='#'>Registrarse</a></html>");
+        registerLabel = new JLabel("<html>¿No tienes ninguna cuenta? <a href='#'>Registrarse</a></html>");
         registerLabel.setFont(new Font("Roboto Regular", Font.PLAIN, 16));
         registerLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         contentBox.add(registerLabel);

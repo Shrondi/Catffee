@@ -2,11 +2,14 @@ package ui.login;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import ui.home.HomeFrame;
+import ui.register.RegisterFrame;
 import utils.UserStorage;
 
-public class LoginListener implements ActionListener {
+public class LoginListener extends MouseAdapter implements ActionListener {
 
     private final LoginFrame loginFrame;
     private final UserStorage userStorage;
@@ -39,5 +42,15 @@ public class LoginListener implements ActionListener {
             System.out.println("Login fallido para: " + email);
             // No deshabilitar el botón para permitir más intentos
         }
+    }
+
+     // Se ejecuta al hacer clic sobre el JLabel
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        RegisterFrame register = new RegisterFrame("Registrarse");
+        register.setVisible(true);
+
+        loginFrame.setVisible(false);
+        loginFrame.dispose();
     }
 }
