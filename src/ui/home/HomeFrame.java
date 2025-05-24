@@ -1,20 +1,17 @@
-package ui;
+package ui.home;
 
 import javax.swing.*;
 
-import components.RoundedPanel;
-import components.RoundedButton;
+import components.panel.RoundedPanel;
+import ui.BaseFrame;
+import components.button.RoundedButton;
 
 import java.awt.*;
 
-public class MainMenuFrame extends JFrame {
+public class HomeFrame extends BaseFrame {
 
-    public MainMenuFrame() {
-        setTitle("Menu Principal");
-        setSize(412, 917);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setResizable(false);
+    public HomeFrame(String title) {
+        super(title);
 
         setContentPane(buildMainPanel());
     }
