@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import ui.home.HomeFrame;
 import ui.cats.CatsFrame;
 import ui.menu.MenuFrame;
+import ui.order.OrderFrame;
 
 public class NavigationManager {
 
@@ -43,7 +44,7 @@ public class NavigationManager {
         switch (label) {
             case "Inicio" -> new HomeFrame("Inicio").setVisible(true);
             case "Carta" -> new MenuFrame("Carta").setVisible(true);
-            //case "Pedido" -> new PedidoFrame().setVisible(true);
+            case "Pedido" -> new OrderFrame("Pedido").setVisible(true);
             case "Gatos" -> new CatsFrame("Gatos").setVisible(true);
             //case "Perfil" -> new PerfilFrame().setVisible(true);
             default -> System.err.println("Unknown navigation label: " + label);
