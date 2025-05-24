@@ -10,6 +10,7 @@ public class UserStorage {
 
     private static UserStorage instance;
     private final String filename;
+    private User currentUser = null;
 
     // Map email -> User
     private final Map<String, User> users = new HashMap<>();
@@ -35,6 +36,10 @@ public class UserStorage {
         return instance;
     }
 
+    public User getCurrentUser(){
+        return currentUser;
+    }
+
     // Carga usuarios del archivo en el mapa
     private void loadUsersFromFile() {
         users.clear();
@@ -57,11 +62,16 @@ public class UserStorage {
         }
     }
 
-    // Verifica si el email y contraseña son válidos usando el mapa en memoria
     public boolean isValidUser(String email, String password) {
         if (email == null || password == null) return false;
+        
         User user = users.get(email.toLowerCase());
-        return user != null && user.password.equals(password);
+
+        boolean isValid = user != null && user.password.equals(password);
+        if (isValid) {
+            currentUser = user;
+        }
+        return isValid;
     }
 
     // Añade usuario nuevo si no existe, actualiza archivo y mapa
@@ -95,11 +105,11 @@ public class UserStorage {
     }
 
     // Clase interna para almacenar info del usuario
-    private static class User {
-        final String email;
-        final String password;
-        final String nombreCompleto;
-        final String avatarPath;
+    public static class User {
+        private final String email;
+        private final String password;
+        private final String nombreCompleto;
+        private final String avatarPath;
 
         User(String email, String password, String nombreCompleto, String avatarPath) {
             this.email = email;
@@ -107,5 +117,22 @@ public class UserStorage {
             this.nombreCompleto = nombreCompleto;
             this.avatarPath = avatarPath;
         }
+
+        public String getEmail() {
+            return email;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public String getNombreCompleto() {
+            return nombreCompleto;
+        }
+
+        public String getAvatarPath() {
+            return avatarPath;
+        }
     }
+
 }
