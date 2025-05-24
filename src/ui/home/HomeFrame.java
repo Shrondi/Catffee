@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import components.panel.RoundedPanel;
 import ui.BaseFrame;
+import components.bar.NavigationBar;
 import components.button.RoundedButton;
 
 import java.awt.*;
@@ -13,41 +14,42 @@ public class HomeFrame extends BaseFrame {
     public HomeFrame(String title) {
         super(title);
 
-        setContentPane(buildMainPanel());
-    }
-
-    private JPanel buildMainPanel() {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBackground(new Color(0xF7F7F7));
 
-        // Panel superior con imagen y bienvenida
-        JPanel headerPanel = buildTopSection();
-        headerPanel.setMaximumSize(new Dimension(412, 330));
-        mainPanel.add(headerPanel);
+        mainPanel.add(topSection());
+        mainPanel.add(productScroll());
+        mainPanel.add(new NavigationBar("Inicio"));
 
-        // Panel de productos con scroll
-        JScrollPane scrollPane = buildProductScrollPane();
-        mainPanel.add(scrollPane);
-
-        return mainPanel;
+        add(mainPanel);
     }
 
-    private JPanel buildTopSection() {
-        // Panel contenedor con OverlayLayout
+    private JPanel topSection() {
         JPanel container = new JPanel();
         container.setLayout(new OverlayLayout(container));
         container.setPreferredSize(new Dimension(412, 330));
         container.setMaximumSize(new Dimension(412, 330));
 
-        // Imagen escalada
+        JLabel imageLabel = headerImage();
+        JPanel textPanel = headerText();
+
+        container.add(textPanel);
+        container.add(imageLabel);
+
+        return container;
+    }
+
+    private JLabel headerImage() {
         ImageIcon icon = new ImageIcon("resources/images/cabecera_bienvenida.png");
         Image scaled = icon.getImage().getScaledInstance(412, 330, Image.SCALE_SMOOTH);
         JLabel imageLabel = new JLabel(new ImageIcon(scaled));
         imageLabel.setAlignmentX(0.5f);
         imageLabel.setAlignmentY(0.5f);
+        return imageLabel;
+    }
 
-        // Panel con texto encima
+    private JPanel headerText() {
         JPanel textPanel = new JPanel(new BorderLayout());
         textPanel.setOpaque(false);
         textPanel.setAlignmentX(0.5f);
@@ -58,35 +60,43 @@ public class HomeFrame extends BaseFrame {
         welcomeText.setFont(new Font("Segoe UI Emoji", Font.BOLD, 32));
         welcomeText.setHorizontalAlignment(SwingConstants.LEFT);
         welcomeText.setVerticalAlignment(SwingConstants.BOTTOM);
-        welcomeText.setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 0)); // margen izquierdo aumentado
+        welcomeText.setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 0));
 
         textPanel.add(welcomeText, BorderLayout.CENTER);
-
-        // Añadir primero imagen, luego texto (para que quede encima)
-        container.add(textPanel);
-        container.add(imageLabel);
-
-        return container;
+        return textPanel;
     }
 
-    private JScrollPane buildProductScrollPane() {
-        // Panel vertical que contendrá el título y la cuadrícula
+    private JScrollPane productScroll() {
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setBackground(new Color(0xF7F7F7));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        // Título
         JLabel destacadosLabel = new JLabel("PRODUCTOS DESTACADOS");
         destacadosLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 20));
         destacadosLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         destacadosLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 16, 0));
-        contentPanel.add(destacadosLabel);
 
-        // Grid de productos
-        JPanel productGrid = new JPanel(new GridLayout(0, 2, 12, 12));
-        productGrid.setBackground(new Color(0xF7F7F7));
-        productGrid.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JPanel productGrid = productGrid();
+
+        contentPanel.add(destacadosLabel);
+        contentPanel.add(productGrid);
+
+        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        scrollPane.setBorder(null);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+        scrollPane.setOpaque(false);
+        scrollPane.getViewport().setOpaque(false);
+
+        return scrollPane;
+    }
+
+    private JPanel productGrid() {
+        JPanel grid = new JPanel(new GridLayout(0, 2, 12, 12));
+        grid.setBackground(new Color(0xF7F7F7));
+        grid.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         String[] names = {"Meowcha", "Catpuccino", "Gatogalletas", "Pawffins", "Empanacat", "Pink Paw"};
         String[] descriptions = {"Moka", "Deep Foam", "Crumble-cookies", "Muffin choco", "Carne o verdura", "Limonada frutos"};
@@ -101,56 +111,55 @@ public class HomeFrame extends BaseFrame {
         };
 
         for (int i = 0; i < names.length; i++) {
-            productGrid.add(createProductBox(names[i], descriptions[i], prices[i], images[i]));
+            grid.add(productBox(names[i], descriptions[i], prices[i], images[i]));
         }
 
-        contentPanel.add(productGrid);
-
-        JScrollPane scrollPane = new JScrollPane(contentPanel);
-        scrollPane.setBorder(null);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
-        scrollPane.setOpaque(false);
-        scrollPane.getViewport().setOpaque(false);
-
-        return scrollPane;
+        return grid;
     }
 
-    private JPanel createProductBox(String title, String subtitle, String price, String imagePath) {
+    private JPanel productBox(String title, String subtitle, String price, String imagePath) {
         RoundedPanel box = new RoundedPanel(16);
         box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
         box.setPreferredSize(new Dimension(160, 240));
         box.setMaximumSize(new Dimension(160, 240));
         box.setBackground(Color.WHITE);
-        box.add(Box.createVerticalStrut(10));
 
-        // Imagen
-        ImageIcon icon = new ImageIcon(imagePath);
+        box.add(Box.createVerticalStrut(10));
+        box.add(productImage(imagePath));
+        box.add(Box.createVerticalStrut(5));
+        box.add(createLabel(title, "Sora SemiBold", 16));
+        box.add(Box.createVerticalStrut(5));
+        box.add(createLabel(subtitle, "Sora Regular", 12, Color.GRAY));
+        box.add(Box.createVerticalStrut(5));
+        box.add(createPricePanel(price));
+
+        return box;
+    }
+
+    private JLabel productImage(String path) {
+        ImageIcon icon = new ImageIcon(path);
         Image scaled = icon.getImage().getScaledInstance(140, 130, Image.SCALE_SMOOTH);
         JLabel img = new JLabel(new ImageIcon(scaled));
-        img.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 22));
         img.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return img;
+    }
 
-        // Título
-        JLabel titleLabel = new JLabel(title);
-        titleLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 16));
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 22));
-        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    private JLabel createLabel(String text, String fontName, int fontSize) {
+        return createLabel(text, fontName, fontSize, Color.BLACK);
+    }
 
-        // Descripción
-        JLabel subtitleLabel = new JLabel(subtitle);
-        subtitleLabel.setFont(new Font("Sora Regular", Font.PLAIN, 12));
-        subtitleLabel.setForeground(Color.GRAY);
-        subtitleLabel.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 22));
-        subtitleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+    private JLabel createLabel(String text, String fontName, int fontSize, Color color) {
+        JLabel label = new JLabel(text);
+        label.setFont(new Font(fontName, Font.PLAIN, fontSize));
+        label.setForeground(color);
+        label.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return label;
+    }
 
-        // Precio
+    private JPanel createPricePanel(String price) {
         JLabel priceLabel = new JLabel(price);
         priceLabel.setFont(new Font("Poppins", Font.BOLD, 18));
-        priceLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
-        // Botón "+"
         RoundedButton plusButton = new RoundedButton("+", 8);
         plusButton.setFont(new Font("Poppins", Font.BOLD, 14));
         plusButton.setBackground(new Color(0xC67C4E));
@@ -161,26 +170,11 @@ public class HomeFrame extends BaseFrame {
         plusButton.setPreferredSize(new Dimension(55, 55));
         plusButton.setMaximumSize(new Dimension(55, 55));
 
-        box.add(img);
-        box.add(titleLabel);
-        box.add(subtitleLabel);
+        JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 0));
+        panel.setOpaque(false);
+        panel.add(priceLabel);
+        panel.add(plusButton);
 
-        // Contenedor inferior para precio y botón
-        JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 0)); // 8 píxeles de espacio horizontal
-        bottomPanel.setOpaque(false);
-        bottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-
-        bottomPanel.add(priceLabel);
-        bottomPanel.add(plusButton);
-
-        box.add(img);
-        box.add(Box.createVerticalStrut(5));
-        box.add(titleLabel);
-        box.add(Box.createVerticalStrut(5));
-        box.add(subtitleLabel);
-        box.add(Box.createVerticalStrut(5));
-        box.add(bottomPanel);
-
-        return box;
+        return panel;
     }
 }
