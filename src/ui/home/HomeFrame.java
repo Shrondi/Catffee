@@ -4,8 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import components.bar.NavigationBar;
-import components.button.RoundedButton;
-import components.panel.RoundedPanel;
+import components.panel.ProductBox;
 import controller.NavigationManager;
 import ui.BaseFrame;
 import utils.UserStorage;
@@ -113,78 +112,8 @@ public class HomeFrame extends BaseFrame {
         };
 
         for (int i = 0; i < names.length; i++) {
-            grid.add(productBox(names[i], descriptions[i], prices[i], images[i]));
+            grid.add(new ProductBox(names[i], descriptions[i], prices[i], images[i]));
         }
         return grid;
-    }
-
-    private JPanel productBox(String title, String subtitle, String price, String imagePath) {
-        RoundedPanel box = new RoundedPanel(16);
-        box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
-        Dimension size = new Dimension(170, 250);
-        box.setPreferredSize(size);
-        box.setMaximumSize(size);
-        box.setBackground(Color.WHITE);
-        box.setBorder(BorderFactory.createEmptyBorder(10, 10, 40, 20));
-
-        box.add(Box.createVerticalStrut(10));
-        box.add(productImage(imagePath));
-        box.add(Box.createVerticalStrut(5));
-
-        box.add(createLeftAlignedLabel(title, "Sora SemiBold", 16));
-        box.add(Box.createVerticalStrut(5));
-        box.add(createLeftAlignedLabel(subtitle, "Sora Regular", 12, Color.GRAY));
-        box.add(Box.createVerticalStrut(5));
-        box.add(createPricePanel(price));
-
-        return box;
-    }
-
-    private JPanel createLeftAlignedLabel(String text, String fontName, int fontSize) {
-        return createLeftAlignedLabel(text, fontName, fontSize, Color.BLACK);
-    }
-
-    private JPanel createLeftAlignedLabel(String text, String fontName, int fontSize, Color color) {
-        JPanel panel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        panel.setOpaque(false);
-        JLabel label = new JLabel(text);
-        label.setFont(new Font(fontName, Font.PLAIN, fontSize));
-        label.setForeground(color);
-        panel.add(label);
-        return panel;
-    }
-
-    private JLabel productImage(String path) {
-        ImageIcon icon = new ImageIcon(path);
-        Image scaled = icon.getImage().getScaledInstance(140, 130, Image.SCALE_SMOOTH);
-        JLabel label = new JLabel(new ImageIcon(scaled));
-        label.setAlignmentX(Component.CENTER_ALIGNMENT);
-        return label;
-    }
-
-    private JPanel createPricePanel(String price) {
-        JLabel priceLabel = new JLabel(price);
-        priceLabel.setFont(new Font("Poppins", Font.BOLD, 18));
-        priceLabel.setForeground(Color.BLACK);
-
-        RoundedButton plusButton = new RoundedButton("+", 8);
-        plusButton.setFont(new Font("Poppins", Font.PLAIN, 20));
-        plusButton.setMargin(new Insets(0, 0, 0, 0));
-        plusButton.setBackground(new Color(0xC67C4E));
-        plusButton.setForeground(Color.WHITE);
-        plusButton.setContentAreaFilled(true);
-        plusButton.setOpaque(true);
-        plusButton.setBorderPainted(false);
-        
-        Dimension btnSize = new Dimension(30, 30);
-        plusButton.setPreferredSize(btnSize);
-        plusButton.setMaximumSize(btnSize);
-
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setOpaque(false);
-        panel.add(priceLabel, BorderLayout.WEST);
-        panel.add(plusButton, BorderLayout.EAST);
-
-        return panel;
-    }
+    } 
 }
