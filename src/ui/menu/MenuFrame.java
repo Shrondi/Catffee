@@ -85,19 +85,22 @@ public class MenuFrame extends BaseFrame {
         container.add(Box.createVerticalStrut(20));
         container.add(categorySection("Salados", Products.getSaltyFood()));
         container.add(Box.createVerticalStrut(100));
-        container.setMaximumSize(new Dimension(412, Integer.MAX_VALUE));
 
         JScrollPane scrollPane = new JScrollPane(container);
+        scrollPane.setBorder(null);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
-        scrollPane.setBorder(null);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 
-        JScrollBar verticalBar = scrollPane.getVerticalScrollBar();
-        verticalBar.setPreferredSize(new Dimension(8, 0));
-        verticalBar.setUnitIncrement(16);
-        verticalBar.setOpaque(false);
+        // Ocultar completamente scrollbars pero permitir scroll
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+
+        // Permitir scroll con rueda del ratón
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+
+        // Elimina el espacio reservado por la scrollbar
+        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+        scrollPane.getHorizontalScrollBar().setPreferredSize(new Dimension(0, 0));
 
         return scrollPane;
     }
