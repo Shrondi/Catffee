@@ -20,7 +20,9 @@ public class MenuFrame extends JFrame {
 
         setContentPane(buildMainPanel());
 
-        add(new NavigationBar("Carta"), BorderLayout.SOUTH);
+        NavigationBar navBar = new NavigationBar("Carta");
+        new NavigationManager(this, navBar);
+        add(navBar, BorderLayout.SOUTH);
     }
 
     private JPanel buildMainPanel() {
