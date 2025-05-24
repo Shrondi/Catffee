@@ -2,6 +2,7 @@ package ui.cats;
 
 import components.bar.*;
 import components.panel.*;
+import controller.NavigationManager;
 import components.button.RoundedButton;
 import ui.BaseFrame;
 
@@ -20,7 +21,9 @@ public class CatsFrame extends BaseFrame {
         background.add(buildTopBar(), BorderLayout.NORTH);
         background.add(buildCatsScrollPanel(), BorderLayout.CENTER);
 
-        add(new NavigationBar("Gatos"), BorderLayout.SOUTH);
+        NavigationBar navBar = new NavigationBar("Gatos");
+        new NavigationManager(this, navBar);
+        add(navBar, BorderLayout.SOUTH);
     }
 
     private JPanel buildTopBar() {
