@@ -4,19 +4,14 @@ import javax.swing.*;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import ui.home.HomeFrame;
-import ui.cats.CatsFrame;
-import ui.menu.MenuFrame;
-import ui.order.OrderFrame;
+import ui.MainFrame;
 
 public class NavigationManager {
-
-    private final JFrame currentFrame;
+    private final MainFrame mainFrame;
     private final JPanel navBar;
 
-    public NavigationManager(JFrame currentFrame, JPanel navBar) {
-        this.currentFrame = currentFrame;
+    public NavigationManager(MainFrame mainFrame, JPanel navBar) {
+        this.mainFrame = mainFrame;
         this.navBar = navBar;
         attachListeners();
     }
@@ -40,13 +35,11 @@ public class NavigationManager {
     }
 
     private void navigateTo(String label) {
-        currentFrame.dispose();
         switch (label) {
-            case "Inicio" -> new HomeFrame("Inicio").setVisible(true);
-            case "Carta" -> new MenuFrame("Carta").setVisible(true);
-            case "Pedido" -> new OrderFrame("Pedido").setVisible(true);
-            case "Gatos" -> new CatsFrame("Gatos").setVisible(true);
-            //case "Perfil" -> new PerfilFrame().setVisible(true);
+            case "Inicio" -> mainFrame.showPanel(MainFrame.HOME);
+            case "Carta" -> mainFrame.showPanel(MainFrame.MENU);
+            case "Pedido" -> mainFrame.showPanel(MainFrame.ORDER);
+            case "Gatos" -> mainFrame.showPanel(MainFrame.CATS);
             default -> System.err.println("Unknown navigation label: " + label);
         }
     }
