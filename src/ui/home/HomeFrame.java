@@ -101,7 +101,7 @@ public class HomeFrame extends BaseFrame {
 
         String[] names = {"Meowcha", "Catpuccino", "Gatogalletas", "Pawffins", "Empanacat", "Pink Paw"};
         String[] descriptions = {"Moka", "Deep Foam", "Crumble-cookies", "Muffin choco", "Carne o verdura", "Limonada frutos"};
-        String[] prices = {"3.50€", "3.20€", "2.50€", "2.80€", "2.80€", "3.20€"};
+        double[] prices = {3.50, 3.20, 2.50, 2.80, 2.80, 3.20};
         String[] images = {
             "resources/images/meowcha.png",
             "resources/images/catpuccino.png",
