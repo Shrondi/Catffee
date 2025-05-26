@@ -15,13 +15,13 @@ public class ProductBox extends RoundedPanel {
 
         setupLayout();
         add(Box.createVerticalStrut(10));
-        add(createImageLabel(imagePath));
+        add(createImageLabel(product.getImagePath()));
         add(Box.createVerticalStrut(5));
-        add(createTextLabel(title, "Sora SemiBold", 16, Color.BLACK));
+        add(createTextLabel(product.getName(), "Sora SemiBold", 16, Color.BLACK));
         add(Box.createVerticalStrut(5));
-        add(createTextLabel(subtitle, "Sora Regular", 12, Color.GRAY));
+        add(createTextLabel(product.getDescription(), "Sora Regular", 12, Color.GRAY));
         add(Box.createVerticalStrut(5));
-        add(createBottomPanel(price));
+        add(createBottomPanel(product.getPrice()));
     }
 
     private void setupLayout() {
@@ -50,8 +50,8 @@ public class ProductBox extends RoundedPanel {
         return label;
     }
 
-    private JPanel createBottomPanel(String priceText) {
-        JLabel priceLabel = new JLabel(priceText);
+    private JPanel createBottomPanel(double price) {
+        JLabel priceLabel = new JLabel(Double.toString(price)+"€");
         priceLabel.setFont(new Font("Poppins", Font.BOLD, 18));
         priceLabel.setForeground(Color.BLACK);
 

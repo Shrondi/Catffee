@@ -112,7 +112,13 @@ public class HomeFrame extends BaseFrame {
         };
 
         for (int i = 0; i < names.length; i++) {
-            grid.add(new ProductBox(names[i], descriptions[i], prices[i], images[i]));
+            ProductData product = new ProductData.Builder()
+                                                .setName(names[i])
+                                                .setDescription(descriptions[i])
+                                                .setPrice(prices[i])
+                                                .setImagePath(images[i])
+                                                .build();
+            grid.add(new ProductBox(product, () -> fireProductAdded(product)));
         }
         return grid;
     } 

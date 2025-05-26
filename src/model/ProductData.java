@@ -3,7 +3,7 @@ package model;
 public class ProductData {
     private final String name;
     private final String description;
-    private final String price;
+    private final double price;
     private final String imagePath;
 
     private ProductData(Builder builder) {
@@ -15,13 +15,13 @@ public class ProductData {
 
     public String getName() { return name; }
     public String getDescription() { return description; }
-    public String getPrice() { return price; }
+    public double getPrice() { return price; }
     public String getImagePath() { return imagePath; }
 
     public static class Builder {
         private String name;
         private String description;
-        private String price;
+        private double price;
         private String imagePath;
 
         public Builder setName(String name) {
@@ -34,7 +34,7 @@ public class ProductData {
             return this;
         }
 
-        public Builder setPrice(String price) {
+        public Builder setPrice(double price) {
             this.price = price;
             return this;
         }
@@ -46,7 +46,7 @@ public class ProductData {
 
         public ProductData build() {
             // Aquí puedes validar que los campos obligatorios estén completos
-            if (name == null || price == null || imagePath == null) {
+            if (name == null || price == 0.0 || imagePath == null) {
                 throw new IllegalStateException("name, price y imagePath son obligatorios");
             }
             return new ProductData(this);
