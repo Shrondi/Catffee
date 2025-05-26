@@ -11,7 +11,7 @@ import controller.ProductOrderController;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends BaseFrame {
     private CardLayout cardLayout;
     private JPanel cardPanel;
     private OrderPanel orderPanel;
@@ -25,11 +25,6 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         super("Catffee");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(412, 917);
-        setLocationRelativeTo(null);
-        setResizable(false);
-        setBackground(Color.decode("#F9F9F9"));
 
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
