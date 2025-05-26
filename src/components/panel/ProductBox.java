@@ -1,6 +1,7 @@
 package components.panel;
 
 import components.button.RoundedButton;
+import model.ProductData;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,8 +11,12 @@ public class ProductBox extends RoundedPanel {
     private static final int WIDTH = 160;
     private static final int HEIGHT = 240;
 
-    public ProductBox(String title, String subtitle, String price, String imagePath) {
+    private final Runnable onAddCallback;
+
+    public ProductBox(ProductData product, Runnable onAddCallback) {
         super(16); // radio de los bordes redondeados
+
+        this.onAddCallback = onAddCallback;
 
         setupLayout();
         add(Box.createVerticalStrut(10));
@@ -68,6 +73,9 @@ public class ProductBox extends RoundedPanel {
 
     private RoundedButton createPlusButton() {
         RoundedButton button = new RoundedButton("+", 8);
+         button.addActionListener(_ -> {
+            if (onAddCallback != null) onAddCallback.run();
+        });
         button.setFont(new Font("Poppins", Font.BOLD, 15));
         button.setBackground(new Color(0xC67C4E));
         button.setForeground(Color.WHITE);
