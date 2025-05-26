@@ -1,26 +1,21 @@
 package ui.menu;
 
-import components.bar.NavigationBar;
 import components.panel.ProductBox;
-import controller.NavigationManager;
-import ui.BaseFrame;
 import model.ProductData;
 import model.Products;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.function.Consumer;
 
-public class MenuFrame extends BaseFrame {
+public class MenuPanel extends JPanel {
+    private final Consumer<ProductData> onProductAdded;
 
-    public MenuFrame(String title) {
-        super(title);
-
-        setContentPane(mainPanel());
-
-        NavigationBar navBar = new NavigationBar("Carta");
-        new NavigationManager(this, navBar);
-        add(navBar, BorderLayout.SOUTH);
+    public MenuPanel(Consumer<ProductData> onProductAdded) {
+        this.onProductAdded = onProductAdded;
+        setLayout(new BorderLayout());
+        add(mainPanel(), BorderLayout.CENTER);
     }
 
     private JPanel mainPanel() {
@@ -126,7 +121,7 @@ public class MenuFrame extends BaseFrame {
         grid.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
         for (ProductData p : products) {
-            grid.add(new ProductBox(p.getName(), p.getDescription(), p.getPrice(), p.getImagePath()));
+            grid.add(new ProductBox(p, () -> fireProductAdded(p)));
         }
 
         section.add(sectionTitle);
@@ -136,5 +131,11 @@ public class MenuFrame extends BaseFrame {
         section.add(grid);
 
         return section;
+    }
+
+    private void fireProductAdded(ProductData product) {
+        if (onProductAdded != null) {
+            onProductAdded.accept(product);
+        }
     }
 }

@@ -1,31 +1,31 @@
 package ui.home;
 
-import javax.swing.*;
-import java.awt.*;
-
-import components.bar.NavigationBar;
 import components.panel.ProductBox;
-import controller.NavigationManager;
-import ui.BaseFrame;
+import model.ProductData;
 import utils.UserStorage;
 
-public class HomeFrame extends BaseFrame {
+import javax.swing.*;
+import java.awt.*;
+import java.util.function.Consumer;
 
-    public HomeFrame(String title) {
-        super(title);
+public class HomePanel extends JPanel {
+    private final Consumer<ProductData> onProductAdded;
 
+    public HomePanel(Consumer<ProductData> onProductAdded) {
+        this.onProductAdded = onProductAdded;
+        setLayout(new BorderLayout());
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         mainPanel.setBackground(new Color(0xF7F7F7));
-
         mainPanel.add(topSection());
         mainPanel.add(productScroll());
+        add(mainPanel, BorderLayout.CENTER);
+    }
 
-        add(mainPanel);
-
-        NavigationBar navBar = new NavigationBar("Inicio");
-        new NavigationManager(this, navBar);
-        add(navBar, BorderLayout.SOUTH);
+    private void fireProductAdded(ProductData product) {
+        if (onProductAdded != null) {
+            onProductAdded.accept(product);
+        }
     }
 
     private JPanel topSection() {
@@ -34,10 +34,8 @@ public class HomeFrame extends BaseFrame {
         Dimension size = new Dimension(412, 330);
         container.setPreferredSize(size);
         container.setMaximumSize(size);
-
         container.add(headerText());
         container.add(headerImage());
-
         return container;
     }
 
@@ -55,7 +53,6 @@ public class HomeFrame extends BaseFrame {
         panel.setOpaque(false);
         panel.setAlignmentX(0.5f);
         panel.setAlignmentY(0.5f);
-
         String nombre = UserStorage.getInstance().getCurrentUser().getNombreCompleto();
         JLabel welcomeText = new JLabel(
             String.format("<html><div style='text-align: left;'>Bienvenido,<br><b>%s ☕</b></div></html>", nombre));
@@ -64,7 +61,6 @@ public class HomeFrame extends BaseFrame {
         welcomeText.setHorizontalAlignment(SwingConstants.LEFT);
         welcomeText.setVerticalAlignment(SwingConstants.BOTTOM);
         welcomeText.setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 0));
-
         panel.add(welcomeText, BorderLayout.CENTER);
         return panel;
     }
@@ -74,15 +70,12 @@ public class HomeFrame extends BaseFrame {
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setBackground(new Color(0xF7F7F7));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-
         JLabel destacadosLabel = new JLabel("PRODUCTOS DESTACADOS");
         destacadosLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 20));
         destacadosLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         destacadosLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 16, 0));
-
         contentPanel.add(destacadosLabel);
         contentPanel.add(productGrid());
-
         JScrollPane scrollPane = new JScrollPane(contentPanel);
         scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
@@ -90,7 +83,6 @@ public class HomeFrame extends BaseFrame {
         scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
-
         return scrollPane;
     }
 
@@ -98,7 +90,6 @@ public class HomeFrame extends BaseFrame {
         JPanel grid = new JPanel(new GridLayout(0, 2, 12, 12));
         grid.setBackground(new Color(0xF7F7F7));
         grid.setAlignmentX(Component.CENTER_ALIGNMENT);
-
         String[] names = {"Meowcha", "Catpuccino", "Gatogalletas", "Pawffins", "Empanacat", "Pink Paw"};
         String[] descriptions = {"Moka", "Deep Foam", "Crumble-cookies", "Muffin choco", "Carne o verdura", "Limonada frutos"};
         double[] prices = {3.50, 3.20, 2.50, 2.80, 2.80, 3.20};
@@ -110,7 +101,6 @@ public class HomeFrame extends BaseFrame {
             "resources/images/empanacat.png",
             "resources/images/pink_paw.png"
         };
-
         for (int i = 0; i < names.length; i++) {
             ProductData product = new ProductData.Builder()
                                                 .setName(names[i])
@@ -121,5 +111,5 @@ public class HomeFrame extends BaseFrame {
             grid.add(new ProductBox(product, () -> fireProductAdded(product)));
         }
         return grid;
-    } 
+    }
 }
