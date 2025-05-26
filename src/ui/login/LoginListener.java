@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import ui.home.HomeFrame;
+import ui.MainFrame;
 import ui.register.RegisterFrame;
 import utils.UserStorage;
 
@@ -27,9 +27,9 @@ public class LoginListener extends MouseAdapter implements ActionListener {
         if (userStorage.isValidUser(email, password)) {
             loginFrame.errorLabel.setVisible(false);
 
-            // Avanza al siguiente frame
-            HomeFrame nextFrame = new HomeFrame("Bienvenido");
-            nextFrame.setVisible(true);
+            // Crear y mostrar MainFrame (nuevo sistema)
+            MainFrame mainFrame = new MainFrame();
+            mainFrame.setVisible(true);
 
             loginFrame.setVisible(false);
             loginFrame.dispose();
