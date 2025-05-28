@@ -14,7 +14,7 @@ public class ProductCard extends JPanel {
 
         setLayout(new BorderLayout());
         setMaximumSize(new Dimension(360, 70));
-        setBackground(Color.WHITE);
+        setBackground(Color.decode("#F9F9F9"));
 
         // Nombre y descripción
         JLabel name = new JLabel(data.getName());

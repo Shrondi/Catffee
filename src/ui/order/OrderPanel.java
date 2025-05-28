@@ -18,7 +18,7 @@ public class OrderPanel extends JPanel {
 
     public OrderPanel(ProductOrderController controller) {
         this.controller = controller;
-
+        setBackground(Color.decode("#F9F9F9"));
         setLayout(new BorderLayout());
         add(buildTopBar(), BorderLayout.NORTH);
 
@@ -66,7 +66,7 @@ public class OrderPanel extends JPanel {
     private JPanel footerPanel() {
         JPanel footer = new JPanel();
         footer.setLayout(new BoxLayout(footer, BoxLayout.Y_AXIS));
-        footer.setBackground(Color.WHITE);
+        footer.setBackground(Color.decode("#F9F9F9"));
         footer.setBorder(BorderFactory.createEmptyBorder(10, 30, 30, 30));
 
         JSeparator sep = new JSeparator();

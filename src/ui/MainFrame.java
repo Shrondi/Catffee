@@ -28,6 +28,7 @@ public class MainFrame extends BaseFrame {
 
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
+        setBackground(Color.decode("#F9F9F9"));
 
         // Crear el controlador del pedido (sin argumentos)
         ProductOrderController orderController = new controller.ProductOrderController();
