@@ -1,5 +1,6 @@
 package ui.order;
 
+import components.button.RoundedButton;
 import components.panel.ProductCard;
 import model.ProductData;
 import javax.swing.*;
@@ -52,14 +53,16 @@ public class OrderPanel extends JPanel {
         itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));
         itemsPanel.setOpaque(false);
         itemsPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+
         JScrollPane scrollPane = new JScrollPane(itemsPanel);
         scrollPane.setBorder(null);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(8, 0));
+
         return scrollPane;
     }
 
@@ -67,29 +70,31 @@ public class OrderPanel extends JPanel {
         JPanel footer = new JPanel();
         footer.setLayout(new BoxLayout(footer, BoxLayout.Y_AXIS));
         footer.setBackground(Color.decode("#F9F9F9"));
-        footer.setBorder(BorderFactory.createEmptyBorder(10, 30, 30, 30));
+        footer.setBorder(BorderFactory.createEmptyBorder(10, 30, 120, 30));
 
         JSeparator sep = new JSeparator();
-        sep.setForeground(Color.LIGHT_GRAY);
+        sep.setForeground(Color.decode("#E3E3E3"));
+        sep.setMaximumSize(new Dimension(295, 1));
+
         JPanel totalRow = new JPanel(new BorderLayout());
         totalRow.setOpaque(false);
 
         JLabel totalText = new JLabel("Total");
-        totalText.setFont(new Font("Sora SemiBold", Font.PLAIN, 18));
+        totalText.setFont(new Font("Sora SemiBold", Font.PLAIN, 20));
         totalLabel = new JLabel("0.00 €");
-        totalLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 18));
+        totalLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 15));
         totalRow.add(totalText, BorderLayout.WEST);
         totalRow.add(totalLabel, BorderLayout.EAST);
-        totalRow.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+        totalRow.setBorder(BorderFactory.createEmptyBorder(10, 0, 60, 0));
 
-        JButton pedirBtn = new JButton("Pedir");
+        RoundedButton pedirBtn = new RoundedButton("Pedir", 25);
+        pedirBtn.setMaximumSize(new Dimension(327, 56));
         pedirBtn.setBackground(new Color(193, 124, 77));
         pedirBtn.setForeground(Color.WHITE);
         pedirBtn.setFont(new Font("Sora SemiBold", Font.PLAIN, 16));
         pedirBtn.setFocusPainted(false);
-        pedirBtn.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        pedirBtn.setBorder(BorderFactory.createEmptyBorder(16, 140, 16, 140));
         pedirBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-        pedirBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         pedirBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         footer.add(sep);
