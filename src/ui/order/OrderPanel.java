@@ -7,7 +7,7 @@ import java.awt.*;
 import controller.ProductOrderController;
 
 public class OrderPanel extends JPanel {
-    private JPanel itemsPanel;
+    private JPanel itemsPanel = new JPanel();
     private JLabel totalLabel;
     private final ProductOrderController controller;
 
@@ -49,7 +49,6 @@ public class OrderPanel extends JPanel {
     }
 
     private JScrollPane scrollableItemPanel() {
-        itemsPanel = new JPanel();
         itemsPanel.setLayout(new BoxLayout(itemsPanel, BoxLayout.Y_AXIS));
         itemsPanel.setOpaque(false);
         itemsPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
@@ -96,7 +95,7 @@ public class OrderPanel extends JPanel {
         footer.add(sep);
         footer.add(totalRow);
         footer.add(pedirBtn);
-        
+
         return footer;
     }
 
@@ -161,6 +160,7 @@ public class OrderPanel extends JPanel {
             add(southPanel, BorderLayout.SOUTH);
         
             itemsPanel.removeAll();
+
             for (ProductCard card : controller.getProductCards()) {
                 itemsPanel.add(card);
                 itemsPanel.add(Box.createVerticalStrut(10));
