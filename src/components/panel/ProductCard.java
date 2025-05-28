@@ -3,6 +3,7 @@ package components.panel;
 import javax.swing.*;
 import java.awt.*;
 
+import components.button.RoundedButton;
 import model.ProductData;
 import controller.ProductOrderController;
 
@@ -15,6 +16,7 @@ public class ProductCard extends JPanel {
         setLayout(new BorderLayout());
         setMaximumSize(new Dimension(360, 70));
         setBackground(Color.decode("#F9F9F9"));
+        setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 
         // Nombre y descripción
         JLabel name = new JLabel(data.getName());
@@ -25,18 +27,30 @@ public class ProductCard extends JPanel {
         desc.setForeground(Color.GRAY);
 
         JPanel infoPanel = new JPanel();
+        infoPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         infoPanel.setOpaque(false);
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.add(name);
         infoPanel.add(desc);
 
         // Imagen
-        JLabel img = new JLabel(new ImageIcon(new ImageIcon(data.getImagePath()).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH)));
+        JLabel img = new JLabel(new ImageIcon(new ImageIcon(data.getImagePath()).getImage().getScaledInstance(54, 54, Image.SCALE_SMOOTH)));
+        img.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 20));
 
         // Contador
-        JButton minus = new JButton("–");
+        RoundedButton minus = new RoundedButton("–", 20);
         quantityLabel = new JLabel(String.valueOf(quantity));
-        JButton plus = new JButton("+");
+        RoundedButton plus = new RoundedButton("+", 20);
+
+        minus.setBackground(Color.WHITE);
+        plus.setBackground(Color.WHITE);
+
+        minus.setBorderColor(Color.decode("#F9F2ED"));
+        minus.setForeground(Color.decode("#A2A2A2"));
+        plus.setBorderColor(Color.decode("#F9F2ED"));
+
+        minus.setFont(new Font("Sora", Font.BOLD, 18));
+        plus.setFont(new Font("Sora", Font.BOLD, 18));
 
         minus.addActionListener(_ -> controller.decrementProductFromOrder(data));
         plus.addActionListener(_ -> controller.addProductToOrder(data));
@@ -50,6 +64,7 @@ public class ProductCard extends JPanel {
         JPanel rightPanel = new JPanel(new BorderLayout());
         rightPanel.setOpaque(false);
         rightPanel.add(counter, BorderLayout.CENTER);
+        rightPanel.setBorder(BorderFactory.createEmptyBorder(5, 0, 0, 0));
 
         add(img, BorderLayout.WEST);
         add(infoPanel, BorderLayout.CENTER);
