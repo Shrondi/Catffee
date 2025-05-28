@@ -1,20 +1,18 @@
 package ui.catProfile;
 
-import ui.BaseFrame;
 import components.panel.*;
 
 import javax.swing.*;
 import java.awt.*;
 import model.CatProfile;
 
-public class CatProfileFrame extends BaseFrame {
+public class CatProfilePanel extends JPanel {
 
-    public CatProfileFrame(CatProfile profile) {
-        super("Perfil de " + profile.getName());
+    public CatProfilePanel(CatProfile profile) {
 
         GradientPanel background = new GradientPanel(new Color(0xBD6E36), new Color(0xCDCDCD), true);
         background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS));
-        setContentPane(background);
+        add(background, BorderLayout.CENTER);
 
         background.add(buildImagePanel(profile.getImagePaths()));
         background.add(Box.createVerticalStrut(20));
@@ -23,7 +21,7 @@ public class CatProfileFrame extends BaseFrame {
 
     public static void create(CatProfile profile) {
         SwingUtilities.invokeLater(() -> {
-            new CatProfileFrame(profile).setVisible(true);
+            new CatProfilePanel(profile).setVisible(true);
         });
     }
 
