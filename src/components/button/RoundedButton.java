@@ -10,6 +10,7 @@ public class RoundedButton extends JButton {
     private Color normalBackground;
     private Color hoverBackground;
     private boolean isHovered = false;
+    private Color borderColor = Color.WHITE;
 
     public RoundedButton(String text, int radius) {
         super(text);
@@ -32,6 +33,11 @@ public class RoundedButton extends JButton {
             }
         });
     }
+
+        public void setBorderColor(Color color) {
+            this.borderColor = color;
+            repaint();
+        }
 
     private Color createHoverColor(Color base, Color overlay, float ratio) {
         int red = (int) (base.getRed() * (1 - ratio) + overlay.getRed() * ratio);
@@ -59,7 +65,7 @@ public class RoundedButton extends JButton {
     protected void paintBorder(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(getForeground());
+        g2.setColor(borderColor);
         g2.drawRoundRect(0, 0, getSize().width - 1, getSize().height - 1, radius, radius);
     }
 
