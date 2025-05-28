@@ -11,19 +11,24 @@ public class OrderPanel extends JPanel {
     private JLabel totalLabel;
     private final ProductOrderController controller;
 
+    private final JPanel emptyCart = buildEmptyOrderPanel();
+    private final JScrollPane productPanel = scrollableItemPanel();
+    private final JPanel southPanel = new JPanel();
+    private final JPanel pricePanel = footerPanel();
+
     public OrderPanel(ProductOrderController controller) {
         this.controller = controller;
 
         setLayout(new BorderLayout());
         add(buildTopBar(), BorderLayout.NORTH);
-        add(scrollableItemPanel(), BorderLayout.CENTER);
 
-        JPanel southPanel = new JPanel();
+        // Cuando la clase se crea el carrito esta vacio:
+        add(emptyCart, BorderLayout.CENTER);
+
+        // Aunque al principio no se muestre, añadimos ya el panel hijo del precio al padre
         southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
         southPanel.setOpaque(false);
-        southPanel.add(footerPanel());
-
-        add(southPanel, BorderLayout.SOUTH);
+        southPanel.add(pricePanel);
         
         // Escuchar cambios en el carrito para actualizar la UI
         controller.addCartListener(this::refreshCartView);
@@ -64,10 +69,12 @@ public class OrderPanel extends JPanel {
         footer.setLayout(new BoxLayout(footer, BoxLayout.Y_AXIS));
         footer.setBackground(Color.WHITE);
         footer.setBorder(BorderFactory.createEmptyBorder(10, 30, 30, 30));
+
         JSeparator sep = new JSeparator();
         sep.setForeground(Color.LIGHT_GRAY);
         JPanel totalRow = new JPanel(new BorderLayout());
         totalRow.setOpaque(false);
+
         JLabel totalText = new JLabel("Total");
         totalText.setFont(new Font("Sora SemiBold", Font.PLAIN, 18));
         totalLabel = new JLabel("0.00 €");
@@ -75,6 +82,7 @@ public class OrderPanel extends JPanel {
         totalRow.add(totalText, BorderLayout.WEST);
         totalRow.add(totalLabel, BorderLayout.EAST);
         totalRow.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+
         JButton pedirBtn = new JButton("Pedir");
         pedirBtn.setBackground(new Color(193, 124, 77));
         pedirBtn.setForeground(Color.WHITE);
@@ -84,10 +92,49 @@ public class OrderPanel extends JPanel {
         pedirBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         pedirBtn.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         pedirBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
         footer.add(sep);
         footer.add(totalRow);
         footer.add(pedirBtn);
+        
         return footer;
+    }
+
+     private JPanel buildEmptyOrderPanel() {
+        JPanel contentPanel = new JPanel();
+        contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
+
+        // Espaciador arriba
+        contentPanel.add(Box.createVerticalStrut(150));
+
+        // Icono carrito
+        ImageIcon icon = new ImageIcon("resources/images/cart.png");
+        Image scaledImage = icon.getImage().getScaledInstance(113, 108, Image.SCALE_SMOOTH);
+        JLabel iconLabel = new JLabel(new ImageIcon(scaledImage));
+        iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        iconLabel.setBorder(BorderFactory.createEmptyBorder(100, 138, 0, 160));
+        contentPanel.add(iconLabel);
+
+        // Espaciador
+        contentPanel.add(Box.createVerticalStrut(38));
+
+        // Texto principal
+        JLabel mainText = new JLabel("Sin gatos ni café");
+        mainText.setFont(new Font("Poppins SemiBold", Font.PLAIN, 28));
+        mainText.setForeground(Color.decode("#000000"));
+        mainText.setBorder(BorderFactory.createEmptyBorder(0, 90, 10, 85));
+        mainText.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contentPanel.add(mainText);
+
+        // Texto secundario
+        JLabel secondaryText = new JLabel("<html><div style='text-align: center;'>Selecciona algo de la carta<br>para añadir al pedido</div></html>");
+        secondaryText.setFont(new Font("Poppins Regular", Font.PLAIN, 17));
+        secondaryText.setBorder(BorderFactory.createEmptyBorder(10, 90, 10, 88));
+        secondaryText.setForeground(Color.decode("#000000"));
+        secondaryText.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contentPanel.add(secondaryText);
+
+        return contentPanel;
     }
 
     // --- Lógica visual: solo delega en el modelo y actualiza la UI ---
@@ -101,12 +148,27 @@ public class OrderPanel extends JPanel {
     }
 
     private void refreshCartView() {
-        itemsPanel.removeAll();
-        for (ProductCard card : controller.getProductCards()) {
-            itemsPanel.add(card);
-            itemsPanel.add(Box.createVerticalStrut(10));
+
+        if (controller.getProductCards().isEmpty()){
+            remove(productPanel);
+            remove(southPanel);
+
+            add(emptyCart, BorderLayout.CENTER);
+        }else{
+            remove(emptyCart);
+
+            add(productPanel, BorderLayout.CENTER);
+            add(southPanel, BorderLayout.SOUTH);
+        
+            itemsPanel.removeAll();
+            for (ProductCard card : controller.getProductCards()) {
+                itemsPanel.add(card);
+                itemsPanel.add(Box.createVerticalStrut(10));
+            }
+
+            updateTotalLabel();
         }
-        updateTotalLabel();
+        
         revalidate();
         repaint();
     }
