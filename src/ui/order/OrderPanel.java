@@ -6,6 +6,7 @@ import model.ProductData;
 import javax.swing.*;
 import java.awt.*;
 import controller.order.ProductOrderController;
+import utils.I18n;
 
 /**
  * Panel de pedido para Catffee. Muestra los productos añadidos al carrito y permite modificar cantidades y finalizar el pedido.
@@ -51,7 +52,7 @@ public class OrderPanel extends JPanel {
         topPanel.setPreferredSize(new Dimension(413, 85));
         topPanel.setMaximumSize(new Dimension(413, 85));
         topPanel.setLayout(new BorderLayout());
-        JLabel titleLabel = new JLabel("Pedido");
+        JLabel titleLabel = new JLabel(I18n.t("order_title"));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("Sora Semibold", Font.PLAIN, 30));
         titleLabel.setBorder(BorderFactory.createEmptyBorder(25, 39, 24, 250));
@@ -89,7 +90,7 @@ public class OrderPanel extends JPanel {
         JPanel totalRow = new JPanel(new BorderLayout());
         totalRow.setOpaque(false);
 
-        JLabel totalText = new JLabel("Total");
+        JLabel totalText = new JLabel(I18n.t("order_total"));
         totalText.setFont(new Font("Sora SemiBold", Font.PLAIN, 20));
         totalLabel = new JLabel("0.00 €");
         totalLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 15));
@@ -97,7 +98,7 @@ public class OrderPanel extends JPanel {
         totalRow.add(totalLabel, BorderLayout.EAST);
         totalRow.setBorder(BorderFactory.createEmptyBorder(10, 0, 60, 0));
 
-        RoundedButton pedirBtn = new RoundedButton("Pedir", 25);
+        RoundedButton pedirBtn = new RoundedButton(I18n.t("order_order"), 25);
         pedirBtn.setMaximumSize(new Dimension(327, 56));
         pedirBtn.setBackground(new Color(193, 124, 77));
         pedirBtn.setForeground(Color.WHITE);
@@ -133,7 +134,7 @@ public class OrderPanel extends JPanel {
         contentPanel.add(Box.createVerticalStrut(38));
 
         // Texto principal
-        JLabel mainText = new JLabel("Sin gatos ni café");
+        JLabel mainText = new JLabel(I18n.t("order_empty_title"));
         mainText.setFont(new Font("Poppins SemiBold", Font.PLAIN, 28));
         mainText.setForeground(Color.decode("#000000"));
         mainText.setBorder(BorderFactory.createEmptyBorder(0, 90, 10, 85));
@@ -141,7 +142,7 @@ public class OrderPanel extends JPanel {
         contentPanel.add(mainText);
 
         // Texto secundario
-        JLabel secondaryText = new JLabel("<html><div style='text-align: center;'>Selecciona algo de la carta<br>para añadir al pedido</div></html>");
+        JLabel secondaryText = new JLabel("<html><div style='text-align: center;'>" + I18n.t("order_empty_desc") + "</div></html>");
         secondaryText.setFont(new Font("Poppins Regular", Font.PLAIN, 17));
         secondaryText.setBorder(BorderFactory.createEmptyBorder(10, 90, 10, 88));
         secondaryText.setForeground(Color.decode("#000000"));

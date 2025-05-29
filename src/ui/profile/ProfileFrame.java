@@ -3,6 +3,7 @@ package ui.profile;
 import components.bar.NavigationBar;
 import components.panel.RoundedPanel;
 import ui.BaseFrame;
+import utils.I18n;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +25,7 @@ public class ProfileFrame extends BaseFrame {
         topPanel.setPreferredSize(new Dimension(413, 85));
         topPanel.setLayout(new BorderLayout());
 
-        JLabel titleLabel = new JLabel("Perfil");
+        JLabel titleLabel = new JLabel(I18n.t("profile_title"));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 30));
         titleLabel.setBorder(BorderFactory.createEmptyBorder(23, 30, 23, 0));
@@ -52,7 +53,7 @@ public class ProfileFrame extends BaseFrame {
         Image profileImg = profileIcon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         JLabel profilePic = new JLabel(new ImageIcon(profileImg));
 
-        JLabel nameBlock = new JLabel("<html><div style='font-size:18px; font-family:Sora SemiBold; font-weight:plain;'>Nombre completo</div><div style='color:gray;'>@Usuario</div></html>");
+        JLabel nameBlock = new JLabel("<html><div style='font-size:18px; font-family:Sora SemiBold; font-weight:plain;'>" + I18n.t("register_name") + "</div><div style='color:gray;'>" + I18n.t("register_placeholder_username") + "</div></html>");
         nameBlock.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
 
         profileCard.add(profilePic);
@@ -62,11 +63,11 @@ public class ProfileFrame extends BaseFrame {
         panel.add(profileCard);
         panel.add(Box.createVerticalStrut(100));
 
-        panel.add(buildOption("resources/images/translate.png", "Idioma"));
+        panel.add(buildOption("resources/images/translate.png", I18n.t("profile_language")));
         panel.add(Box.createVerticalStrut(20));
-        panel.add(buildOption("resources/images/heart.png", "¡Valóranos!"));
+        panel.add(buildOption("resources/images/heart.png", I18n.t("profile_rate")));
         panel.add(Box.createVerticalStrut(20));
-        panel.add(buildOption("resources/images/log_out.png", "Cerrar sesión"));
+        panel.add(buildOption("resources/images/log_out.png", I18n.t("profile_logout")));
 
         return panel;
     }
@@ -87,7 +88,7 @@ public class ProfileFrame extends BaseFrame {
         textLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 18));
 
         JComponent rightComponent;
-        if (labelText.equals("Idioma")) {
+        if (labelText.equals(I18n.t("profile_language"))) {
             // Sustituimos el combo por un icono que lanza un diálogo modal personalizado
             ImageIcon arrowIcon = new ImageIcon("resources/images/next_icon.png");
             Image scaledArrow = arrowIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
@@ -96,7 +97,7 @@ public class ProfileFrame extends BaseFrame {
             arrowLabel.addMouseListener(new java.awt.event.MouseAdapter() {
                 @Override
                 public void mouseClicked(java.awt.event.MouseEvent e) {
-                    JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(option), "Selecciona idioma", true);
+                    JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(option), I18n.t("profile_select_lang"), true);
                     dialog.setUndecorated(true);
                     dialog.setSize(200, 120);
                     Point location = option.getLocationOnScreen();
@@ -109,12 +110,12 @@ public class ProfileFrame extends BaseFrame {
                     content.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
                     content.setLayout(new GridLayout(2, 1));
 
-                    JButton englishButton = new JButton("Inglés");
+                    JButton englishButton = new JButton(I18n.t("profile_english"));
                     englishButton.setFont(new Font("Sora", Font.PLAIN, 16));
                     englishButton.setFocusPainted(false);
                     englishButton.addActionListener(evt -> dialog.dispose());
 
-                    JButton spanishButton = new JButton("Español");
+                    JButton spanishButton = new JButton(I18n.t("profile_spanish"));
                     spanishButton.setFont(new Font("Sora", Font.PLAIN, 16));
                     spanishButton.setFocusPainted(false);
                     spanishButton.addActionListener(evt -> dialog.dispose());

@@ -79,27 +79,20 @@ public class MainFrame extends ui.BaseFrame {
     }
 
     private void initNavigationBar() {
-        navBar = new NavigationBar(currentSection);
+        navBar = new NavigationBar(HOME);
         Map<String, String> labelToPanelName = Map.of(
-            "Inicio", HOME,
-            "Carta", MENU,
-            "Pedido", ORDER,
-            "Gatos", CATS
+            "HOME", HOME,
+            "MENU", MENU,
+            "ORDER", ORDER,
+            "CATS", CATS,
+            "PROFILE", CAT_PROFILE
         );
         new PanelNavigationManager(this, navBar, labelToPanelName);
         add(navBar, BorderLayout.SOUTH);
     }
 
     private void updateNavBar(String panelName) {
-        switch (panelName) {
-            case HOME -> currentSection = "Inicio";
-            case MENU -> currentSection = "Carta";
-            case ORDER -> currentSection = "Pedido";
-            case CATS -> currentSection = "Gatos";
-            case CAT_PROFILE -> currentSection = "Gatos";
-            default -> currentSection = "";
-        }
-        navBar.setSelectedSection(currentSection);
+        navBar.setSelectedSection(panelName);
     }
 
     public void showPanel(String panelName) {

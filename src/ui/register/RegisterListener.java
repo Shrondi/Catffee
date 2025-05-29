@@ -1,6 +1,7 @@
 package ui.register;
 
 import controller.user.RegisterController;
+import utils.I18n;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -60,7 +61,7 @@ public class RegisterListener extends MouseAdapter implements ActionListener {
 
         private void update() {
             String text = field.getText().trim();
-            label.setText(text.isEmpty() ? "@Usuario" : "@" + text);
+            label.setText(text.isEmpty() ? I18n.t("register_placeholder_username") : "@" + text);
         }
 
         public void changedUpdate(DocumentEvent e) { update(); }
@@ -79,7 +80,7 @@ public class RegisterListener extends MouseAdapter implements ActionListener {
 
         private void update() {
             String text = field.getText().trim();
-            label.setText(text.isEmpty() ? "Nombre completo" : text);
+            label.setText(text.isEmpty() ? I18n.t("register_name") : text);
         }
 
         public void changedUpdate(DocumentEvent e) { update(); }

@@ -8,6 +8,7 @@ import java.awt.*;
 import ui.BaseFrame;
 import controller.navigation.NavigationHost;
 import controller.user.RegisterController;
+import utils.I18n;
 
 /**
  * Ventana de registro de usuario para Catffee.
@@ -88,7 +89,7 @@ public class RegisterFrame extends BaseFrame {
         topPanel.setPreferredSize(new Dimension(413, 85));
         topPanel.setMaximumSize(new Dimension(413, 85));
 
-        JLabel titleLabel = new JLabel("Registro");
+        JLabel titleLabel = new JLabel(I18n.t("register_title"));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 30));
         titleLabel.setBorder(BorderFactory.createEmptyBorder(23, 31, 23, 213));
@@ -123,19 +124,19 @@ public class RegisterFrame extends BaseFrame {
         panel.add(headerInfo());
         panel.add(Box.createVerticalStrut(40));
 
-        panel.add(createLabeledField("Usuario", usuarioField));
+        panel.add(createLabeledField(I18n.t("register_username"), usuarioField));
         panel.add(Box.createVerticalStrut(10));
 
-        panel.add(createLabeledField("Nombre completo", nombreCompletoField));
+        panel.add(createLabeledField(I18n.t("register_name"), nombreCompletoField));
         panel.add(Box.createVerticalStrut(10));
 
-        panel.add(createLabeledField("Correo", correoField));
+        panel.add(createLabeledField(I18n.t("register_email"), correoField));
         panel.add(Box.createVerticalStrut(10));
 
-        panel.add(createLabeledField("Contraseña", passwordField));
+        panel.add(createLabeledField(I18n.t("register_password"), passwordField));
         panel.add(Box.createVerticalStrut(10));
 
-        panel.add(createLabeledField("Repetir contraseña", repeatPasswordField));
+        panel.add(createLabeledField(I18n.t("register_repeat"), repeatPasswordField));
         panel.add(Box.createVerticalStrut(20));
 
         panel.add(registerButton());
@@ -203,7 +204,7 @@ public class RegisterFrame extends BaseFrame {
     }
 
     private RoundedButton registerButton() {
-        registerButton = new RoundedButton("Registrarse", 16);
+        registerButton = new RoundedButton(I18n.t("register_register"), 16);
         registerButton.setFont(new Font("Roboto Regular", Font.PLAIN, 14));
         registerButton.setBackground(Color.decode("#313131"));
         registerButton.setForeground(Color.WHITE);

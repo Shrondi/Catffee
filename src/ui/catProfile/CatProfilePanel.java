@@ -1,6 +1,7 @@
 package ui.catProfile;
 
 import components.panel.*;
+import utils.I18n;
 
 import javax.swing.*;
 import java.awt.*;
@@ -118,11 +119,12 @@ public class CatProfilePanel extends JPanel {
         namePanel.add(nameLabel, BorderLayout.CENTER);
         namePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel ageLabel = new JLabel("🎂 " + profile.getAge());
+        JLabel ageLabel = new JLabel(I18n.t("catprofile_age").replace("{0}", String.valueOf(profile.getAge())));
         ageLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
         ageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel genderLabel = new JLabel("♀ " + profile.getGender());
+        String genderKey = profile.getGender().equalsIgnoreCase("Hembra") ? "catprofile_gender_female" : "catprofile_gender_male";
+        JLabel genderLabel = new JLabel(I18n.t(genderKey));
         genderLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
         genderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -139,7 +141,7 @@ public class CatProfilePanel extends JPanel {
         aboutPanel.setPreferredSize(new Dimension(347, 158));
         aboutPanel.setMaximumSize(new Dimension(347, 158));
 
-        JLabel aboutLabel = new JLabel("<html><b>Sobre mí</b><br>" + profile.getAbout() + "</html>");
+        JLabel aboutLabel = new JLabel("<html><b>" + I18n.t("catprofile_about") + "</b><br>" + profile.getAbout() + "</html>");
         aboutLabel.setFont(new Font("Fredoka Regular", Font.PLAIN, 20));
         aboutPanel.add(aboutLabel, BorderLayout.CENTER);
 
@@ -150,7 +152,7 @@ public class CatProfilePanel extends JPanel {
         idealPanel.setPreferredSize(new Dimension(347, 100));
         idealPanel.setMaximumSize(new Dimension(347, 100));
 
-        JLabel idealLabel = new JLabel("<html><b>Ideal para:</b><br>" + profile.getIdeal() + "</html>");
+        JLabel idealLabel = new JLabel("<html><b>" + I18n.t("catprofile_ideal") + "</b><br>" + profile.getIdeal() + "</html>");
         idealLabel.setFont(new Font("Fredoka Regular", Font.PLAIN, 20));
         idealPanel.add(idealLabel, BorderLayout.CENTER);
 
