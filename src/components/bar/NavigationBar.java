@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import utils.I18n;
 
 /**
  * Barra de navegación inferior para Catffee. Permite cambiar entre secciones principales.
@@ -18,7 +19,14 @@ import java.util.List;
 public class NavigationBar extends JPanel {
     private String selected;
     private final List<JLabel> textLabels = new ArrayList<>();
-    private static final String[] SECTIONS = {"Inicio", "Carta", "Pedido", "Gatos", "Perfil"};
+    private static final String[] SECTION_KEYS = {"HOME", "MENU", "ORDER", "CATS", "PROFILE"};
+    private static final String[] SECTION_TEXTS = {
+        I18n.t("nav_home"),
+        I18n.t("nav_menu"),
+        I18n.t("nav_order"),
+        I18n.t("nav_cats"),
+        I18n.t("nav_profile")
+    };
     private static final String[] ICONS = {"home.png", "carta.png", "pedido.png", "gatos.png", "perfil.png"};
     private static final Color SELECTED_COLOR = new Color(255, 150, 50);
     private static final Color UNSELECTED_COLOR = Color.WHITE;
@@ -27,10 +35,10 @@ public class NavigationBar extends JPanel {
         this.selected = selectedItem;
         textLabels.clear();
         setOpaque(false);
-        setLayout(new GridLayout(1, SECTIONS.length));
+        setLayout(new GridLayout(1, SECTION_KEYS.length));
         setPreferredSize(new Dimension(0, 60));
-        for (int i = 0; i < SECTIONS.length; i++) {
-            add(createNavItem(SECTIONS[i], ICONS[i]));
+        for (int i = 0; i < SECTION_KEYS.length; i++) {
+            add(createNavItem(SECTION_KEYS[i], SECTION_TEXTS[i], ICONS[i], i));
         }
     }
 
@@ -40,14 +48,15 @@ public class NavigationBar extends JPanel {
     }
 
     private void updateSelectedVisual() {
-        for (JLabel label : textLabels) {
-            label.setForeground(selected.equals(label.getText()) ? SELECTED_COLOR : UNSELECTED_COLOR);
-            label.repaint();
+        for (int i = 0; i < SECTION_KEYS.length; i++) {
+            boolean isSelected = SECTION_KEYS[i].equals(selected);
+            textLabels.get(i).setForeground(isSelected ? SELECTED_COLOR : UNSELECTED_COLOR);
+            textLabels.get(i).repaint();
         }
         repaint();
     }
 
-    private JPanel createNavItem(String label, String iconFilename) {
+    private JPanel createNavItem(String key, String label, String iconFilename, int index) {
         JPanel panel = new JPanel(new GridBagLayout());
         panel.setOpaque(false);
 
@@ -59,10 +68,11 @@ public class NavigationBar extends JPanel {
         ImageIcon icon = loadIcon(iconFilename, 22, 22);
         JLabel iconLabel = new JLabel(icon);
         iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        iconLabel.setForeground(SECTION_KEYS[index].equals(selected) ? SELECTED_COLOR : UNSELECTED_COLOR);
 
         JLabel textLabel = new JLabel(label);
         textLabel.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
-        textLabel.setForeground(selected.equals(label) ? SELECTED_COLOR : UNSELECTED_COLOR);
+        textLabel.setForeground(SECTION_KEYS[index].equals(selected) ? SELECTED_COLOR : UNSELECTED_COLOR);
         textLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         textLabels.add(textLabel);
         
@@ -70,7 +80,7 @@ public class NavigationBar extends JPanel {
         inner.add(Box.createVerticalStrut(4));
         inner.add(textLabel);
         panel.add(inner);
-        panel.putClientProperty("navLabel", label);
+        panel.putClientProperty("navKey", key);
         return panel;
     }
 

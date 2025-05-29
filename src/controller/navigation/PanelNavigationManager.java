@@ -32,20 +32,20 @@ public class PanelNavigationManager {
                 itemPanel.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
-                        String label = (String) itemPanel.getClientProperty("navLabel");
-                        if (label == null) {
-                            System.err.println("Nav item label is null!");
+                        String navKey = (String) itemPanel.getClientProperty("navKey");
+                        if (navKey == null) {
+                            System.err.println("Nav item key is null!");
                             return;
                         }
-                        navigateTo(label);
+                        navigateTo(navKey);
                     }
                 });
             }
         }
     }
 
-    private void navigateTo(String label) {
-        String panelName = labelToPanelName.getOrDefault(label, label);
+    private void navigateTo(String navKey) {
+        String panelName = labelToPanelName.getOrDefault(navKey, navKey);
         mainFrame.showPanel(panelName);
     }
 }
