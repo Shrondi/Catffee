@@ -5,7 +5,7 @@ import java.awt.*;
 
 import components.button.RoundedButton;
 import model.ProductData;
-import controller.ProductOrderController;
+import controller.order.ProductOrderController;
 
 public class ProductCard extends JPanel {
     private int quantity = 1;

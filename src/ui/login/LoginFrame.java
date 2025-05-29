@@ -6,8 +6,8 @@ import components.field.RoundedPasswordField;
 import components.field.RoundedTextField;
 import components.button.RoundedButton;
 import ui.BaseFrame;
-import controller.NavigationHost;
-import controller.LoginController;
+import controller.navigation.NavigationHost;
+import controller.user.LoginController;
 
 public class LoginFrame extends BaseFrame {
 

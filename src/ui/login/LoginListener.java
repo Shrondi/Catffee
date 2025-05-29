@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import controller.LoginController;
+import controller.user.LoginController;
 
 public class LoginListener extends MouseAdapter implements ActionListener {
 

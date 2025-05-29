@@ -5,7 +5,7 @@ import components.panel.ProductCard;
 import model.ProductData;
 import javax.swing.*;
 import java.awt.*;
-import controller.ProductOrderController;
+import controller.order.ProductOrderController;
 
 public class OrderPanel extends JPanel {
     private JPanel itemsPanel = new JPanel();

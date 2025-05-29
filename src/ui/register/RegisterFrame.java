@@ -6,8 +6,8 @@ import components.field.RoundedTextField;
 import javax.swing.*;
 import java.awt.*;
 import ui.BaseFrame;
-import controller.NavigationHost;
-import controller.RegisterController;
+import controller.navigation.NavigationHost;
+import controller.user.RegisterController;
 
 public class RegisterFrame extends BaseFrame {
 

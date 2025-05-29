@@ -1,10 +1,10 @@
-package controller;
+package controller.cat;
 
 import ui.cats.CatAdoptListener;
 import model.CatProfile;
 import model.CatProfileFactory;
 import ui.catProfile.CatProfilePanel;
-import ui.MainFrame;
+import ui.main.MainFrame;
 
 public class CatProfileController implements CatAdoptListener {
     private final MainFrame mainFrame;

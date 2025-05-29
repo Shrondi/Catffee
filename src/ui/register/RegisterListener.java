@@ -1,12 +1,11 @@
 package ui.register;
 
-import controller.RegisterController;
+import controller.user.RegisterController;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.*;
-import java.io.File;
 
 public class RegisterListener extends MouseAdapter implements ActionListener {
 

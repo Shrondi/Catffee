@@ -2,7 +2,7 @@ package ui.welcome;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import controller.WelcomeController;
+import controller.user.WelcomeController;
 
 class WelcomeListener implements ActionListener {
 

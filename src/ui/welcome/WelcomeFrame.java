@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import components.button.RoundedButton;
 import ui.BaseFrame;
-import controller.NavigationHost;
-import controller.WelcomeController;
+import controller.navigation.NavigationHost;
+import controller.user.WelcomeController;
 
 public class WelcomeFrame extends BaseFrame {
 
