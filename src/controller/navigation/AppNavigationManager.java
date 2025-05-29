@@ -1,6 +1,6 @@
-package controller;
+package controller.navigation;
 
-import ui.MainFrame;
+import ui.main.MainFrame;
 import ui.login.LoginFrame;
 import ui.register.RegisterFrame;
 import ui.welcome.WelcomeFrame;

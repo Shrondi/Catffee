@@ -1,7 +1,8 @@
-package controller;
+package controller.user;
 
 import ui.login.LoginFrame;
 import utils.UserStorage;
+import controller.navigation.NavigationHost;
 
 public class LoginController {
     private final LoginFrame loginFrame;

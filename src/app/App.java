@@ -1,7 +1,8 @@
-import ui.welcome.WelcomeFrame;
+package app;
+
 import utils.FontsLoader;
 import utils.UserStorage;
-import controller.AppNavigationManager;
+import controller.navigation.AppNavigationManager;
 
 public class App {
     public static void main(String[] args) {

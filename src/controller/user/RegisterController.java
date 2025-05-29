@@ -1,7 +1,8 @@
-package controller;
+package controller.user;
 
 import ui.register.RegisterFrame;
 import utils.UserStorage;
+import controller.navigation.NavigationHost;
 import javax.swing.*;
 import java.io.File;
 

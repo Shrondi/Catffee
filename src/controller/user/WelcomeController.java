@@ -1,7 +1,7 @@
-package controller;
+package controller.user;
 
 import ui.welcome.WelcomeFrame;
-import controller.NavigationHost;
+import controller.navigation.NavigationHost;
 
 public class WelcomeController {
     private final WelcomeFrame welcomeFrame;

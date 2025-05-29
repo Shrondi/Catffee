@@ -1,4 +1,4 @@
-package ui;
+package ui.main;
 
 import ui.menu.MenuPanel;
 import ui.home.HomePanel;
@@ -6,16 +6,16 @@ import ui.cats.CatsPanel;
 import ui.order.OrderPanel;
 import model.ProductData;
 import components.bar.NavigationBar;
-import controller.ProductOrderController;
-import controller.CatProfileController;
-import controller.NavigationHost;
-import controller.NavigationManager;
+import controller.order.ProductOrderController;
+import controller.cat.CatProfileController;
+import controller.navigation.NavigationHost;
+import controller.navigation.PanelNavigationManager;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 
-public class MainFrame extends BaseFrame {
+public class MainFrame extends ui.BaseFrame {
     private CardLayout cardLayout;
     private JPanel cardPanel;
     private OrderPanel orderPanel;
@@ -76,7 +76,7 @@ public class MainFrame extends BaseFrame {
             "Pedido", ORDER,
             "Gatos", CATS
         );
-        new NavigationManager(this, navBar, labelToPanelName);
+        new PanelNavigationManager(this, navBar, labelToPanelName);
         add(navBar, BorderLayout.SOUTH);
     }
 

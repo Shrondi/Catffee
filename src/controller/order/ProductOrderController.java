@@ -1,10 +1,8 @@
-package controller;
+package controller.order;
 
 import model.OrderCart;
 import model.ProductData;
-import components.panel.ProductCard;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.ArrayList;
 
 public class ProductOrderController {

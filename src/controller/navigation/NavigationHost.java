@@ -1,4 +1,4 @@
-package controller;
+package controller.navigation;
 
 public interface NavigationHost {
     void showMainFrame();

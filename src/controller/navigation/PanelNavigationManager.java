@@ -1,18 +1,18 @@
-package controller;
+package controller.navigation;
 
 import javax.swing.*;
 import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Map;
-import ui.MainFrame;
+import ui.main.MainFrame;
 
-public class NavigationManager {
+public class PanelNavigationManager {
     private final MainFrame mainFrame;
     private final JPanel navBar;
     private final Map<String, String> labelToPanelName;
 
-    public NavigationManager(MainFrame mainFrame, JPanel navBar, Map<String, String> labelToPanelName) {
+    public PanelNavigationManager(MainFrame mainFrame, JPanel navBar, Map<String, String> labelToPanelName) {
         this.mainFrame = mainFrame;
         this.navBar = navBar;
         this.labelToPanelName = labelToPanelName;
