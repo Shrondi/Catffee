@@ -3,7 +3,8 @@ package app;
 import utils.FontsLoader;
 import utils.UserStorage;
 import controller.navigation.AppNavigationManager;
-
+import utils.I18n;
+import java.util.Locale;
 /**
  * Clase principal de la aplicación Catffee. Inicializa fuentes, usuarios y lanza la navegación principal.
  *
@@ -22,6 +23,8 @@ public class App {
     public static void main(String[] args) {
         FontsLoader.inicializar(); // Inicializar las fuentes
         UserStorage.init("usuarios.txt");
+
+        I18n.setLocale(Locale.forLanguageTag("es-ES"));
 
         AppNavigationManager navigationManager = new AppNavigationManager();
         navigationManager.start();
