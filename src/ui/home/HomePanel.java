@@ -2,6 +2,7 @@ package ui.home;
 
 import components.panel.ProductBox;
 import model.ProductData;
+import model.Products;
 import utils.UserStorage;
 
 import javax.swing.*;
@@ -40,7 +41,7 @@ public class HomePanel extends JPanel {
     }
 
     private JLabel headerImage() {
-        ImageIcon icon = new ImageIcon("resources/images/cabecera_bienvenida.png");
+        ImageIcon icon = new ImageIcon("resources/images/ui/cabecera_bienvenida.png");
         Image scaled = icon.getImage().getScaledInstance(412, 330, Image.SCALE_SMOOTH);
         JLabel label = new JLabel(new ImageIcon(scaled));
         label.setAlignmentX(0.5f);
@@ -90,24 +91,16 @@ public class HomePanel extends JPanel {
         JPanel grid = new JPanel(new GridLayout(0, 2, 12, 12));
         grid.setBackground(new Color(0xF7F7F7));
         grid.setAlignmentX(Component.CENTER_ALIGNMENT);
-        String[] names = {"Meowcha", "Catpuccino", "Gatogalletas", "Pawffins", "Empanacat", "Pink Paw"};
-        String[] descriptions = {"Moka", "Deep Foam", "Crumble-cookies", "Muffin choco", "Carne o verdura", "Limonada frutos"};
-        double[] prices = {3.50, 3.20, 2.50, 2.80, 2.80, 3.20};
-        String[] images = {
-            "resources/images/meowcha.png",
-            "resources/images/catpuccino.png",
-            "resources/images/gatogalletas.png",
-            "resources/images/pawffins.png",
-            "resources/images/empanacat.png",
-            "resources/images/pink_paw.png"
+
+        ProductData[] destacados = new ProductData[] {
+            Products.getCoffeeProducts().get(0),
+            Products.getCoffeeProducts().get(1),
+            Products.getDesserts().get(2),
+            Products.getDesserts().get(0),
+            Products.getSaltyFood().get(0),
+            Products.getColdDrinks().get(4)
         };
-        for (int i = 0; i < names.length; i++) {
-            ProductData product = new ProductData.Builder()
-                                                .setName(names[i])
-                                                .setDescription(descriptions[i])
-                                                .setPrice(prices[i])
-                                                .setImagePath(images[i])
-                                                .build();
+        for (ProductData product : destacados) {
             grid.add(new ProductBox(product, () -> fireProductAdded(product)));
         }
         return grid;
