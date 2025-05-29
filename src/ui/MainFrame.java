@@ -8,9 +8,12 @@ import model.ProductData;
 import components.bar.NavigationBar;
 import controller.ProductOrderController;
 import controller.CatProfileController;
+import controller.NavigationHost;
+import controller.NavigationManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Map;
 
 public class MainFrame extends BaseFrame {
     private CardLayout cardLayout;
@@ -18,6 +21,7 @@ public class MainFrame extends BaseFrame {
     private OrderPanel orderPanel;
     private String currentSection = "Inicio";
     private NavigationBar navBar;
+    private final NavigationHost navigationHost;
 
     public static final String HOME = "HOME";
     public static final String MENU = "MENU";
@@ -25,47 +29,58 @@ public class MainFrame extends BaseFrame {
     public static final String ORDER = "ORDER";
     public static final String CAT_PROFILE = "CAT_PROFILE";
 
-    public MainFrame() {
+    public MainFrame(NavigationHost navigationHost) {
         super("Catffee");
-
+        this.navigationHost = navigationHost;
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
         setBackground(Color.decode("#F9F9F9"));
 
-        // Crear el controlador del pedido (sin argumentos)
-        ProductOrderController orderController = new controller.ProductOrderController();
-
-        // Paneles principales
-        HomePanel homePanel = new HomePanel(this::handleProductAdded);
-        cardPanel.add(homePanel, HOME);
-
-        orderPanel = new OrderPanel(orderController);
-        cardPanel.add(orderPanel, ORDER);
-
-        MenuPanel menuPanel = new MenuPanel(this::handleProductAdded);
-        cardPanel.add(menuPanel, MENU);
-
-        CatsPanel catsPanel = new CatsPanel();
-        CatProfileController catProfileController = new CatProfileController((panelName, panel) -> {
-            cardPanel.add(panel, panelName);
-            showPanel(panelName);
-        });
-        catsPanel.setCatAdoptListener(catProfileController);
-        cardPanel.add(catsPanel, CATS);
-
+        initHomePanel();
+        initOrderPanel();
+        initMenuPanel();
+        initCatsPanel();
         add(cardPanel, BorderLayout.CENTER);
 
-        navBar = new components.bar.NavigationBar(currentSection);
-        new controller.NavigationManager(this, navBar);
+        initNavigationBar();
+    }
+
+    private void initHomePanel() {
+        HomePanel homePanel = new HomePanel(this::handleProductAdded);
+        cardPanel.add(homePanel, HOME);
+    }
+
+    private void initOrderPanel() {
+        ProductOrderController orderController = new ProductOrderController();
+        orderPanel = new OrderPanel(orderController);
+        cardPanel.add(orderPanel, ORDER);
+    }
+
+    private void initMenuPanel() {
+        MenuPanel menuPanel = new MenuPanel(this::handleProductAdded);
+        cardPanel.add(menuPanel, MENU);
+    }
+
+    private void initCatsPanel() {
+        CatsPanel catsPanel = new CatsPanel();
+        CatProfileController catProfileController = new CatProfileController(this);
+        catsPanel.setCatAdoptListener(catProfileController);
+        cardPanel.add(catsPanel, CATS);
+    }
+
+    private void initNavigationBar() {
+        navBar = new NavigationBar(currentSection);
+        Map<String, String> labelToPanelName = Map.of(
+            "Inicio", HOME,
+            "Carta", MENU,
+            "Pedido", ORDER,
+            "Gatos", CATS
+        );
+        new NavigationManager(this, navBar, labelToPanelName);
         add(navBar, BorderLayout.SOUTH);
     }
 
-    private void handleProductAdded(ProductData product) {
-        orderPanel.addProductCard(product);
-    }
-
-    public void showPanel(String panelName) {
-        cardLayout.show(cardPanel, panelName);
+    private void updateNavBar(String panelName) {
         switch (panelName) {
             case HOME -> currentSection = "Inicio";
             case MENU -> currentSection = "Carta";
@@ -75,5 +90,31 @@ public class MainFrame extends BaseFrame {
             default -> currentSection = "";
         }
         navBar.setSelectedSection(currentSection);
+    }
+
+    public void showPanel(String panelName) {
+        cardLayout.show(cardPanel, panelName);
+        updateNavBar(panelName);
+    }
+
+    private void handleProductAdded(ProductData product) {
+        orderPanel.addProductCard(product);
+    }
+
+    public void showPanel(String panelName, JPanel panel) {
+        // Elimina el panel anterior con el mismo nombre si existe
+        Component oldPanel = null;
+        for (Component comp : cardPanel.getComponents()) {
+            if (panelName.equals(comp.getName())) {
+                oldPanel = comp;
+                break;
+            }
+        }
+        if (oldPanel != null) {
+            cardPanel.remove(oldPanel);
+        }
+        panel.setName(panelName);
+        cardPanel.add(panel, panelName);
+        cardLayout.show(cardPanel, panelName);
     }
 }
