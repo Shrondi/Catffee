@@ -4,7 +4,6 @@ import ui.menu.MenuPanel;
 import ui.home.HomePanel;
 import ui.cats.CatsPanel;
 import ui.order.OrderPanel;
-import ui.catProfile.CatProfilePanel;
 import model.ProductData;
 import components.bar.NavigationBar;
 import controller.ProductOrderController;
