@@ -25,7 +25,7 @@ public class MenuPanel extends JPanel {
         layeredPane.setPreferredSize(new Dimension(412, 917));
 
         // Fondo con imagen
-        JLabel backgroundLabel = background("resources/images/menu_bg.jpeg", 412, 917);
+        JLabel backgroundLabel = background("resources/images/ui/menu_bg.jpeg", 412, 917);
         layeredPane.add(backgroundLabel, Integer.valueOf(0));
 
         // Contenido principal transparente sobre el fondo

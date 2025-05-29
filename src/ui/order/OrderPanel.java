@@ -112,7 +112,7 @@ public class OrderPanel extends JPanel {
         contentPanel.add(Box.createVerticalStrut(150));
 
         // Icono carrito
-        ImageIcon icon = new ImageIcon("resources/images/cart.png");
+        ImageIcon icon = new ImageIcon("resources/images/ui/cart.png");
         Image scaledImage = icon.getImage().getScaledInstance(113, 108, Image.SCALE_SMOOTH);
         JLabel iconLabel = new JLabel(new ImageIcon(scaledImage));
         iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);

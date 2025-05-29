@@ -51,14 +51,14 @@ public class CatsPanel extends JPanel {
         contentPanel.add(descriptionPanel);
         String[] cats = { "Alfil", "Cherry", "Abi", "Flush", "Gulliver", "Membrillo", "Mazinger", "Sylvestre" };
         String[] images = {
-            "resources/images/alfil1.png",
-            "resources/images/cherry1.png",
-            "resources/images/abi1.png",
-            "resources/images/flush1.png",
-            "resources/images/gulliver1.png",
-            "resources/images/membrillo1.png",
-            "resources/images/mazinger1.png",
-            "resources/images/sylvestre1.png"
+            "resources/images/cats/alfil/alfil1.png",
+            "resources/images/cats/cherry/cherry1.png",
+            "resources/images/cats/abi/abi1.png",
+            "resources/images/cats/flush/flush1.png",
+            "resources/images/cats/gulliver/gulliver1.png",
+            "resources/images/cats/membrillo/membrillo1.png",
+            "resources/images/cats/mazinger/mazinger1.png",
+            "resources/images/cats/sylvestre/sylvestre1.png"
         };
         JPanel gridPanel = new JPanel(new GridBagLayout());
         gridPanel.setOpaque(false);

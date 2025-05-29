@@ -64,7 +64,7 @@ public class WelcomeFrame extends BaseFrame {
     }
 
     private JLabel addCatImage() {
-        ImageIcon logo = new ImageIcon("resources/images/logo.png");
+        ImageIcon logo = new ImageIcon("resources/images/ui/logo.png");
         logo = new ImageIcon(logo.getImage().getScaledInstance(228, 228, Image.SCALE_SMOOTH));
         JLabel catImage = new JLabel(logo);
         catImage.setAlignmentX(Component.CENTER_ALIGNMENT);
