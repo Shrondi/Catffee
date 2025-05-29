@@ -4,9 +4,11 @@ import ui.menu.MenuPanel;
 import ui.home.HomePanel;
 import ui.cats.CatsPanel;
 import ui.order.OrderPanel;
+import ui.catProfile.CatProfilePanel;
 import model.ProductData;
 import components.bar.NavigationBar;
 import controller.ProductOrderController;
+import controller.CatProfileController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,6 +24,7 @@ public class MainFrame extends BaseFrame {
     public static final String MENU = "MENU";
     public static final String CATS = "CATS";
     public static final String ORDER = "ORDER";
+    public static final String CAT_PROFILE = "CAT_PROFILE";
 
     public MainFrame() {
         super("Catffee");
@@ -44,6 +47,11 @@ public class MainFrame extends BaseFrame {
         cardPanel.add(menuPanel, MENU);
 
         CatsPanel catsPanel = new CatsPanel();
+        CatProfileController catProfileController = new CatProfileController((panelName, panel) -> {
+            cardPanel.add(panel, panelName);
+            showPanel(panelName);
+        });
+        catsPanel.setCatAdoptListener(catProfileController);
         cardPanel.add(catsPanel, CATS);
 
         add(cardPanel, BorderLayout.CENTER);
@@ -64,6 +72,7 @@ public class MainFrame extends BaseFrame {
             case MENU -> currentSection = "Carta";
             case ORDER -> currentSection = "Pedido";
             case CATS -> currentSection = "Gatos";
+            case CAT_PROFILE -> currentSection = "Gatos";
             default -> currentSection = "";
         }
         navBar.setSelectedSection(currentSection);

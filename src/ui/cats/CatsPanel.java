@@ -9,6 +9,11 @@ import java.awt.*;
 
 public class CatsPanel extends JPanel {
 
+    private CatAdoptListener adoptListener;
+    public void setCatAdoptListener(CatAdoptListener listener) {
+        this.adoptListener = listener;
+    }
+
     public CatsPanel() {
         setLayout(new BorderLayout());
         GradientPanel background = new GradientPanel(new Color(0xBD6E36), new Color(0xCDCDCD), true);
@@ -112,6 +117,11 @@ public class CatsPanel extends JPanel {
         adoptButton.setPreferredSize(new Dimension(113, 22));
         adoptButton.setMaximumSize(new Dimension(113, 22));
         adoptButton.setFont(new Font("Sora Semibold", Font.PLAIN, 12));
+        adoptButton.addActionListener(_ -> {
+            if (adoptListener != null) {
+                adoptListener.onAdoptCat(name);
+            }
+        });
         card.add(imgLabel);
         card.add(Box.createVerticalStrut(10));
         card.add(nameLabel);
