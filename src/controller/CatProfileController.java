@@ -1,24 +1,24 @@
 package controller;
 
 import ui.cats.CatAdoptListener;
+import model.CatProfile;
 import model.CatProfileFactory;
 import ui.catProfile.CatProfilePanel;
-import javax.swing.JPanel;
-import java.util.function.BiConsumer;
+import ui.MainFrame;
 
 public class CatProfileController implements CatAdoptListener {
-    private final BiConsumer<String, JPanel> showPanelCallback;
+    private final MainFrame mainFrame;
 
-    public CatProfileController(BiConsumer<String, JPanel> showPanelCallback) {
-        this.showPanelCallback = showPanelCallback;
+    public CatProfileController(MainFrame mainFrame) {
+        this.mainFrame = mainFrame;
     }
 
     @Override
     public void onAdoptCat(String catName) {
-        var profile = CatProfileFactory.getByName(catName);
+        CatProfile profile = CatProfileFactory.getByName(catName);
         if (profile != null) {
             CatProfilePanel panel = new CatProfilePanel(profile);
-            showPanelCallback.accept("CAT_PROFILE", panel);
+            mainFrame.showPanel("CAT_PROFILE", panel);
         }
     }
 } 

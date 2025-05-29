@@ -152,28 +152,23 @@ public class OrderPanel extends JPanel {
     }
 
     private void refreshCartView() {
-
-        if (controller.getProductCards().isEmpty()){
+        if (controller.getCartItems().isEmpty()) {
             remove(productPanel);
             remove(southPanel);
-
             add(emptyCart, BorderLayout.CENTER);
-        }else{
+        } else {
             remove(emptyCart);
-
             add(productPanel, BorderLayout.CENTER);
             add(southPanel, BorderLayout.SOUTH);
-        
             itemsPanel.removeAll();
-
-            for (ProductCard card : controller.getProductCards()) {
+            for (var item : controller.getCartItems()) {
+                ProductCard card = new ProductCard(item.data, controller);
+                card.setQuantity(item.quantity);
                 itemsPanel.add(card);
                 itemsPanel.add(Box.createVerticalStrut(10));
             }
-
             updateTotalLabel();
         }
-        
         revalidate();
         repaint();
     }

@@ -23,14 +23,8 @@ public class ProductOrderController {
         notifyListeners();
     }
 
-    public List<ProductCard> getProductCards() {
-        return cart.getItems().values().stream()
-            .map(item -> {
-                ProductCard card = new ProductCard(item.data, this);
-                card.setQuantity(item.quantity);
-                return card;
-            })
-            .collect(Collectors.toList());
+    public List<OrderCart.CartItem> getCartItems() {
+        return new ArrayList<>(cart.getItems().values());
     }
 
     public double getTotal() {
