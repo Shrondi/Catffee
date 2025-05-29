@@ -6,6 +6,17 @@ import model.ProductData;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Componente visual para mostrar un producto en la carta de Catffee.
+ * Incluye imagen, nombre, descripción, precio y botón para añadir al pedido.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Panel visual para un producto de la carta.
+ */
 public class ProductBox extends RoundedPanel {
 
     private static final int WIDTH = 160;

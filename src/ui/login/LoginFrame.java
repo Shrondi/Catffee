@@ -9,6 +9,17 @@ import ui.BaseFrame;
 import controller.navigation.NavigationHost;
 import controller.user.LoginController;
 
+/**
+ * Ventana de inicio de sesión para Catffee.
+ * Permite al usuario autenticarse y navegar entre pantallas.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Frame de login de usuario.
+ */
 public class LoginFrame extends BaseFrame {
 
     private LoginListener listener;
@@ -23,6 +34,11 @@ public class LoginFrame extends BaseFrame {
 
     private final NavigationHost navigationHost;
 
+    /**
+     * Crea la ventana de login.
+     * @param title Título de la ventana
+     * @param navigationHost Navegador de pantallas
+     */
     public LoginFrame(String title, NavigationHost navigationHost) {
         super(title);
         this.navigationHost = navigationHost;

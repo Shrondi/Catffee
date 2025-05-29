@@ -3,6 +3,14 @@ package components.panel;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel con bordes redondeados y sombra para Catffee.
+ * Permite personalizar el radio, color de fondo y borde.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class RoundedPanel extends JPanel {
     private int cornerRadius = 20;
     private Color backgroundColor = Color.WHITE;
@@ -24,7 +32,11 @@ public class RoundedPanel extends JPanel {
         setOpaque(false);
     }
 
-    // Nuevo setter para borde
+    /**
+     * Establece el color y grosor del borde.
+     * @param color Color del borde
+     * @param thickness Grosor del borde
+     */
     public void setBorder(Color color, int thickness) {
         this.borderColor = color;
         this.borderThickness = thickness;

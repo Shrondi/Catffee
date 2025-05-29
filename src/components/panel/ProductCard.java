@@ -7,6 +7,17 @@ import components.button.RoundedButton;
 import model.ProductData;
 import controller.order.ProductOrderController;
 
+/**
+ * Componente visual para mostrar un producto en el pedido de Catffee.
+ * Incluye imagen, nombre, cantidad, precio y botones para modificar la cantidad.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Panel visual para un producto en el carrito/pedido.
+ */
 public class ProductCard extends JPanel {
     private int quantity = 1;
     private final JLabel quantityLabel;

@@ -7,6 +7,16 @@ import javax.swing.*;
 import java.awt.*;
 import controller.order.ProductOrderController;
 
+/**
+ * Panel de pedido para Catffee. Muestra los productos añadidos al carrito y permite modificar cantidades y finalizar el pedido.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Panel que gestiona la visualización y edición del pedido actual.
+ */
 public class OrderPanel extends JPanel {
     private JPanel itemsPanel = new JPanel();
     private JLabel totalLabel;

@@ -6,6 +6,13 @@ import model.CatProfileFactory;
 import ui.catProfile.CatProfilePanel;
 import ui.main.MainFrame;
 
+/**
+ * Controlador para la lógica de visualización y adopción de perfiles de gatos en Catffee.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class CatProfileController implements CatAdoptListener {
     private final MainFrame mainFrame;
 

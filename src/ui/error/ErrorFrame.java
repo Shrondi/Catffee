@@ -6,6 +6,16 @@ import java.awt.*;
 
 import components.button.RoundedButton;
 
+/**
+ * Ventana de error para Catffee. Muestra un mensaje y permite reintentar la acción.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Frame de error que muestra un mensaje y un botón para reintentar.
+ */
 public class ErrorFrame extends BaseFrame {
     private JPanel mainPanel;
 

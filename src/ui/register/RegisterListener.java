@@ -7,6 +7,14 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.*;
 
+/**
+ * Listener para eventos de la pantalla de registro en Catffee.
+ * Gestiona acciones de usuario en el formulario de registro.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class RegisterListener extends MouseAdapter implements ActionListener {
 
     private final RegisterController controller;

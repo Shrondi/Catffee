@@ -7,6 +7,13 @@ import java.awt.event.MouseEvent;
 import java.util.Map;
 import ui.main.MainFrame;
 
+/**
+ * Gestor de navegación entre paneles secundarios en Catffee (por ejemplo, navegación lateral).
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class PanelNavigationManager {
     private final MainFrame mainFrame;
     private final JPanel navBar;

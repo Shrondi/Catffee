@@ -6,6 +6,14 @@ import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
+/**
+ * Campo de texto con bordes redondeados y estilos personalizados para Catffee.
+ * Permite personalizar el radio, color de borde y placeholder.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class RoundedTextField extends JTextField {
     private int radius;
     private Color borderColor = Color.GRAY;
@@ -15,6 +23,9 @@ public class RoundedTextField extends JTextField {
     private Color textColor = Color.BLACK;
     private boolean showingPlaceholder = true;
 
+    /**
+     * Campo de texto personalizado con esquinas redondeadas.
+     */
     public RoundedTextField(int radius) {
         this.radius = radius;
         setOpaque(false);

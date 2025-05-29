@@ -1,6 +1,18 @@
 package model;
 
+/**
+ * Clase utilitaria para obtener los perfiles de gatos disponibles en Catffee.
+ * Proporciona métodos para cada gato.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class CatProfiles {
+    /**
+     * Perfil de Abi.
+     * @return CatProfile de Abi
+     */
     public static CatProfile abi() {
         return new CatProfile.Builder()
             .name("ABI")
@@ -16,6 +28,10 @@ public class CatProfiles {
             .build();
     }
 
+    /**
+     * Perfil de Alfil.
+     * @return CatProfile de Alfil
+     */
     public static CatProfile alfil() {
         return new CatProfile.Builder()
             .name("ALFIL")
@@ -31,6 +47,10 @@ public class CatProfiles {
             .build();
     }
 
+    /**
+     * Perfil de Cherry.
+     * @return CatProfile de Cherry
+     */
     public static CatProfile cherry() {
         return new CatProfile.Builder()
             .name("CHERRY")
@@ -46,6 +66,10 @@ public class CatProfiles {
             .build();
     }
 
+    /**
+     * Perfil de Flush.
+     * @return CatProfile de Flush
+     */
     public static CatProfile flush() {
         return new CatProfile.Builder()
             .name("FLUSH")
@@ -61,6 +85,10 @@ public class CatProfiles {
             .build();
     }
 
+    /**
+     * Perfil de Gulliver.
+     * @return CatProfile de Gulliver
+     */
     public static CatProfile gulliver() {
         return new CatProfile.Builder()
             .name("GULLIVER")
@@ -76,6 +104,10 @@ public class CatProfiles {
             .build();
     }
 
+    /**
+     * Perfil de Mazinger.
+     * @return CatProfile de Mazinger
+     */
     public static CatProfile mazinger() {
         return new CatProfile.Builder()
             .name("MAZINGER")
@@ -91,6 +123,10 @@ public class CatProfiles {
             .build();
     }
 
+    /**
+     * Perfil de Membrillo.
+     * @return CatProfile de Membrillo
+     */
     public static CatProfile membrillo() {
         return new CatProfile.Builder()
             .name("MEMBRILLO")
@@ -106,6 +142,10 @@ public class CatProfiles {
             .build();
     }
 
+    /**
+     * Perfil de Sylvestre.
+     * @return CatProfile de Sylvestre
+     */
     public static CatProfile sylvestre() {
         return new CatProfile.Builder()
             .name("SYLVESTRE")
@@ -120,6 +160,4 @@ public class CatProfiles {
             )
             .build();
     }
-
-    
 }

@@ -2,8 +2,20 @@ package model;
 
 import java.util.List;
 
+/**
+ * Clase utilitaria para obtener los productos disponibles en Catffee.
+ * Proporciona métodos para obtener productos por categoría.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class Products {
 
+    /**
+     * Devuelve la lista de productos de café.
+     * @return Lista de productos de café
+     */
     public static List<ProductData> getCoffeeProducts() {
         return List.of(
             new ProductData.Builder()
@@ -69,6 +81,10 @@ public class Products {
         );
     }
 
+    /**
+     * Devuelve la lista de bebidas frías.
+     * @return Lista de bebidas frías
+     */
     public static List<ProductData> getColdDrinks() {
         return List.of(
             new ProductData.Builder()
@@ -104,6 +120,10 @@ public class Products {
         );
     }
 
+    /**
+     * Devuelve la lista de postres.
+     * @return Lista de postres
+     */
     public static List<ProductData> getDesserts() {
         return List.of(
             new ProductData.Builder()
@@ -139,6 +159,10 @@ public class Products {
         );
     }
 
+    /**
+     * Devuelve la lista de productos salados.
+     * @return Lista de productos salados
+     */
     public static List<ProductData> getSaltyFood() {
         return List.of(
             new ProductData.Builder()

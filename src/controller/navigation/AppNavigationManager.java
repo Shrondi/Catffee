@@ -7,6 +7,16 @@ import ui.welcome.WelcomeFrame;
 
 import javax.swing.*;
 
+/**
+ * Gestor de navegación principal para Catffee. Controla el cambio entre frames principales.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Implementación de NavigationHost para gestionar la navegación entre pantallas principales.
+ */
 public class AppNavigationManager implements NavigationHost {
     private JFrame currentFrame;
 

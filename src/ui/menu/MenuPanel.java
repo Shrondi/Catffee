@@ -9,15 +9,31 @@ import java.awt.*;
 import java.util.List;
 import java.util.function.Consumer;
 
+/**
+ * Panel de menú principal de Catffee. Muestra las categorías de productos y permite añadir productos al pedido.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class MenuPanel extends JPanel {
+    /** Callback para notificar cuando se añade un producto al pedido. */
     private final Consumer<ProductData> onProductAdded;
 
+    /**
+     * Crea el panel de menú.
+     * @param onProductAdded función a ejecutar cuando se añade un producto
+     */
     public MenuPanel(Consumer<ProductData> onProductAdded) {
         this.onProductAdded = onProductAdded;
         setLayout(new BorderLayout());
         add(mainPanel(), BorderLayout.CENTER);
     }
 
+    /**
+     * Construye el panel principal con fondo y contenido.
+     * @return JPanel principal
+     */
     private JPanel mainPanel() {
         JPanel backgroundPanel = new JPanel(new BorderLayout());
 
@@ -42,6 +58,13 @@ public class MenuPanel extends JPanel {
         return backgroundPanel;
     }
 
+    /**
+     * Crea un JLabel con la imagen de fondo escalada.
+     * @param imagePath Ruta de la imagen
+     * @param width Ancho
+     * @param height Alto
+     * @return JLabel con la imagen
+     */
     private JLabel background(String imagePath, int width, int height) {
         ImageIcon icon = new ImageIcon(imagePath);
         Image scaled = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
@@ -51,6 +74,10 @@ public class MenuPanel extends JPanel {
         return label;
     }
 
+    /**
+     * Construye la barra superior con el título.
+     * @return JPanel de la barra superior
+     */
     private JPanel topBar() {
         JPanel topBar = new JPanel(new BorderLayout());
         topBar.setBackground(Color.decode("#252424"));
@@ -66,6 +93,10 @@ public class MenuPanel extends JPanel {
         return topBar;
     }
 
+    /**
+     * Construye el scroll con las categorías de productos.
+     * @return JScrollPane con el contenido
+     */
     private JScrollPane scrollContent() {
         JPanel container = new JPanel();
         container.setOpaque(false);
@@ -100,6 +131,12 @@ public class MenuPanel extends JPanel {
         return scrollPane;
     }
 
+    /**
+     * Construye una sección de categoría de productos.
+     * @param title Título de la categoría
+     * @param products Lista de productos
+     * @return JPanel de la categoría
+     */
     private JPanel categorySection(String title, List<ProductData> products) {
         JPanel section = new JPanel();
         section.setOpaque(false);
@@ -133,6 +170,10 @@ public class MenuPanel extends JPanel {
         return section;
     }
 
+    /**
+     * Llama al callback cuando se añade un producto.
+     * @param product producto añadido
+     */
     private void fireProductAdded(ProductData product) {
         if (onProductAdded != null) {
             onProductAdded.accept(product);

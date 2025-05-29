@@ -5,6 +5,13 @@ import model.ProductData;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Controlador para la lógica del pedido de productos en Catffee.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class ProductOrderController {
     private final OrderCart cart = OrderCart.getInstance();
     private final List<Runnable> listeners = new ArrayList<>();

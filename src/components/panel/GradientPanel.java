@@ -3,11 +3,22 @@ package components.panel;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel con fondo de gradiente personalizable para Catffee.
+ * Permite elegir colores y orientación del gradiente.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class GradientPanel extends JPanel {
     private Color startColor = new Color(0xBD6E36);  // BD6E36
     private Color endColor = new Color(0xCDCDCD);   // CDCDCD
     private boolean vertical = true; // Vertical por defecto
 
+    /**
+     * Panel con fondo de gradiente.
+     */
     public GradientPanel() {
         setOpaque(false);
     }

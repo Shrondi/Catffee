@@ -9,6 +9,17 @@ import ui.BaseFrame;
 import controller.navigation.NavigationHost;
 import controller.user.RegisterController;
 
+/**
+ * Ventana de registro de usuario para Catffee.
+ * Permite crear una nueva cuenta y seleccionar avatar.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Frame de registro de usuario.
+ */
 public class RegisterFrame extends BaseFrame {
 
     // Campos package-private
@@ -28,6 +39,11 @@ public class RegisterFrame extends BaseFrame {
 
     private final NavigationHost navigationHost;
 
+    /**
+     * Crea la ventana de registro.
+     * @param title Título de la ventana
+     * @param navigationHost Navegador de pantallas
+     */
     public RegisterFrame(String title, NavigationHost navigationHost) {
         super(title);
         this.navigationHost = navigationHost;
@@ -197,7 +213,10 @@ public class RegisterFrame extends BaseFrame {
         return registerButton;
     }
 
-    // Método para actualizar avatar (se puede usar desde listener)
+    /**
+     * Actualiza la imagen del avatar.
+     * @param imagePath Ruta de la imagen
+     */
     public void updateAvatarImage(String imagePath) {
         ImageIcon icon = new ImageIcon(imagePath);
         Image scaled = icon.getImage().getScaledInstance(155, 151, Image.SCALE_SMOOTH);

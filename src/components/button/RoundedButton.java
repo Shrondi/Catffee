@@ -5,6 +5,14 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * Botón con bordes redondeados y estilos personalizados para Catffee.
+ * Permite personalizar radio, color, borde y efecto hover.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class RoundedButton extends JButton {
     private int radius;
     private Color normalBackground;
@@ -12,6 +20,11 @@ public class RoundedButton extends JButton {
     private boolean isHovered = false;
     private Color borderColor = Color.WHITE;
 
+    /**
+     * Botón personalizado con esquinas redondeadas.
+     * @param text Texto del botón
+     * @param radius Radio de los bordes redondeados
+     */
     public RoundedButton(String text, int radius) {
         super(text);
         this.radius = radius;
@@ -34,10 +47,14 @@ public class RoundedButton extends JButton {
         });
     }
 
-        public void setBorderColor(Color color) {
-            this.borderColor = color;
-            repaint();
-        }
+    /**
+     * Establece el color del borde del botón.
+     * @param color Color del borde
+     */
+    public void setBorderColor(Color color) {
+        this.borderColor = color;
+        repaint();
+    }
 
     private Color createHoverColor(Color base, Color overlay, float ratio) {
         int red = (int) (base.getRed() * (1 - ratio) + overlay.getRed() * ratio);

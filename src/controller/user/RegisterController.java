@@ -6,6 +6,13 @@ import controller.navigation.NavigationHost;
 import javax.swing.*;
 import java.io.File;
 
+/**
+ * Controlador para la lógica de registro de usuario en Catffee.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class RegisterController {
     private final RegisterFrame frame;
     private final NavigationHost navigationHost;

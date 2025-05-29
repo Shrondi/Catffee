@@ -15,6 +15,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
 
+/**
+ * Ventana principal de Catffee. Gestiona la navegación entre secciones (Inicio, Carta, Gatos, Pedido, Perfil de Gato).
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Frame principal de la aplicación Catffee.
+ */
 public class MainFrame extends ui.BaseFrame {
     private CardLayout cardLayout;
     private JPanel cardPanel;

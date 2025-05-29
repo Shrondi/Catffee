@@ -6,8 +6,20 @@ import javax.swing.*;
 import java.awt.*;
 import model.CatProfile;
 
+/**
+ * Panel para mostrar el perfil detallado de un gato en Catffee.
+ * Incluye galería de imágenes y datos del gato.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class CatProfilePanel extends JPanel {
 
+    /**
+     * Crea el panel de perfil de gato.
+     * @param profile Perfil del gato a mostrar
+     */
     public CatProfilePanel(CatProfile profile) {
 
         GradientPanel background = new GradientPanel(new Color(0xBD6E36), new Color(0xCDCDCD), true);
@@ -19,6 +31,10 @@ public class CatProfilePanel extends JPanel {
         background.add(buildInfoPanel(profile));
     }
 
+    /**
+     * Crea y muestra el panel de perfil de gato en un hilo de Swing.
+     * @param profile Perfil del gato
+     */
     public static void create(CatProfile profile) {
         SwingUtilities.invokeLater(() -> {
             new CatProfilePanel(profile).setVisible(true);
