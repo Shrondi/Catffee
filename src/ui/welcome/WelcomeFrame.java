@@ -1,19 +1,21 @@
 package ui.welcome;
 
 import javax.swing.*;
-
+import java.awt.*;
 import components.button.RoundedButton;
 import ui.BaseFrame;
-
-import java.awt.*;
+import controller.NavigationHost;
+import controller.WelcomeController;
 
 public class WelcomeFrame extends BaseFrame {
 
     RoundedButton startButton;
-    private WelcomeListener listeners = new WelcomeListener(this);
+    private WelcomeListener listeners;
+    private final NavigationHost navigationHost;
 
-    public WelcomeFrame(String title) {
+    public WelcomeFrame(String title, NavigationHost navigationHost) {
         super(title);
+        this.navigationHost = navigationHost;
 
         setLayout(new BorderLayout()); //Layout de la ventana
 
@@ -38,6 +40,8 @@ public class WelcomeFrame extends BaseFrame {
         
         add(addStartButton(), BorderLayout.SOUTH);
 
+        WelcomeController controller = new WelcomeController(this, navigationHost);
+        listeners = new WelcomeListener(controller);
         startButton.addActionListener(listeners);
 
         add(mainPanel, BorderLayout.CENTER);

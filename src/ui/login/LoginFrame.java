@@ -1,27 +1,31 @@
 package ui.login;
 
 import javax.swing.*;
-
 import java.awt.*;
-
-import components.field.*;
+import components.field.RoundedPasswordField;
+import components.field.RoundedTextField;
 import components.button.RoundedButton;
 import ui.BaseFrame;
+import controller.NavigationHost;
+import controller.LoginController;
 
 public class LoginFrame extends BaseFrame {
 
-    private final LoginListener listener = new LoginListener(this);
+    private LoginListener listener;
 
     private final Box contentBox;
 
-    JLabel errorLabel;
-    RoundedTextField emailField;
-    RoundedPasswordField passwordField;
+    public JLabel errorLabel;
+    public RoundedTextField emailField;
+    public RoundedPasswordField passwordField;
     RoundedButton loginButton;
     JLabel registerLabel;
 
-    public LoginFrame(String title) {
+    private final NavigationHost navigationHost;
+
+    public LoginFrame(String title, NavigationHost navigationHost) {
         super(title);
+        this.navigationHost = navigationHost;
 
         contentBox = Box.createVerticalBox();
 
@@ -42,12 +46,15 @@ public class LoginFrame extends BaseFrame {
         contentBox.add(errorLabel);
         addSpacing(25);
 
+        // Inicializar controlador y listener
+        LoginController controller = new LoginController(this, navigationHost);
+        listener = new LoginListener(controller);
         addLoginButton();
         loginButton.addActionListener(listener);
         addSpacing(31);
 
         addRegisterLink();
-        registerLabel.addMouseListener(new LoginListener(this));
+        registerLabel.addMouseListener(new LoginListener(controller));
 
         // Centrar Box en medio de la ventana con un JPanel
         JPanel centerPanel = new JPanel();

@@ -1,31 +1,36 @@
 package ui.register;
 
 import components.button.RoundedButton;
-import components.field.*;
-
+import components.field.RoundedPasswordField;
+import components.field.RoundedTextField;
 import javax.swing.*;
 import java.awt.*;
 import ui.BaseFrame;
+import controller.NavigationHost;
+import controller.RegisterController;
 
 public class RegisterFrame extends BaseFrame {
 
     // Campos package-private
-    RoundedTextField usuarioField;
-    JLabel usuarioLabelHeader;
+    public RoundedTextField usuarioField;
+    public JLabel usuarioLabelHeader;
 
-    RoundedTextField nombreCompletoField;
-    JLabel nombreLabelHeader;
+    public RoundedTextField nombreCompletoField;
+    public JLabel nombreLabelHeader;
 
-    RoundedTextField correoField;
-    RoundedPasswordField passwordField;
-    RoundedPasswordField repeatPasswordField;
+    public RoundedTextField correoField;
+    public RoundedPasswordField passwordField;
+    public RoundedPasswordField repeatPasswordField;
 
     RoundedButton registerButton;
     JButton backButton;
     JLabel avatarLabel;
 
-    public RegisterFrame(String title) {
+    private final NavigationHost navigationHost;
+
+    public RegisterFrame(String title, NavigationHost navigationHost) {
         super(title);
+        this.navigationHost = navigationHost;
 
         // Inicializar campos
         usuarioField = new RoundedTextField(20);
@@ -47,7 +52,8 @@ public class RegisterFrame extends BaseFrame {
         add(container);
 
         // Listener para actualizar etiquetas en tiempo real
-        RegisterListener listeners = new RegisterListener(this);
+        RegisterController controller = new RegisterController(this, navigationHost);
+        RegisterListener listeners = new RegisterListener(controller, this);
         listeners.addTextListeners(usuarioField, usuarioLabelHeader, nombreCompletoField, nombreLabelHeader);
 
         // Listener para click en avatar
