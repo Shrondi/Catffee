@@ -7,6 +7,7 @@ import ui.BaseFrame;
 import utils.I18n;
 import controller.navigation.NavigationHost;
 import controller.user.WelcomeController;
+import java.util.Locale;
 
 /**
  * Ventana de bienvenida para Catffee. Permite seleccionar idioma y comenzar la experiencia.
@@ -17,17 +18,19 @@ import controller.user.WelcomeController;
  */
 /**
  * Frame de bienvenida de la aplicación.
- */import java.util.Locale;
+ */
 
 public class WelcomeFrame extends BaseFrame {
 
     RoundedButton startButton;
-    private WelcomeListener listeners;
+    private final WelcomeController controller;
     private final NavigationHost navigationHost;
+    private JComboBox<LangOption> languageSelector;
 
     public WelcomeFrame(String title, NavigationHost navigationHost) {
         super(title);
         this.navigationHost = navigationHost;
+        this.controller = new WelcomeController(this, navigationHost);
 
         setLayout(new BorderLayout()); //Layout de la ventana
 
@@ -52,31 +55,23 @@ public class WelcomeFrame extends BaseFrame {
         
         add(addStartButton(), BorderLayout.SOUTH);
 
-        WelcomeController controller = new WelcomeController(this, navigationHost);
-        listeners = new WelcomeListener(controller);
+        WelcomeListener listeners = new WelcomeListener(controller);
         startButton.addActionListener(listeners);
 
         add(mainPanel, BorderLayout.CENTER);
     }
 
     private JPanel addLanguageButton() {
-        String[] languages = {"Español", "English"};
-        JComboBox<String> languageSelector = new JComboBox<>(languages);
-        languageSelector.setSelectedItem(I18n.getCurrentLocale().getLanguage().equals("es") ? "Español" : "English");
+        LangOption[] languages = {
+            new LangOption("es", I18n.t("profile_spanish")),
+            new LangOption("en", I18n.t("profile_english"))
+        };
+        languageSelector = new JComboBox<>(languages);
+        String currentLang = I18n.getCurrentLocale().getLanguage();
+        languageSelector.setSelectedItem(currentLang.equals("es") ? languages[0] : languages[1]);
         languageSelector.setPreferredSize(new Dimension(100, 25));
         languageSelector.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 12));
-
-        languageSelector.addActionListener(e -> {
-            String selected = (String) languageSelector.getSelectedItem();
-            Locale newLocale = selected.equals("English")
-                ? Locale.UK
-                : new Locale.Builder().setLanguage("es").setRegion("ES").build();
-
-            I18n.setLocale(newLocale);
-            dispose();
-            new WelcomeFrame("Catffee").setVisible(true);
-        });
-
+        languageSelector.addActionListener(new WelcomeListener(controller));
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topPanel.setBorder(BorderFactory.createEmptyBorder(10, 5, 0, 10)); // Margen superior
@@ -96,7 +91,7 @@ public class WelcomeFrame extends BaseFrame {
     }
 
     private JLabel addWelcomeText() {
-        JLabel welcomeText = new JLabel("<html><div style='text-align: center'>¡Te damos la bienvenida a Catffee!</div></html>");
+        JLabel welcomeText = new JLabel("<html><div style='text-align: center'>" + I18n.t("welcome_title") + "</div></html>");
         welcomeText.setFont(new Font("Fredoka SemiBold", Font.PLAIN, 40));
         welcomeText.setPreferredSize(new Dimension(380, 145));
         
@@ -112,7 +107,7 @@ public class WelcomeFrame extends BaseFrame {
     }
 
     private JLabel addDescriptionText() {
-        JLabel descriptionText = new JLabel("<html><div style='text-align: center'>Relájate, disfruta de un buen café y pasa un rato con nuestros adorables gatos. ¡Haz clic para empezar!</div></html>");
+        JLabel descriptionText = new JLabel("<html><div style='text-align: center'>" + I18n.t("welcome_desc") + "</div></html>");
         descriptionText.setFont(new Font("Fredoka Regular", Font.PLAIN, 24));
         descriptionText.setPreferredSize(new Dimension(300, 146));
         descriptionText.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -122,7 +117,7 @@ public class WelcomeFrame extends BaseFrame {
 
     private JPanel addStartButton() {
 
-        startButton = new RoundedButton("¡Comenzar!", 16);
+        startButton = new RoundedButton(I18n.t("welcome_start"), 16);
         startButton.setBackground(Color.decode("#C67C4E"));
         startButton.setForeground(Color.WHITE);
         startButton.setBorderPainted(false);
@@ -138,4 +133,17 @@ public class WelcomeFrame extends BaseFrame {
         return buttonPanel;
     }
     
+    // Clase interna para opciones de idioma
+    public static class LangOption {
+        String code;
+        String label;
+        LangOption(String code, String label) {
+            this.code = code;
+            this.label = label;
+        }
+        @Override
+        public String toString() {
+            return label;
+        }
+    }
 }
