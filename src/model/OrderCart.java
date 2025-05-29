@@ -3,6 +3,14 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Carrito de pedidos para Catffee. Permite añadir, quitar y consultar productos del pedido actual.
+ * Implementa el patrón Singleton.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class OrderCart {
     private static OrderCart instance;
     private final Map<String, CartItem> items = new HashMap<>();
@@ -17,6 +25,10 @@ public class OrderCart {
         return instance;
     }
 
+    /**
+     * Añade un producto al carrito.
+     * @param data Producto a añadir
+     */
     public void addProduct(ProductData data) {
         String key = data.getName();
         if (items.containsKey(key)) {
@@ -30,6 +42,10 @@ public class OrderCart {
         }
     }
 
+    /**
+     * Decrementa la cantidad de un producto en el carrito.
+     * @param data Producto a decrementar
+     */
     public void decrementProduct(ProductData data) {
         String key = data.getName();
         if (items.containsKey(key)) {
@@ -44,15 +60,25 @@ public class OrderCart {
         }
     }
 
+    /**
+     * Obtiene el total del carrito.
+     * @return Total en euros
+     */
     public double getTotal() {
         return total;
     }
 
+    /**
+     * Obtiene los items del carrito.
+     * @return Mapa de items
+     */
     public Map<String, CartItem> getItems() {
         return items;
     }
 
-
+    /**
+     * Representa un ítem del carrito.
+     */
     public static class CartItem {
         public ProductData data;
         public int quantity;

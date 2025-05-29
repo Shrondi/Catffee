@@ -5,52 +5,31 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import ui.MainFrame;
-import ui.register.RegisterFrame;
-import utils.UserStorage;
+import controller.user.LoginController;
 
+/**
+ * Listener para eventos de la pantalla de login en Catffee.
+ * Gestiona acciones de usuario en el formulario de inicio de sesión.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class LoginListener extends MouseAdapter implements ActionListener {
 
-    private final LoginFrame loginFrame;
-    private final UserStorage userStorage;
+    private final LoginController controller;
 
-    public LoginListener(LoginFrame loginFrame) {
-        this.loginFrame = loginFrame;
-        this.userStorage = UserStorage.getInstance();
+    public LoginListener(LoginController controller) {
+        this.controller = controller;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String email = loginFrame.emailField.getText().trim();
-        String password = new String(loginFrame.passwordField.getPassword());
-
-        if (userStorage.isValidUser(email, password)) {
-            loginFrame.errorLabel.setVisible(false);
-
-            // Crear y mostrar MainFrame (nuevo sistema)
-            MainFrame mainFrame = new MainFrame();
-            mainFrame.setVisible(true);
-
-            loginFrame.setVisible(false);
-            loginFrame.dispose();
-
-            System.out.println("Login exitoso para: " + email);
-        } else {
-            loginFrame.errorLabel.setText("El correo y/o la contraseña son incorrectos");
-            loginFrame.errorLabel.setVisible(true);
-
-            System.out.println("Login fallido para: " + email);
-            // No deshabilitar el botón para permitir más intentos
-        }
+        controller.intentarLogin();
     }
 
-     // Se ejecuta al hacer clic sobre el JLabel
     @Override
     public void mouseClicked(MouseEvent e) {
-        RegisterFrame register = new RegisterFrame("Registrarse");
-        register.setVisible(true);
-
-        loginFrame.setVisible(false);
-        loginFrame.dispose();
+        controller.irARegistro();
     }
 }

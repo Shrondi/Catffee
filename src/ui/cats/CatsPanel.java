@@ -7,13 +7,29 @@ import components.panel.GradientPanel;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel de visualización de gatos disponibles para adopción en Catffee.
+ * Permite mostrar tarjetas de gatos y gestionar la adopción.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class CatsPanel extends JPanel {
 
+    /** Listener para eventos de adopción de gato. */
     private CatAdoptListener adoptListener;
+    /**
+     * Establece el listener para adopción de gatos.
+     * @param listener Listener a registrar
+     */
     public void setCatAdoptListener(CatAdoptListener listener) {
         this.adoptListener = listener;
     }
 
+    /**
+     * Crea el panel de gatos.
+     */
     public CatsPanel() {
         setLayout(new BorderLayout());
         GradientPanel background = new GradientPanel(new Color(0xBD6E36), new Color(0xCDCDCD), true);
@@ -23,6 +39,10 @@ public class CatsPanel extends JPanel {
         background.add(buildCatsScrollPanel(), BorderLayout.CENTER);
     }
 
+    /**
+     * Construye la barra superior con el título.
+     * @return JPanel de la barra superior
+     */
     private JPanel buildTopBar() {
         JPanel topPanel = new JPanel();
         topPanel.setBackground(Color.decode("#252424"));
@@ -36,6 +56,10 @@ public class CatsPanel extends JPanel {
         return topPanel;
     }
 
+    /**
+     * Construye el panel con la galería de gatos y la descripción.
+     * @return JScrollPane con el contenido
+     */
     private JScrollPane buildCatsScrollPanel() {
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
@@ -51,14 +75,14 @@ public class CatsPanel extends JPanel {
         contentPanel.add(descriptionPanel);
         String[] cats = { "Alfil", "Cherry", "Abi", "Flush", "Gulliver", "Membrillo", "Mazinger", "Sylvestre" };
         String[] images = {
-            "resources/images/alfil1.png",
-            "resources/images/cherry1.png",
-            "resources/images/abi1.png",
-            "resources/images/flush1.png",
-            "resources/images/gulliver1.png",
-            "resources/images/membrillo1.png",
-            "resources/images/mazinger1.png",
-            "resources/images/sylvestre1.png"
+            "resources/images/cats/alfil/alfil1.png",
+            "resources/images/cats/cherry/cherry1.png",
+            "resources/images/cats/abi/abi1.png",
+            "resources/images/cats/flush/flush1.png",
+            "resources/images/cats/gulliver/gulliver1.png",
+            "resources/images/cats/membrillo/membrillo1.png",
+            "resources/images/cats/mazinger/mazinger1.png",
+            "resources/images/cats/sylvestre/sylvestre1.png"
         };
         JPanel gridPanel = new JPanel(new GridBagLayout());
         gridPanel.setOpaque(false);
@@ -92,6 +116,12 @@ public class CatsPanel extends JPanel {
         return scrollPane;
     }
 
+    /**
+     * Construye una tarjeta visual para un gato.
+     * @param imagePath Ruta de la imagen del gato
+     * @param name Nombre del gato
+     * @return JPanel con la tarjeta del gato
+     */
     private JPanel buildCatCard(String imagePath, String name) {
         RoundedPanel card = new RoundedPanel(16);
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));

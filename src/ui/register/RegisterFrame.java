@@ -1,31 +1,52 @@
 package ui.register;
 
 import components.button.RoundedButton;
-import components.field.*;
-
+import components.field.RoundedPasswordField;
+import components.field.RoundedTextField;
 import javax.swing.*;
 import java.awt.*;
 import ui.BaseFrame;
+import controller.navigation.NavigationHost;
+import controller.user.RegisterController;
 
+/**
+ * Ventana de registro de usuario para Catffee.
+ * Permite crear una nueva cuenta y seleccionar avatar.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Frame de registro de usuario.
+ */
 public class RegisterFrame extends BaseFrame {
 
     // Campos package-private
-    RoundedTextField usuarioField;
-    JLabel usuarioLabelHeader;
+    public RoundedTextField usuarioField;
+    public JLabel usuarioLabelHeader;
 
-    RoundedTextField nombreCompletoField;
-    JLabel nombreLabelHeader;
+    public RoundedTextField nombreCompletoField;
+    public JLabel nombreLabelHeader;
 
-    RoundedTextField correoField;
-    RoundedPasswordField passwordField;
-    RoundedPasswordField repeatPasswordField;
+    public RoundedTextField correoField;
+    public RoundedPasswordField passwordField;
+    public RoundedPasswordField repeatPasswordField;
 
     RoundedButton registerButton;
     JButton backButton;
     JLabel avatarLabel;
 
-    public RegisterFrame(String title) {
+    private final NavigationHost navigationHost;
+
+    /**
+     * Crea la ventana de registro.
+     * @param title Título de la ventana
+     * @param navigationHost Navegador de pantallas
+     */
+    public RegisterFrame(String title, NavigationHost navigationHost) {
         super(title);
+        this.navigationHost = navigationHost;
 
         // Inicializar campos
         usuarioField = new RoundedTextField(20);
@@ -47,7 +68,8 @@ public class RegisterFrame extends BaseFrame {
         add(container);
 
         // Listener para actualizar etiquetas en tiempo real
-        RegisterListener listeners = new RegisterListener(this);
+        RegisterController controller = new RegisterController(this, navigationHost);
+        RegisterListener listeners = new RegisterListener(controller, this);
         listeners.addTextListeners(usuarioField, usuarioLabelHeader, nombreCompletoField, nombreLabelHeader);
 
         // Listener para click en avatar
@@ -80,7 +102,7 @@ public class RegisterFrame extends BaseFrame {
         backPanel.setBorder(BorderFactory.createEmptyBorder(17, 14, 0, 363));
         backPanel.setMaximumSize(new Dimension(412, 50));
 
-        ImageIcon icon = new ImageIcon("resources/images/back_icon.png");
+        ImageIcon icon = new ImageIcon("resources/images/ui/back_icon.png");
         Image scaled = icon.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
         backButton = new JButton(new ImageIcon(scaled));
         backButton.setContentAreaFilled(false);
@@ -126,7 +148,7 @@ public class RegisterFrame extends BaseFrame {
         JPanel header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
 
-        ImageIcon icon = new ImageIcon("resources/images/profile_placeholder.png");
+        ImageIcon icon = new ImageIcon("resources/images/ui/profile_placeholder.png");
         Image scaled = icon.getImage().getScaledInstance(155, 151, Image.SCALE_SMOOTH);
         avatarLabel = new JLabel(new ImageIcon(scaled));
         avatarLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -191,7 +213,10 @@ public class RegisterFrame extends BaseFrame {
         return registerButton;
     }
 
-    // Método para actualizar avatar (se puede usar desde listener)
+    /**
+     * Actualiza la imagen del avatar.
+     * @param imagePath Ruta de la imagen
+     */
     public void updateAvatarImage(String imagePath) {
         ImageIcon icon = new ImageIcon(imagePath);
         Image scaled = icon.getImage().getScaledInstance(155, 151, Image.SCALE_SMOOTH);

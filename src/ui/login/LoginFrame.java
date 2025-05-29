@@ -1,27 +1,47 @@
 package ui.login;
 
 import javax.swing.*;
-
 import java.awt.*;
-
-import components.field.*;
+import components.field.RoundedPasswordField;
+import components.field.RoundedTextField;
 import components.button.RoundedButton;
 import ui.BaseFrame;
+import controller.navigation.NavigationHost;
+import controller.user.LoginController;
 
+/**
+ * Ventana de inicio de sesión para Catffee.
+ * Permite al usuario autenticarse y navegar entre pantallas.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Frame de login de usuario.
+ */
 public class LoginFrame extends BaseFrame {
 
-    private final LoginListener listener = new LoginListener(this);
+    private LoginListener listener;
 
     private final Box contentBox;
 
-    JLabel errorLabel;
-    RoundedTextField emailField;
-    RoundedPasswordField passwordField;
+    public JLabel errorLabel;
+    public RoundedTextField emailField;
+    public RoundedPasswordField passwordField;
     RoundedButton loginButton;
     JLabel registerLabel;
 
-    public LoginFrame(String title) {
+    private final NavigationHost navigationHost;
+
+    /**
+     * Crea la ventana de login.
+     * @param title Título de la ventana
+     * @param navigationHost Navegador de pantallas
+     */
+    public LoginFrame(String title, NavigationHost navigationHost) {
         super(title);
+        this.navigationHost = navigationHost;
 
         contentBox = Box.createVerticalBox();
 
@@ -42,12 +62,15 @@ public class LoginFrame extends BaseFrame {
         contentBox.add(errorLabel);
         addSpacing(25);
 
+        // Inicializar controlador y listener
+        LoginController controller = new LoginController(this, navigationHost);
+        listener = new LoginListener(controller);
         addLoginButton();
         loginButton.addActionListener(listener);
         addSpacing(31);
 
         addRegisterLink();
-        registerLabel.addMouseListener(new LoginListener(this));
+        registerLabel.addMouseListener(new LoginListener(controller));
 
         // Centrar Box en medio de la ventana con un JPanel
         JPanel centerPanel = new JPanel();

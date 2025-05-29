@@ -2,15 +2,30 @@ package ui.home;
 
 import components.panel.ProductBox;
 import model.ProductData;
+import model.Products;
 import utils.UserStorage;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.function.Consumer;
 
+/**
+ * Panel principal de la pantalla de inicio (Home) de Catffee.
+ * Muestra la cabecera de bienvenida y los productos destacados.
+ * Permite añadir productos al pedido actual.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class HomePanel extends JPanel {
+    /** Callback para notificar cuando se añade un producto al pedido. */
     private final Consumer<ProductData> onProductAdded;
 
+    /**
+     * Crea el panel de inicio.
+     * @param onProductAdded función a ejecutar cuando se añade un producto
+     */
     public HomePanel(Consumer<ProductData> onProductAdded) {
         this.onProductAdded = onProductAdded;
         setLayout(new BorderLayout());
@@ -22,12 +37,20 @@ public class HomePanel extends JPanel {
         add(mainPanel, BorderLayout.CENTER);
     }
 
+    /**
+     * Llama al callback cuando se añade un producto.
+     * @param product producto añadido
+     */
     private void fireProductAdded(ProductData product) {
         if (onProductAdded != null) {
             onProductAdded.accept(product);
         }
     }
 
+    /**
+     * Construye la sección superior con la cabecera y el texto de bienvenida.
+     * @return panel con la cabecera
+     */
     private JPanel topSection() {
         JPanel container = new JPanel();
         container.setLayout(new OverlayLayout(container));
@@ -39,8 +62,12 @@ public class HomePanel extends JPanel {
         return container;
     }
 
+    /**
+     * Devuelve la imagen de cabecera de bienvenida.
+     * @return JLabel con la imagen
+     */
     private JLabel headerImage() {
-        ImageIcon icon = new ImageIcon("resources/images/cabecera_bienvenida.png");
+        ImageIcon icon = new ImageIcon("resources/images/ui/cabecera_bienvenida.png");
         Image scaled = icon.getImage().getScaledInstance(412, 330, Image.SCALE_SMOOTH);
         JLabel label = new JLabel(new ImageIcon(scaled));
         label.setAlignmentX(0.5f);
@@ -48,6 +75,10 @@ public class HomePanel extends JPanel {
         return label;
     }
 
+    /**
+     * Devuelve el texto de bienvenida personalizado para el usuario.
+     * @return panel con el texto de bienvenida
+     */
     private JPanel headerText() {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setOpaque(false);
@@ -65,6 +96,10 @@ public class HomePanel extends JPanel {
         return panel;
     }
 
+    /**
+     * Devuelve el scroll con los productos destacados.
+     * @return JScrollPane con los productos
+     */
     private JScrollPane productScroll() {
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
@@ -86,28 +121,25 @@ public class HomePanel extends JPanel {
         return scrollPane;
     }
 
+    /**
+     * Construye el grid de productos destacados usando la clase Products.
+     * @return JPanel con los productos destacados
+     */
     private JPanel productGrid() {
         JPanel grid = new JPanel(new GridLayout(0, 2, 12, 12));
         grid.setBackground(new Color(0xF7F7F7));
         grid.setAlignmentX(Component.CENTER_ALIGNMENT);
-        String[] names = {"Meowcha", "Catpuccino", "Gatogalletas", "Pawffins", "Empanacat", "Pink Paw"};
-        String[] descriptions = {"Moka", "Deep Foam", "Crumble-cookies", "Muffin choco", "Carne o verdura", "Limonada frutos"};
-        double[] prices = {3.50, 3.20, 2.50, 2.80, 2.80, 3.20};
-        String[] images = {
-            "resources/images/meowcha.png",
-            "resources/images/catpuccino.png",
-            "resources/images/gatogalletas.png",
-            "resources/images/pawffins.png",
-            "resources/images/empanacat.png",
-            "resources/images/pink_paw.png"
+
+        // Selección de productos destacados desde Products.java
+        ProductData[] destacados = new ProductData[] {
+            Products.getCoffeeProducts().get(0), // Meowcha
+            Products.getCoffeeProducts().get(1), // Catpuccino
+            Products.getDesserts().get(2),       // Gatogalletas
+            Products.getDesserts().get(0),       // Pawffins
+            Products.getSaltyFood().get(0),      // Empanacat
+            Products.getColdDrinks().get(4)      // Pink Paw
         };
-        for (int i = 0; i < names.length; i++) {
-            ProductData product = new ProductData.Builder()
-                                                .setName(names[i])
-                                                .setDescription(descriptions[i])
-                                                .setPrice(prices[i])
-                                                .setImagePath(images[i])
-                                                .build();
+        for (ProductData product : destacados) {
             grid.add(new ProductBox(product, () -> fireProductAdded(product)));
         }
         return grid;

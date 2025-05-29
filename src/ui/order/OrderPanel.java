@@ -5,8 +5,18 @@ import components.panel.ProductCard;
 import model.ProductData;
 import javax.swing.*;
 import java.awt.*;
-import controller.ProductOrderController;
+import controller.order.ProductOrderController;
 
+/**
+ * Panel de pedido para Catffee. Muestra los productos añadidos al carrito y permite modificar cantidades y finalizar el pedido.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Panel que gestiona la visualización y edición del pedido actual.
+ */
 public class OrderPanel extends JPanel {
     private JPanel itemsPanel = new JPanel();
     private JLabel totalLabel;
@@ -112,7 +122,7 @@ public class OrderPanel extends JPanel {
         contentPanel.add(Box.createVerticalStrut(150));
 
         // Icono carrito
-        ImageIcon icon = new ImageIcon("resources/images/cart.png");
+        ImageIcon icon = new ImageIcon("resources/images/ui/cart.png");
         Image scaledImage = icon.getImage().getScaledInstance(113, 108, Image.SCALE_SMOOTH);
         JLabel iconLabel = new JLabel(new ImageIcon(scaledImage));
         iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -152,28 +162,23 @@ public class OrderPanel extends JPanel {
     }
 
     private void refreshCartView() {
-
-        if (controller.getProductCards().isEmpty()){
+        if (controller.getCartItems().isEmpty()) {
             remove(productPanel);
             remove(southPanel);
-
             add(emptyCart, BorderLayout.CENTER);
-        }else{
+        } else {
             remove(emptyCart);
-
             add(productPanel, BorderLayout.CENTER);
             add(southPanel, BorderLayout.SOUTH);
-        
             itemsPanel.removeAll();
-
-            for (ProductCard card : controller.getProductCards()) {
+            for (var item : controller.getCartItems()) {
+                ProductCard card = new ProductCard(item.data, controller);
+                card.setQuantity(item.quantity);
                 itemsPanel.add(card);
                 itemsPanel.add(Box.createVerticalStrut(10));
             }
-
             updateTotalLabel();
         }
-        
         revalidate();
         repaint();
     }

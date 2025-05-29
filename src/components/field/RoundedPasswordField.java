@@ -6,6 +6,14 @@ import java.awt.*;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
+/**
+ * Campo de contraseña con bordes redondeados y estilos personalizados para Catffee.
+ * Permite personalizar el radio, color de borde y placeholder.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class RoundedPasswordField extends JPasswordField {
     private int radius;
     private Color borderColor = Color.GRAY;
@@ -14,6 +22,9 @@ public class RoundedPasswordField extends JPasswordField {
     private Color placeholderColor = new Color(160, 160, 160);
     private boolean showingPlaceholder = false;
 
+    /**
+     * Campo de contraseña personalizado con esquinas redondeadas.
+     */
     public RoundedPasswordField(int radius) {
         this.radius = radius;
         setOpaque(false);

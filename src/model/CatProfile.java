@@ -1,5 +1,13 @@
 package model;
 
+/**
+ * Representa el perfil de un gato en Catffee.
+ * Incluye nombre, edad, género, descripción, ideal y rutas de imágenes.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class CatProfile {
     private final String name;
     private final String age;
@@ -24,6 +32,9 @@ public class CatProfile {
     public String getIdeal() { return ideal; }
     public String[] getImagePaths() { return imagePaths; }
 
+    /**
+     * Builder para crear instancias de CatProfile.
+     */
     public static class Builder {
         private String name;
         private String age;
@@ -62,6 +73,10 @@ public class CatProfile {
             return this;
         }
 
+        /**
+         * Construye el CatProfile.
+         * @return CatProfile creado
+         */
         public CatProfile build() {
             return new CatProfile(this);
         }

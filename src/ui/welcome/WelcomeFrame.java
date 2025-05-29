@@ -1,19 +1,31 @@
 package ui.welcome;
 
 import javax.swing.*;
-
+import java.awt.*;
 import components.button.RoundedButton;
 import ui.BaseFrame;
+import controller.navigation.NavigationHost;
+import controller.user.WelcomeController;
 
-import java.awt.*;
-
+/**
+ * Ventana de bienvenida para Catffee. Permite seleccionar idioma y comenzar la experiencia.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Frame de bienvenida de la aplicación.
+ */
 public class WelcomeFrame extends BaseFrame {
 
     RoundedButton startButton;
-    private WelcomeListener listeners = new WelcomeListener(this);
+    private WelcomeListener listeners;
+    private final NavigationHost navigationHost;
 
-    public WelcomeFrame(String title) {
+    public WelcomeFrame(String title, NavigationHost navigationHost) {
         super(title);
+        this.navigationHost = navigationHost;
 
         setLayout(new BorderLayout()); //Layout de la ventana
 
@@ -38,6 +50,8 @@ public class WelcomeFrame extends BaseFrame {
         
         add(addStartButton(), BorderLayout.SOUTH);
 
+        WelcomeController controller = new WelcomeController(this, navigationHost);
+        listeners = new WelcomeListener(controller);
         startButton.addActionListener(listeners);
 
         add(mainPanel, BorderLayout.CENTER);
@@ -60,7 +74,7 @@ public class WelcomeFrame extends BaseFrame {
     }
 
     private JLabel addCatImage() {
-        ImageIcon logo = new ImageIcon("resources/images/logo.png");
+        ImageIcon logo = new ImageIcon("resources/images/ui/logo.png");
         logo = new ImageIcon(logo.getImage().getScaledInstance(228, 228, Image.SCALE_SMOOTH));
         JLabel catImage = new JLabel(logo);
         catImage.setAlignmentX(Component.CENTER_ALIGNMENT);

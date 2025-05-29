@@ -5,6 +5,16 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Barra de navegación inferior para Catffee. Permite cambiar entre secciones principales.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Barra de navegación personalizada para la aplicación.
+ */
 public class NavigationBar extends JPanel {
     private String selected;
     private final List<JLabel> textLabels = new ArrayList<>();

@@ -4,7 +4,12 @@ import java.io.*;
 import java.util.*;
 
 /**
- * Singleton que carga y mantiene en memoria usuarios desde un archivo CSV.
+ * Utilidad Singleton para la gestión de usuarios en Catffee.
+ * Permite registrar, autenticar y consultar usuarios.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
  */
 public class UserStorage {
 

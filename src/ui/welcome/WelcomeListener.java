@@ -2,24 +2,26 @@ package ui.welcome;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import controller.user.WelcomeController;
 
-import ui.login.LoginFrame;
-
+/**
+ * Listener para eventos de la pantalla de bienvenida en Catffee.
+ * Gestiona acciones de usuario en la pantalla de inicio.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 class WelcomeListener implements ActionListener {
 
-    private final WelcomeFrame welcomeFrame;
+    private final WelcomeController controller;
 
-    WelcomeListener(WelcomeFrame welcomeFrame) {
-        this.welcomeFrame = welcomeFrame;
+    WelcomeListener(WelcomeController controller) {
+        this.controller = controller;
     }
 
-    // Este método se llama automáticamente cuando se pulsa el botón
     @Override
     public void actionPerformed(ActionEvent e) {
-        LoginFrame login = new LoginFrame("Iniciar sesión");
-        login.setVisible(true);
-
-        welcomeFrame.setVisible(false);
-        welcomeFrame.dispose(); // Liberar recursos
+        controller.irALogin();
     }
 }

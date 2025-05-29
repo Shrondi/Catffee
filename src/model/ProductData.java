@@ -1,5 +1,13 @@
 package model;
 
+/**
+ * Modelo de datos para un producto de Catffee.
+ * Incluye nombre, descripción, precio e imagen.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class ProductData {
     private final String name;
     private final String description;

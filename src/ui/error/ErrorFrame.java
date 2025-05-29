@@ -6,6 +6,16 @@ import java.awt.*;
 
 import components.button.RoundedButton;
 
+/**
+ * Ventana de error para Catffee. Muestra un mensaje y permite reintentar la acción.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
+/**
+ * Frame de error que muestra un mensaje y un botón para reintentar.
+ */
 public class ErrorFrame extends BaseFrame {
     private JPanel mainPanel;
 
@@ -49,7 +59,7 @@ public class ErrorFrame extends BaseFrame {
     }
 
     private void addCatLabel(JPanel mainPanel) {
-        ImageIcon catIcon = new ImageIcon("resources/images/error.png");
+        ImageIcon catIcon = new ImageIcon("resources/images/ui/error.png");
         Image catImage = catIcon.getImage().getScaledInstance(389, 389, Image.SCALE_SMOOTH);
         catIcon = new ImageIcon(catImage);
         JLabel catLabel = new JLabel(catIcon);

@@ -1,25 +1,28 @@
 package ui.register;
 
-import utils.UserStorage;
+import controller.user.RegisterController;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-
-import ui.login.LoginFrame;
-
 import java.awt.event.*;
-import java.io.File;
 
+/**
+ * Listener para eventos de la pantalla de registro en Catffee.
+ * Gestiona acciones de usuario en el formulario de registro.
+ *
+ * @author Pablo Estepa Alcaide - i22esalp@uco.es
+ * @author Carlos Lucena Robles - f92luroc@uco.es
+ * @date 2024-05-30
+ */
 public class RegisterListener extends MouseAdapter implements ActionListener {
 
+    private final RegisterController controller;
     private final RegisterFrame frame;
-    private File avatarFile;
-    private final UserStorage storage;
 
-    public RegisterListener(RegisterFrame frame) {
+    public RegisterListener(RegisterController controller, RegisterFrame frame) {
+        this.controller = controller;
         this.frame = frame;
-        this.storage = UserStorage.getInstance();
     }
 
     public void addTextListeners(JTextField usuarioField, JLabel usuarioLabelHeader,
@@ -30,61 +33,19 @@ public class RegisterListener extends MouseAdapter implements ActionListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        JFileChooser chooser = new JFileChooser();
-        chooser.setDialogTitle("Seleccionar imagen de perfil");
-        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-
-        int result = chooser.showOpenDialog(frame);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            avatarFile = chooser.getSelectedFile();
-            frame.updateAvatarImage(avatarFile.getAbsolutePath());
+        if (e.getSource() == frame.avatarLabel) {
+            controller.seleccionarAvatar();
+        } else if (e.getSource() == frame.backButton) {
+            controller.volverALogin();
         }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        Object source = e.getSource();
-
-        if (source == frame.backButton){
-            frame.setVisible(false);
-            frame.dispose();
-
-            LoginFrame login = new LoginFrame("Iniciar sesión");
-            login.setVisible(true);
-
-        }else if (source == frame.registerButton){
-            String email = frame.correoField.getText().trim();
-            String password = new String(frame.passwordField.getPassword());
-            String confirmPassword = new String(frame.repeatPasswordField.getPassword());
-            String usuario = frame.usuarioField.getText().trim();
-            String nombreCompleto = frame.nombreCompletoField.getText().trim();
-
-            if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
-                    || usuario.isEmpty() || nombreCompleto.isEmpty()) {
-                JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos.", "Campos incompletos", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (!password.equals(confirmPassword)) {
-                JOptionPane.showMessageDialog(frame, "Las contraseñas no coinciden.", "Error de contraseña", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            if (storage.emailExists(email)) {
-                JOptionPane.showMessageDialog(frame, "El email ya está registrado.", "Usuario existente", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            String avatarPath = avatarFile != null ? avatarFile.getAbsolutePath() : "";
-
-            boolean added = storage.addUser(email, password, nombreCompleto, avatarPath);
-            if (added) {
-                JOptionPane.showMessageDialog(frame, "Registro exitoso. Ahora puedes iniciar sesión.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                frame.dispose(); // Cierra la ventana de registro
-            } else {
-                JOptionPane.showMessageDialog(frame, "Error al registrar usuario.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        if (e.getSource() == frame.registerButton) {
+            controller.registrarUsuario();
+        } else if (e.getSource() == frame.backButton) {
+            controller.volverALogin();
         }
     }
 
