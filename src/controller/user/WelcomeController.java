@@ -4,6 +4,7 @@ import ui.welcome.WelcomeFrame;
 import controller.navigation.NavigationHost;
 import utils.I18n;
 import java.util.Locale;
+import controller.common.LanguageController;
 
 /**
  * Controlador para la lógica de la pantalla de bienvenida en Catffee.
@@ -27,13 +28,14 @@ public class WelcomeController {
 
     /**
      * Cambia el idioma de la aplicación y recarga la pantalla de bienvenida.
-     * @param locale Nuevo locale a establecer
+     * @param langCode Código de idioma a establecer
      */
-    public void cambiarIdioma(Locale locale) {
-        I18n.setLocale(locale);
-        welcomeFrame.dispose();
-        if (navigationHost instanceof controller.navigation.AppNavigationManager manager) {
-            manager.start();
-        }
+    public void cambiarIdioma(String langCode) {
+        LanguageController.cambiarIdioma(langCode, () -> {
+            welcomeFrame.dispose();
+            if (navigationHost instanceof controller.navigation.AppNavigationManager manager) {
+                manager.start();
+            }
+        });
     }
 } 

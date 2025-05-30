@@ -7,6 +7,7 @@ import ui.BaseFrame;
 import utils.I18n;
 import controller.navigation.NavigationHost;
 import controller.user.WelcomeController;
+import utils.LangOption;
 
 /**
  * Ventana de bienvenida para Catffee. Permite seleccionar idioma y comenzar la experiencia.
@@ -61,15 +62,22 @@ public class WelcomeFrame extends BaseFrame {
     }
 
     private JPanel addLanguageButton() {
-        LangOption[] languages = {
-            new LangOption("es", I18n.t("profile_spanish")),
-            new LangOption("en", I18n.t("profile_english"))
-        };
+        LangOption[] languages = LangOption.getAvailableLanguages();
+
         languageSelector = new JComboBox<>(languages);
-        String currentLang = I18n.getCurrentLocale().getLanguage();
-        languageSelector.setSelectedItem(currentLang.equals("es") ? languages[0] : languages[1]);
+
+        // Seleccionar el idioma actual que se está mostrando en el combo box
+        String currentLang = I18n.getCurrentLocale().toString();
+        for (LangOption lang : languages) {
+            if (lang.code.equals(currentLang)) {
+                languageSelector.setSelectedItem(lang); 
+                break;
+            }
+        }
+        
         languageSelector.setPreferredSize(new Dimension(100, 25));
         languageSelector.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 12));
+        
         languageSelector.addActionListener(new WelcomeListener(controller));
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -130,19 +138,5 @@ public class WelcomeFrame extends BaseFrame {
         buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 0, 50, 0)); // Margen inferior
         
         return buttonPanel;
-    }
-    
-    // Clase interna para opciones de idioma
-    public static class LangOption {
-        String code;
-        String label;
-        LangOption(String code, String label) {
-            this.code = code;
-            this.label = label;
-        }
-        @Override
-        public String toString() {
-            return label;
-        }
     }
 }
