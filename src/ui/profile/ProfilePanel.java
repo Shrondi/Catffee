@@ -3,6 +3,9 @@ package ui.profile;
 import components.panel.RoundedPanel;
 import utils.I18n;
 import utils.UserStorage;
+import controller.navigation.NavigationHost;
+import controller.profile.ProfileController;
+import utils.LangOption;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,21 +13,27 @@ import java.awt.*;
 public class ProfilePanel extends JPanel{
 
     private final UserStorage.User currentUser;
+    private final NavigationHost navigationHost;
+    private final ProfileController profileController;
 
-    public ProfilePanel(UserStorage.User currentUser) {
+    public ProfilePanel(UserStorage.User currentUser, NavigationHost navigationHost) {
         this.currentUser = currentUser;
+        this.navigationHost = navigationHost;
+        this.profileController = new ProfileController(navigationHost, currentUser);
         
         setLayout(new BorderLayout());
 
-        add(buildTopBar(), BorderLayout.NORTH);
-        add(buildContentPanel(), BorderLayout.CENTER);
+        add(createTopBar(), BorderLayout.NORTH);
+        add(createContentPanel(), BorderLayout.CENTER);
     }
 
-    private JPanel buildTopBar() {
-        JPanel topPanel = new JPanel();
+    /**
+     * Crea la barra superior con el título.
+     */
+    private JPanel createTopBar() {
+        JPanel topPanel = new JPanel(new BorderLayout());
         topPanel.setBackground(Color.decode("#252424"));
         topPanel.setPreferredSize(new Dimension(413, 85));
-        topPanel.setLayout(new BorderLayout());
 
         JLabel titleLabel = new JLabel(I18n.t("profile_title"));
         titleLabel.setForeground(Color.WHITE);
@@ -35,13 +44,34 @@ public class ProfilePanel extends JPanel{
         return topPanel;
     }
 
-    private JPanel buildContentPanel() {
+    /**
+     * Crea el panel principal de contenido del perfil.
+     */
+    private JPanel createContentPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(Color.decode("#F9F9F9"));
         panel.setBorder(BorderFactory.createEmptyBorder(30, 20, 30, 20));
 
         // Tarjeta de perfil
+        panel.add(Box.createVerticalStrut(50));
+        panel.add(createProfileCard());
+        panel.add(Box.createVerticalStrut(100));
+
+        // Opciones
+        panel.add(createOption("resources/images/ui/translate.png", I18n.t("profile_language")));
+        panel.add(Box.createVerticalStrut(20));
+        panel.add(createOption("resources/images/ui/heart.png", I18n.t("profile_rate")));
+        panel.add(Box.createVerticalStrut(20));
+        panel.add(createOption("resources/images/ui/log_out.png", I18n.t("profile_logout")));
+
+        return panel;
+    }
+
+    /**
+     * Crea la tarjeta de perfil con avatar y nombre.
+     */
+    private RoundedPanel createProfileCard() {
         RoundedPanel profileCard = new RoundedPanel(30);
         profileCard.setBackground(Color.WHITE);
         profileCard.setLayout(new BoxLayout(profileCard, BoxLayout.X_AXIS));
@@ -51,12 +81,10 @@ public class ProfilePanel extends JPanel{
         profileCard.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         String avatarPath = currentUser.getAvatarPath();
-
         ImageIcon profileIcon = new ImageIcon("resources/images/ui/profile_placeholder.png");
-        if (!avatarPath.isEmpty()){
+        if (!avatarPath.isEmpty()) {
             profileIcon = new ImageIcon(avatarPath);
         }
-        
         Image profileImg = profileIcon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         JLabel profilePic = new JLabel(new ImageIcon(profileImg));
 
@@ -68,21 +96,13 @@ public class ProfilePanel extends JPanel{
 
         profileCard.add(profilePic);
         profileCard.add(nameBlock);
-
-        panel.add(Box.createVerticalStrut(50));
-        panel.add(profileCard);
-        panel.add(Box.createVerticalStrut(100));
-
-        panel.add(buildOption("resources/images/ui/translate.png", I18n.t("profile_language")));
-        panel.add(Box.createVerticalStrut(20));
-        panel.add(buildOption("resources/images/ui/heart.png", I18n.t("profile_rate")));
-        panel.add(Box.createVerticalStrut(20));
-        panel.add(buildOption("resources/images/ui/log_out.png", I18n.t("profile_logout")));
-
-        return panel;
+        return profileCard;
     }
 
-    private RoundedPanel buildOption(String iconPath, String labelText) {
+    /**
+     * Crea una opción de menú en el perfil (idioma, valorar, cerrar sesión).
+     */
+    private RoundedPanel createOption(String iconPath, String labelText) {
         RoundedPanel option = new RoundedPanel(30);
         option.setBackground(Color.WHITE);
         option.setLayout(new BorderLayout());
@@ -90,66 +110,30 @@ public class ProfilePanel extends JPanel{
         option.setMaximumSize(new Dimension(340, 70));
         option.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
+        // Icono
         ImageIcon icon = new ImageIcon(iconPath);
         Image scaledIcon = icon.getImage().getScaledInstance(22, 22, Image.SCALE_SMOOTH);
         JLabel iconLabel = new JLabel(new ImageIcon(scaledIcon));
 
+        // Texto
         JLabel textLabel = new JLabel(labelText);
         textLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 18));
 
-        JComponent rightComponent;
-        if (labelText.equals(I18n.t("profile_language"))) {
-            // Sustituimos el combo por un icono que lanza un diálogo modal personalizado
-            ImageIcon arrowIcon = new ImageIcon("resources/images/next_icon.png");
-            Image scaledArrow = arrowIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-            JLabel arrowLabel = new JLabel(new ImageIcon(scaledArrow));
-            arrowLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            arrowLabel.addMouseListener(new java.awt.event.MouseAdapter() {
-                @Override
-                public void mouseClicked(java.awt.event.MouseEvent e) {
-                    JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(option), I18n.t("profile_select_lang"), true);
-                    dialog.setUndecorated(true);
-                    dialog.setSize(200, 120);
-                    Point location = option.getLocationOnScreen();
-                    int x = location.x + (option.getWidth() - dialog.getWidth()) / 2;
-                    int y = location.y + (option.getHeight() - dialog.getHeight()) / 2 - 30;
-                    dialog.setLocation(x, y);
+        // Componente derecho (flecha)
+        ImageIcon arrowIcon = new ImageIcon("resources/images/ui/next_icon.png");
+        Image scaledArrow = arrowIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+        JLabel arrowLabel = new JLabel(new ImageIcon(scaledArrow));
+        arrowLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        JComponent rightComponent = arrowLabel;
 
-                    JPanel content = new JPanel();
-                    content.setBackground(Color.WHITE);
-                    content.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY, 1));
-                    content.setLayout(new GridLayout(2, 1));
-
-                    JButton englishButton = new JButton(I18n.t("profile_english"));
-                    englishButton.setFont(new Font("Sora", Font.PLAIN, 16));
-                    englishButton.setFocusPainted(false);
-                    englishButton.addActionListener(evt -> dialog.dispose());
-
-                    JButton spanishButton = new JButton(I18n.t("profile_spanish"));
-                    spanishButton.setFont(new Font("Sora", Font.PLAIN, 16));
-                    spanishButton.setFocusPainted(false);
-                    spanishButton.addActionListener(evt -> dialog.dispose());
-
-                    content.add(englishButton);
-                    content.add(spanishButton);
-
-                    dialog.setContentPane(content);
-                    dialog.setVisible(true);
-                }
-            });
-            rightComponent = arrowLabel;
-        } else {
-            ImageIcon arrowIcon = new ImageIcon("resources/images/next_icon.png");
-            Image scaledArrow = arrowIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-            rightComponent = new JLabel(new ImageIcon(scaledArrow));
-        }
-
+        // Panel izquierdo (icono + texto)
         JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 20));
         left.setOpaque(false);
         left.add(iconLabel);
         left.add(Box.createHorizontalStrut(10));
         left.add(textLabel);
 
+        // Panel derecho (flecha)
         JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 20));
         right.setOpaque(false);
         right.add(rightComponent);
@@ -157,6 +141,64 @@ public class ProfilePanel extends JPanel{
         option.add(left, BorderLayout.WEST);
         option.add(right, BorderLayout.EAST);
 
+        // Si es la opción de idioma, toda la tarjeta es clicable
+        if (labelText.equals(I18n.t("profile_language"))) {
+            option.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            option.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
+                public void mouseClicked(java.awt.event.MouseEvent e) {
+                    mostrarDialogoIdioma(option);
+                }
+            });
+        }
+
         return option;
+    }
+
+    private void mostrarDialogoIdioma(JComponent parentOption) {
+        JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(parentOption), I18n.t("profile_select_lang"), true);
+        dialog.setUndecorated(true);
+        dialog.setSize(260, 160);
+        Point location = parentOption.getLocationOnScreen();
+        int x = location.x + (parentOption.getWidth() - dialog.getWidth()) / 2;
+        int y = location.y + (parentOption.getHeight() - dialog.getHeight()) / 2 - 30;
+        dialog.setLocation(x, y);
+
+        JPanel content = new JPanel();
+        content.setBackground(Color.WHITE);
+        content.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 2, true));
+        content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
+
+        JLabel title = new JLabel(I18n.t("profile_select_lang"));
+        title.setFont(new Font("Sora SemiBold", Font.PLAIN, 18));
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        title.setBorder(BorderFactory.createEmptyBorder(16, 0, 12, 0));
+        content.add(title);
+
+        LangOption[] languages = LangOption.getAvailableLanguages();
+        String[] icons = {"resources/images/ui/flag_es.png", "resources/images/ui/flag_en.png"};
+        for (int i = 0; i < languages.length; i++) {
+            JButton button = crearBotonIdioma(icons[i], languages[i], dialog);
+            content.add(button);
+            content.add(Box.createVerticalStrut(10));
+        }
+
+        dialog.setContentPane(content);
+        dialog.setVisible(true);
+    }
+
+    private JButton crearBotonIdioma(String iconPath, LangOption lang, JDialog dialog) {
+        JButton button = new JButton(lang.label, new ImageIcon(new ImageIcon(iconPath).getImage().getScaledInstance(28, 20, Image.SCALE_SMOOTH)));
+        button.setFont(new Font("Sora", Font.PLAIN, 16));
+        button.setFocusPainted(false);
+        button.setBackground(new Color(245, 245, 245));
+        button.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(220, 220, 220)),
+                BorderFactory.createEmptyBorder(6, 12, 6, 12)));
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.addActionListener(_ -> dialog.dispose());
+        button.addActionListener(new ProfileListener(profileController, lang.code));
+        return button;
     }
 }
