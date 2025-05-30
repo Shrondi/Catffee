@@ -42,30 +42,55 @@ public class RegisterController {
     }
 
     public void registrarUsuario() {
-        String email = frame.correoField.getText().trim();
-        String password = new String(frame.passwordField.getPassword());
-        String confirmPassword = new String(frame.repeatPasswordField.getPassword());
-        String usuario = frame.usuarioField.getText().trim();
-        String nombreCompleto = frame.nombreCompletoField.getText().trim();
+        // Limpiar errores
+        frame.setUsuarioError("");
+        frame.setNombreCompletoError("");
+        frame.setCorreoError("");
+        frame.setPasswordError("");
+        frame.setRepeatPasswordError("");
 
-        if (email.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
-                || usuario.isEmpty() || nombreCompleto.isEmpty()) {
-            JOptionPane.showMessageDialog(frame, "Por favor, completa todos los campos.", "Campos incompletos", JOptionPane.ERROR_MESSAGE);
-            return;
+        String email = frame.getCorreo();
+        String password = frame.getPassword();
+        String confirmPassword = frame.getRepeatPassword();
+        String usuario = frame.getUsuario();
+        String nombreCompleto = frame.getNombreCompleto();
+
+        boolean hasError = false;
+
+        if (usuario.isEmpty()) {
+            frame.setUsuarioError("El nombre de usuario es obligatorio.");
+            hasError = true;
         }
+        if (nombreCompleto.isEmpty()) {
+            frame.setNombreCompletoError("El nombre completo es obligatorio.");
+            hasError = true;
+        }
+        if (email.isEmpty()) {
+            frame.setCorreoError("El email es obligatorio.");
+            hasError = true;
+        }
+        if (password.isEmpty()) {
+            frame.setPasswordError("La contraseña es obligatoria.");
+            hasError = true;
+        }
+        if (confirmPassword.isEmpty()) {
+            frame.setRepeatPasswordError("Repite la contraseña.");
+            hasError = true;
+        }
+        if (hasError) return;
 
         if (!password.equals(confirmPassword)) {
-            JOptionPane.showMessageDialog(frame, "Las contraseñas no coinciden.", "Error de contraseña", JOptionPane.ERROR_MESSAGE);
+            frame.setRepeatPasswordError("Las contraseñas no coinciden.");
             return;
         }
 
         if (emailExists(email)) {
-            JOptionPane.showMessageDialog(frame, "El email ya está registrado.", "Usuario existente", JOptionPane.ERROR_MESSAGE);
+            frame.setCorreoError("El email ya está registrado.");
             return;
         }
 
         if (userExists(usuario)){
-            JOptionPane.showMessageDialog(frame, "El nombre de usuario ya esta en uso.", "Nombre de usuario existente", JOptionPane.ERROR_MESSAGE);
+            frame.setUsuarioError("El nombre de usuario ya está en uso.");
             return;
         }
 
@@ -76,7 +101,7 @@ public class RegisterController {
             JOptionPane.showMessageDialog(frame, "Registro exitoso. Ahora puedes iniciar sesión.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             navigationHost.showLoginFrame();
         } else {
-            JOptionPane.showMessageDialog(frame, "Error al registrar usuario.", "Error", JOptionPane.ERROR_MESSAGE);
+            frame.setCorreoError("Error al registrar usuario.");
         }
     }
 

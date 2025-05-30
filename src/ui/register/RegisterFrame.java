@@ -23,17 +23,24 @@ import utils.I18n;
  */
 public class RegisterFrame extends BaseFrame {
 
+    
+    private RoundedTextField usuarioField;
+    private JLabel usuarioLabelHeader;
+
+    private RoundedTextField nombreCompletoField;
+    private JLabel nombreLabelHeader;
+
+    private RoundedTextField correoField;
+    private RoundedPasswordField passwordField;
+    private RoundedPasswordField repeatPasswordField;
+
+    private JLabel usuarioErrorLabel = new JLabel();
+    private JLabel nombreCompletoErrorLabel = new JLabel();
+    private JLabel correoErrorLabel = new JLabel();
+    private JLabel passwordErrorLabel = new JLabel();
+    private JLabel repeatPasswordErrorLabel = new JLabel();
+
     // Campos package-private
-    public RoundedTextField usuarioField;
-    public JLabel usuarioLabelHeader;
-
-    public RoundedTextField nombreCompletoField;
-    public JLabel nombreLabelHeader;
-
-    public RoundedTextField correoField;
-    public RoundedPasswordField passwordField;
-    public RoundedPasswordField repeatPasswordField;
-
     RoundedButton registerButton;
     JButton backButton;
     JLabel avatarLabel;
@@ -57,8 +64,8 @@ public class RegisterFrame extends BaseFrame {
         repeatPasswordField = new RoundedPasswordField(20);
 
         // Configurar labels de encabezado
-        usuarioLabelHeader = new JLabel("@Usuario");
-        nombreLabelHeader = new JLabel("Nombre completo");
+        usuarioLabelHeader = new JLabel(I18n.t("register_placeholder_username"));
+        nombreLabelHeader = new JLabel(I18n.t("register_name"));
 
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
@@ -122,7 +129,7 @@ public class RegisterFrame extends BaseFrame {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         panel.add(headerInfo());
-        panel.add(Box.createVerticalStrut(40));
+        panel.add(Box.createVerticalStrut(10));
 
         panel.add(createLabeledField(I18n.t("register_username"), usuarioField));
         panel.add(Box.createVerticalStrut(10));
@@ -140,7 +147,7 @@ public class RegisterFrame extends BaseFrame {
         panel.add(Box.createVerticalStrut(20));
 
         panel.add(registerButton());
-        panel.add(Box.createVerticalStrut(30));
+        panel.add(Box.createVerticalStrut(20));
 
         return panel;
     }
@@ -150,12 +157,12 @@ public class RegisterFrame extends BaseFrame {
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
 
         ImageIcon icon = new ImageIcon("resources/images/ui/profile_placeholder.png");
-        Image scaled = icon.getImage().getScaledInstance(155, 151, Image.SCALE_SMOOTH);
+        Image scaled = icon.getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH);
         avatarLabel = new JLabel(new ImageIcon(scaled));
         avatarLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         header.add(avatarLabel);
-        header.add(Box.createVerticalStrut(20));
+        header.add(Box.createVerticalStrut(10));
 
         nombreLabelHeader.setFont(new Font("Fredoka SemiBold", Font.PLAIN, 20));
         nombreLabelHeader.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -193,12 +200,27 @@ public class RegisterFrame extends BaseFrame {
         }
 
         field.setBackground(Color.decode("#F3F7FB"));
+        field.setMinimumSize(new Dimension(342, 42));
         field.setPreferredSize(new Dimension(342, 42));
         field.setMaximumSize(new Dimension(342, 42));
         field.setAlignmentX(Component.LEFT_ALIGNMENT);
 
+        JLabel errorLabel = new JLabel();
+        errorLabel.setFont(new Font("Roboto Regular", Font.PLAIN, 12));
+        errorLabel.setForeground(Color.RED);
+        errorLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+        errorLabel.setVisible(false);
+
+        // Asignar el errorLabel privado correspondiente
+        if (field == usuarioField) usuarioErrorLabel = errorLabel;
+        if (field == nombreCompletoField) nombreCompletoErrorLabel = errorLabel;
+        if (field == correoField) correoErrorLabel = errorLabel;
+        if (field == passwordField) passwordErrorLabel = errorLabel;
+        if (field == repeatPasswordField) repeatPasswordErrorLabel = errorLabel;
+
         fieldPanel.add(label);
         fieldPanel.add(field);
+        fieldPanel.add(errorLabel);
 
         return fieldPanel;
     }
@@ -208,6 +230,8 @@ public class RegisterFrame extends BaseFrame {
         registerButton.setFont(new Font("Roboto Regular", Font.PLAIN, 14));
         registerButton.setBackground(Color.decode("#313131"));
         registerButton.setForeground(Color.WHITE);
+        registerButton.setMinimumSize(new Dimension(342, 44));
+        registerButton.setPreferredSize(new Dimension(342, 44));
         registerButton.setMaximumSize(new Dimension(342, 44));
         registerButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -222,5 +246,42 @@ public class RegisterFrame extends BaseFrame {
         ImageIcon icon = new ImageIcon(imagePath);
         Image scaled = icon.getImage().getScaledInstance(155, 151, Image.SCALE_SMOOTH);
         avatarLabel.setIcon(new ImageIcon(scaled));
+    }
+
+    public void setUsuarioError(String mensaje) {
+        usuarioErrorLabel.setText(mensaje);
+        usuarioErrorLabel.setVisible(mensaje != null && !mensaje.isEmpty());
+    }
+    public void setNombreCompletoError(String mensaje) {
+        nombreCompletoErrorLabel.setText(mensaje);
+        nombreCompletoErrorLabel.setVisible(mensaje != null && !mensaje.isEmpty());
+    }
+    public void setCorreoError(String mensaje) {
+        correoErrorLabel.setText(mensaje);
+        correoErrorLabel.setVisible(mensaje != null && !mensaje.isEmpty());
+    }
+    public void setPasswordError(String mensaje) {
+        passwordErrorLabel.setText(mensaje);
+        passwordErrorLabel.setVisible(mensaje != null && !mensaje.isEmpty());
+    }
+    public void setRepeatPasswordError(String mensaje) {
+        repeatPasswordErrorLabel.setText(mensaje);
+        repeatPasswordErrorLabel.setVisible(mensaje != null && !mensaje.isEmpty());
+    }
+
+    public String getUsuario() {
+        return usuarioField.getText().trim();
+    }
+    public String getNombreCompleto() {
+        return nombreCompletoField.getText().trim();
+    }
+    public String getCorreo() {
+        return correoField.getText().trim();
+    }
+    public String getPassword() {
+        return new String(passwordField.getPassword());
+    }
+    public String getRepeatPassword() {
+        return new String(repeatPasswordField.getPassword());
     }
 }

@@ -2,13 +2,18 @@ package ui.profile;
 
 import components.panel.RoundedPanel;
 import utils.I18n;
+import utils.UserStorage;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class ProfilePanel extends JPanel{
 
-    public ProfilePanel() {
+    private final UserStorage.User currentUser;
+
+    public ProfilePanel(UserStorage.User currentUser) {
+        this.currentUser = currentUser;
+        
         setLayout(new BorderLayout());
 
         add(buildTopBar(), BorderLayout.NORTH);
@@ -45,11 +50,20 @@ public class ProfilePanel extends JPanel{
         profileCard.setMaximumSize(new Dimension(420, 160));
         profileCard.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        ImageIcon profileIcon = new ImageIcon("resources/images/profile_placeholder.png");
+        String avatarPath = currentUser.getAvatarPath();
+
+        ImageIcon profileIcon = new ImageIcon("resources/images/ui/profile_placeholder.png");
+        if (!avatarPath.isEmpty()){
+            profileIcon = new ImageIcon(avatarPath);
+        }
+        
         Image profileImg = profileIcon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         JLabel profilePic = new JLabel(new ImageIcon(profileImg));
 
-        JLabel nameBlock = new JLabel("<html><div style='font-size:18px; font-family:Sora SemiBold; font-weight:plain;'>" + I18n.t("register_name") + "</div><div style='color:gray;'>" + I18n.t("register_placeholder_username") + "</div></html>");
+        String nombre = currentUser.getNombreCompleto();
+        String user = currentUser.getUser();
+        JLabel nameBlock = new JLabel(
+            String.format("<html><div style='font-size:18px; font-family:Sora SemiBold; font-weight:plain;'> %s </div><div style='color:gray;'> @%s </div></html>", nombre, user));
         nameBlock.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 10));
 
         profileCard.add(profilePic);
