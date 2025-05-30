@@ -4,6 +4,7 @@ import ui.menu.MenuPanel;
 import ui.home.HomePanel;
 import ui.cats.CatsPanel;
 import ui.order.OrderPanel;
+import ui.profile.ProfilePanel;
 import model.ProductData;
 import components.bar.NavigationBar;
 import controller.order.ProductOrderController;
@@ -38,6 +39,7 @@ public class MainFrame extends ui.BaseFrame {
     public static final String CATS = "CATS";
     public static final String ORDER = "ORDER";
     public static final String CAT_PROFILE = "CAT_PROFILE";
+    public static final String PROFILE = "PROFILE";
 
     public MainFrame(NavigationHost navigationHost) {
         super("Catffee");
@@ -50,6 +52,8 @@ public class MainFrame extends ui.BaseFrame {
         initOrderPanel();
         initMenuPanel();
         initCatsPanel();
+        initProfilePanel();
+        
         add(cardPanel, BorderLayout.CENTER);
 
         initNavigationBar();
@@ -78,6 +82,11 @@ public class MainFrame extends ui.BaseFrame {
         cardPanel.add(catsPanel, CATS);
     }
 
+    private void initProfilePanel() {
+        ProfilePanel profilePanel = new ProfilePanel();
+        cardPanel.add(profilePanel, PROFILE);
+    }
+
     private void initNavigationBar() {
         navBar = new NavigationBar(HOME);
         Map<String, String> labelToPanelName = Map.of(
@@ -85,7 +94,8 @@ public class MainFrame extends ui.BaseFrame {
             "MENU", MENU,
             "ORDER", ORDER,
             "CATS", CATS,
-            "PROFILE", CAT_PROFILE
+            "CAT_PROFILE", CAT_PROFILE,
+            "PROFILE", PROFILE
         );
         new PanelNavigationManager(this, navBar, labelToPanelName);
         add(navBar, BorderLayout.SOUTH);
