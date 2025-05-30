@@ -99,7 +99,7 @@ public class OrderPanel extends JPanel {
         totalRow.setBorder(BorderFactory.createEmptyBorder(10, 0, 60, 0));
 
         RoundedButton pedirBtn = new RoundedButton(I18n.t("order_order"), 25);
-        pedirBtn.setMaximumSize(new Dimension(327, 56));
+        pedirBtn.setMaximumSize(new Dimension(330, 56));
         pedirBtn.setBackground(new Color(193, 124, 77));
         pedirBtn.setForeground(Color.WHITE);
         pedirBtn.setFont(new Font("Sora SemiBold", Font.PLAIN, 16));
