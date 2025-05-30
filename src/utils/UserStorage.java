@@ -19,6 +19,7 @@ public class UserStorage {
 
     // Map email -> User
     private final Map<String, User> users = new HashMap<>();
+    private final Map<String, String> usernameToEmail = new HashMap<>(); // Relacion user->email para evitar tener que recorrer en O(n)
 
     private UserStorage(String filename) {
         this.filename = filename;
@@ -56,8 +57,9 @@ public class UserStorage {
                     String email = parts[0].trim().toLowerCase();
                     String password = parts[1];
                     String nombreCompleto = parts[2];
-                    String avatarPath = parts[3];
-                    users.put(email, new User(email, password, nombreCompleto, avatarPath));
+                    String user = parts[3];
+                    String avatarPath = parts[4];
+                    users.put(email, new User(email, password, nombreCompleto, user, avatarPath));
                 }
             }
         } catch (FileNotFoundException e) {
@@ -79,34 +81,38 @@ public class UserStorage {
         return isValid;
     }
 
-    // Añade usuario nuevo si no existe, actualiza archivo y mapa
-    public synchronized boolean addUser(String email, String password, String nombreCompleto, String avatarPath) {
+    public synchronized boolean addUser(String email, String password, String nombreCompleto, String user, String avatarPath) {
         String key = email.toLowerCase();
-        if (users.containsKey(key)) {
+        if (users.containsKey(key) || usernameToEmail.containsKey(user.toLowerCase())) {
             return false;
         }
-        User newUser = new User(email, password, nombreCompleto, avatarPath);
+        User newUser = new User(email, password, nombreCompleto, user, avatarPath);
         users.put(key, newUser);
+        usernameToEmail.put(user.toLowerCase(), key);
         return saveUserToFile(newUser);
     }
 
     // Guarda solo el nuevo usuario al final del archivo
     private boolean saveUserToFile(User user) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename, true))) {
-            writer.write(user.email + "," + user.password + "," + user.nombreCompleto + "," + user.avatarPath);
+            writer.write(user.email + "," + user.password + "," + user.nombreCompleto + "," + user.user + "," + user.avatarPath);
             writer.newLine();
             return true;
         } catch (IOException e) {
             System.err.println("Error al guardar usuario: " + e.getMessage());
             // Si fallo, removemos del mapa para evitar inconsistencia
             users.remove(user.email.toLowerCase());
+            usernameToEmail.remove(user.user.toLowerCase());
             return false;
         }
     }
 
-    // Verifica si email existe en el mapa
     public boolean emailExists(String email) {
         return email != null && users.containsKey(email.toLowerCase());
+    }
+
+    public boolean userExists(String user) {
+        return user != null && usernameToEmail.containsKey(user.toLowerCase());
     }
 
     // Clase interna para almacenar info del usuario
@@ -114,12 +120,14 @@ public class UserStorage {
         private final String email;
         private final String password;
         private final String nombreCompleto;
+        private final String user;
         private final String avatarPath;
 
-        User(String email, String password, String nombreCompleto, String avatarPath) {
+        User(String email, String password, String nombreCompleto, String user, String avatarPath) {
             this.email = email;
             this.password = password;
             this.nombreCompleto = nombreCompleto;
+            this.user = user;
             this.avatarPath = avatarPath;
         }
 
@@ -133,6 +141,10 @@ public class UserStorage {
 
         public String getNombreCompleto() {
             return nombreCompleto;
+        }
+
+        public String getUser() {
+            return user;
         }
 
         public String getAvatarPath() {
