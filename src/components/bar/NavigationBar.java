@@ -20,13 +20,6 @@ public class NavigationBar extends JPanel {
     private String selected;
     private final List<JLabel> textLabels = new ArrayList<>();
     private static final String[] SECTION_KEYS = {"HOME", "MENU", "ORDER", "CATS", "PROFILE"};
-    private static final String[] SECTION_TEXTS = {
-        I18n.t("nav_home"),
-        I18n.t("nav_menu"),
-        I18n.t("nav_order"),
-        I18n.t("nav_cats"),
-        I18n.t("nav_profile")
-    };
     private static final String[] ICONS = {"home.png", "carta.png", "pedido.png", "gatos.png", "perfil.png"};
     private static final Color SELECTED_COLOR = new Color(255, 150, 50);
     private static final Color UNSELECTED_COLOR = Color.WHITE;
@@ -37,8 +30,15 @@ public class NavigationBar extends JPanel {
         setOpaque(false);
         setLayout(new GridLayout(1, SECTION_KEYS.length));
         setPreferredSize(new Dimension(0, 60));
+        String[] sectionTexts = {
+            I18n.t("nav_home"),
+            I18n.t("nav_menu"),
+            I18n.t("nav_order"),
+            I18n.t("nav_cats"),
+            I18n.t("nav_profile")
+        };
         for (int i = 0; i < SECTION_KEYS.length; i++) {
-            add(createNavItem(SECTION_KEYS[i], SECTION_TEXTS[i], ICONS[i], i));
+            add(createNavItem(SECTION_KEYS[i], sectionTexts[i], ICONS[i], i));
         }
     }
 
