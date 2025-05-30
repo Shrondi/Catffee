@@ -1,5 +1,7 @@
 package model;
 
+import utils.I18n;
+
 /**
  * Clase utilitaria para obtener los perfiles de gatos disponibles en Catffee.
  * Proporciona métodos para cada gato.
@@ -15,11 +17,11 @@ public class CatProfiles {
      */
     public static CatProfile abi() {
         return new CatProfile.Builder()
-            .name("ABI")
-            .age("1 años")
-            .gender("Hembra")
-            .about("Un torbellino adorable. Abi es juguetona y sociable, y siempre está lista para una aventura. ¡O para robarte la silla!")
-            .ideal("Familias activas o personas que pasen mucho tiempo en casa.")
+            .name(I18n.t("catprofile_abi_name"))
+            .age(I18n.t("catprofile_abi_age"))
+            .gender(I18n.t("catprofile_abi_gender"))
+            .about(I18n.t("catprofile_abi_about"))
+            .ideal(I18n.t("catprofile_abi_ideal"))
             .imagePaths(
                 "resources/images/cats/abi/abi1.png",
                 "resources/images/cats/abi/abi2.png",
@@ -34,11 +36,11 @@ public class CatProfiles {
      */
     public static CatProfile alfil() {
         return new CatProfile.Builder()
-            .name("ALFIL")
-            .age("4 años")
-            .gender("Macho")
-            .about("Dormilón profesional y fan de las mantas suaves. Le encanta hacerse ovillo y ronronear a volumen máximo.")
-            .ideal("Casas tranquilas con sofá libre.")
+            .name(I18n.t("catprofile_alfil_name"))
+            .age(I18n.t("catprofile_alfil_age"))
+            .gender(I18n.t("catprofile_alfil_gender"))
+            .about(I18n.t("catprofile_alfil_about"))
+            .ideal(I18n.t("catprofile_alfil_ideal"))
             .imagePaths(
                 "resources/images/cats/alfil/alfil1.png",
                 "resources/images/cats/alfil/alfil2.png",
@@ -53,11 +55,11 @@ public class CatProfiles {
      */
     public static CatProfile cherry() {
         return new CatProfile.Builder()
-            .name("CHERRY")
-            .age("2 años")
-            .gender("Hembra")
-            .about("Curiosa y coqueta. Le gusta observar desde lo alto y acercarse con cariño a pedir mimos.")
-            .ideal("Una compañera elegante y observadora.")
+            .name(I18n.t("catprofile_cherry_name"))
+            .age(I18n.t("catprofile_cherry_age"))
+            .gender(I18n.t("catprofile_cherry_gender"))
+            .about(I18n.t("catprofile_cherry_about"))
+            .ideal(I18n.t("catprofile_cherry_ideal"))
             .imagePaths(
                 "resources/images/cats/cherry/cherry1.png",
                 "resources/images/cats/cherry/cherry2.png",
@@ -72,11 +74,11 @@ public class CatProfiles {
      */
     public static CatProfile flush() {
         return new CatProfile.Builder()
-            .name("FLUSH")
-            .age("5 años")
-            .gender("Macho")
-            .about("Dormilón, pacífico y dulce. \n" + "A Flush le encanta dormir en posiciones imposibles y siempre está buscando una superficie cómoda para echarse la siesta.")
-            .ideal("Un hogar sereno, con espacio para relajarse.")
+            .name(I18n.t("catprofile_flush_name"))
+            .age(I18n.t("catprofile_flush_age"))
+            .gender(I18n.t("catprofile_flush_gender"))
+            .about(I18n.t("catprofile_flush_about"))
+            .ideal(I18n.t("catprofile_flush_ideal"))
             .imagePaths(
                 "resources/images/cats/flush/flush1.png",
                 "resources/images/cats/flush/flush2.png",
@@ -91,11 +93,11 @@ public class CatProfiles {
      */
     public static CatProfile gulliver() {
         return new CatProfile.Builder()
-            .name("GULLIVER")
-            .age("3 años")
-            .gender("Macho")
-            .about("Gulliver es un explorador. Discreto pero cariñoso, se deja querer cuando ya te ha observado lo suficiente.")
-            .ideal("Gente paciente que adore ganar la confianza de un gato.")
+            .name(I18n.t("catprofile_gulliver_name"))
+            .age(I18n.t("catprofile_gulliver_age"))
+            .gender(I18n.t("catprofile_gulliver_gender"))
+            .about(I18n.t("catprofile_gulliver_about"))
+            .ideal(I18n.t("catprofile_gulliver_ideal"))
             .imagePaths(
                 "resources/images/cats/gulliver/gulliver1.png",
                 "resources/images/cats/gulliver/gulliver2.png",
@@ -110,11 +112,11 @@ public class CatProfiles {
      */
     public static CatProfile mazinger() {
         return new CatProfile.Builder()
-            .name("MAZINGER")
-            .age("4 años")
-            .gender("Macho")
-            .about("El gato con más actitud. Mazinger parece serio, pero en realidad es un trozo de pan. Adora las cajas.")
-            .ideal("Una casa con ritmo medio y mucho cariño.")
+            .name(I18n.t("catprofile_mazinger_name"))
+            .age(I18n.t("catprofile_mazinger_age"))
+            .gender(I18n.t("catprofile_mazinger_gender"))
+            .about(I18n.t("catprofile_mazinger_about"))
+            .ideal(I18n.t("catprofile_mazinger_ideal"))
             .imagePaths(
                 "resources/images/cats/mazinger/mazinger1.png",
                 "resources/images/cats/mazinger/mazinger2.png",
@@ -129,11 +131,11 @@ public class CatProfiles {
      */
     public static CatProfile membrillo() {
         return new CatProfile.Builder()
-            .name("MEMBRILLO")
-            .age("6 años")
-            .gender("Macho")
-            .about("Mimoso y melancólico. Membrillo parece un poeta en forma de gato. Le encanta tumbarse a mirar el vacío.")
-            .ideal("Alguien sensible y con ganas de un amigo tranquilo.")
+            .name(I18n.t("catprofile_membrillo_name"))
+            .age(I18n.t("catprofile_membrillo_age"))
+            .gender(I18n.t("catprofile_membrillo_gender"))
+            .about(I18n.t("catprofile_membrillo_about"))
+            .ideal(I18n.t("catprofile_membrillo_ideal"))
             .imagePaths(
                 "resources/images/cats/membrillo/membrillo1.png",
                 "resources/images/cats/membrillo/membrillo2.png",
@@ -148,11 +150,11 @@ public class CatProfiles {
      */
     public static CatProfile sylvestre() {
         return new CatProfile.Builder()
-            .name("SYLVESTRE")
-            .age("7 años")
-            .gender("Hembra")
-            .about("El más elegante y relajado del grupo. Sylvestre se toma todo con calma y transmite mucha paz.")
-            .ideal("Personas mayores o muy caseras que busquen paz.")
+            .name(I18n.t("catprofile_sylvestre_name"))
+            .age(I18n.t("catprofile_sylvestre_age"))
+            .gender(I18n.t("catprofile_sylvestre_gender"))
+            .about(I18n.t("catprofile_sylvestre_about"))
+            .ideal(I18n.t("catprofile_sylvestre_ideal"))
             .imagePaths(
                 "resources/images/cats/sylvestre/sylvestre1.png",
                 "resources/images/cats/sylvestre/sylvestre2.png",
