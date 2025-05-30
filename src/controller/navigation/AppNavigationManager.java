@@ -4,7 +4,7 @@ import ui.main.MainFrame;
 import ui.login.LoginFrame;
 import ui.register.RegisterFrame;
 import ui.welcome.WelcomeFrame;
-
+import utils.UserStorage;
 import javax.swing.*;
 
 /**
@@ -39,8 +39,8 @@ public class AppNavigationManager implements NavigationHost {
     }
 
     @Override
-    public void showMainFrame() {
-        MainFrame mainFrame = new MainFrame(this);
+    public void showMainFrame(UserStorage.User currentUser) {
+        MainFrame mainFrame = new MainFrame(this, currentUser);
         mainFrame.setVisible(true);
         setCurrentFrame(mainFrame);
     }

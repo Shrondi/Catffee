@@ -11,7 +11,7 @@ import controller.order.ProductOrderController;
 import controller.cat.CatProfileController;
 import controller.navigation.NavigationHost;
 import controller.navigation.PanelNavigationManager;
-
+import utils.UserStorage;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Map;
@@ -33,6 +33,7 @@ public class MainFrame extends ui.BaseFrame {
     private String currentSection = "Inicio";
     private NavigationBar navBar;
     private final NavigationHost navigationHost;
+    private final UserStorage.User currentUser;
 
     public static final String HOME = "HOME";
     public static final String MENU = "MENU";
@@ -41,9 +42,10 @@ public class MainFrame extends ui.BaseFrame {
     public static final String CAT_PROFILE = "CAT_PROFILE";
     public static final String PROFILE = "PROFILE";
 
-    public MainFrame(NavigationHost navigationHost) {
+    public MainFrame(NavigationHost navigationHost, UserStorage.User currentUser) {
         super("Catffee");
         this.navigationHost = navigationHost;
+        this.currentUser = currentUser;
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
         setBackground(Color.decode("#F9F9F9"));
@@ -60,7 +62,7 @@ public class MainFrame extends ui.BaseFrame {
     }
 
     private void initHomePanel() {
-        HomePanel homePanel = new HomePanel(this::handleProductAdded);
+        HomePanel homePanel = new HomePanel(this::handleProductAdded, currentUser.getNombreCompleto());
         cardPanel.add(homePanel, HOME);
     }
 
@@ -83,7 +85,7 @@ public class MainFrame extends ui.BaseFrame {
     }
 
     private void initProfilePanel() {
-        ProfilePanel profilePanel = new ProfilePanel();
+        ProfilePanel profilePanel = new ProfilePanel(currentUser);
         cardPanel.add(profilePanel, PROFILE);
     }
 

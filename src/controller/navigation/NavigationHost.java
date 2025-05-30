@@ -1,5 +1,7 @@
 package controller.navigation;
 
+import utils.UserStorage;
+
 /**
  * Interfaz para la navegación entre pantallas en Catffee.
  *
@@ -12,7 +14,7 @@ package controller.navigation;
  */
 public interface NavigationHost {
     /** Muestra la ventana principal. */
-    void showMainFrame();
+    void showMainFrame(UserStorage.User currentUser);
     /** Muestra la ventana de login. */
     void showLoginFrame();
     /** Muestra la ventana de registro. */
