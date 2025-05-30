@@ -29,6 +29,18 @@ public class RegisterController {
         this.avatarFile = file;
     }
 
+    public boolean emailExists(String email) {
+        return storage.emailExists(email);
+    }
+
+    public boolean userExists(String user) {
+        return storage.userExists(user);
+    }
+
+    public boolean addUser(String email, String password, String nombreCompleto, String user, String avatarPath) {
+        return storage.addUser(email, password, nombreCompleto, user, avatarPath);
+    }
+
     public void registrarUsuario() {
         String email = frame.correoField.getText().trim();
         String password = new String(frame.passwordField.getPassword());
@@ -47,19 +59,19 @@ public class RegisterController {
             return;
         }
 
-        if (storage.emailExists(email)) {
+        if (emailExists(email)) {
             JOptionPane.showMessageDialog(frame, "El email ya está registrado.", "Usuario existente", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        if (storage.userExists(usuario)){
+        if (userExists(usuario)){
             JOptionPane.showMessageDialog(frame, "El nombre de usuario ya esta en uso.", "Nombre de usuario existente", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         String avatarPath = avatarFile != null ? avatarFile.getAbsolutePath() : "";
 
-        boolean added = storage.addUser(email, password, nombreCompleto, usuario, avatarPath);
+        boolean added = addUser(email, password, nombreCompleto, usuario, avatarPath);
         if (added) {
             JOptionPane.showMessageDialog(frame, "Registro exitoso. Ahora puedes iniciar sesión.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             navigationHost.showLoginFrame();

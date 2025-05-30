@@ -15,7 +15,6 @@ public class UserStorage {
 
     private static UserStorage instance;
     private final String filename;
-    private User currentUser = null;
 
     // Map email -> User
     private final Map<String, User> users = new HashMap<>();
@@ -42,10 +41,6 @@ public class UserStorage {
         return instance;
     }
 
-    public User getCurrentUser(){
-        return currentUser;
-    }
-
     // Carga usuarios del archivo en el mapa
     private void loadUsersFromFile() {
         users.clear();
@@ -67,18 +62,6 @@ public class UserStorage {
         } catch (IOException e) {
             System.err.println("Error al cargar usuarios: " + e.getMessage());
         }
-    }
-
-    public boolean isValidUser(String email, String password) {
-        if (email == null || password == null) return false;
-        
-        User user = users.get(email.toLowerCase());
-
-        boolean isValid = user != null && user.password.equals(password);
-        if (isValid) {
-            currentUser = user;
-        }
-        return isValid;
     }
 
     public synchronized boolean addUser(String email, String password, String nombreCompleto, String user, String avatarPath) {
@@ -113,6 +96,11 @@ public class UserStorage {
 
     public boolean userExists(String user) {
         return user != null && usernameToEmail.containsKey(user.toLowerCase());
+    }
+
+    public User getUserByEmail(String email) {
+        if (email == null) return null;
+        return users.get(email.toLowerCase());
     }
 
     // Clase interna para almacenar info del usuario
