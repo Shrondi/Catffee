@@ -1,22 +1,18 @@
 package ui.profile;
 
-import components.bar.NavigationBar;
 import components.panel.RoundedPanel;
-import ui.BaseFrame;
 import utils.I18n;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class ProfileFrame extends BaseFrame {
+public class ProfilePanel extends JPanel{
 
-    public ProfileFrame(String title) {
-        super(title);
+    public ProfilePanel() {
         setLayout(new BorderLayout());
 
         add(buildTopBar(), BorderLayout.NORTH);
         add(buildContentPanel(), BorderLayout.CENTER);
-        add(new NavigationBar("Perfil"), BorderLayout.SOUTH);
     }
 
     private JPanel buildTopBar() {
@@ -63,11 +59,11 @@ public class ProfileFrame extends BaseFrame {
         panel.add(profileCard);
         panel.add(Box.createVerticalStrut(100));
 
-        panel.add(buildOption("resources/images/translate.png", I18n.t("profile_language")));
+        panel.add(buildOption("resources/images/ui/translate.png", I18n.t("profile_language")));
         panel.add(Box.createVerticalStrut(20));
-        panel.add(buildOption("resources/images/heart.png", I18n.t("profile_rate")));
+        panel.add(buildOption("resources/images/ui/heart.png", I18n.t("profile_rate")));
         panel.add(Box.createVerticalStrut(20));
-        panel.add(buildOption("resources/images/log_out.png", I18n.t("profile_logout")));
+        panel.add(buildOption("resources/images/ui/log_out.png", I18n.t("profile_logout")));
 
         return panel;
     }
