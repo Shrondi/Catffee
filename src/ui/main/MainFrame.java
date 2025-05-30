@@ -85,7 +85,7 @@ public class MainFrame extends ui.BaseFrame {
     }
 
     private void initProfilePanel() {
-        ProfilePanel profilePanel = new ProfilePanel(currentUser);
+        ProfilePanel profilePanel = new ProfilePanel(currentUser, navigationHost);
         cardPanel.add(profilePanel, PROFILE);
     }
 
