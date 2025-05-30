@@ -24,7 +24,8 @@ public class App {
         FontsLoader.inicializar(); // Inicializar las fuentes
         UserStorage.init("usuarios.txt");
 
-        I18n.setLocale(Locale.forLanguageTag("es-ES"));
+        Locale systemLocale = Locale.getDefault();
+        I18n.setLocale(systemLocale);
 
         AppNavigationManager navigationManager = new AppNavigationManager();
         navigationManager.start();
