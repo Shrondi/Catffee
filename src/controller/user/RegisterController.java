@@ -52,9 +52,14 @@ public class RegisterController {
             return;
         }
 
+        if (storage.userExists(usuario)){
+            JOptionPane.showMessageDialog(frame, "El nombre de usuario ya esta en uso.", "Nombre de usuario existente", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         String avatarPath = avatarFile != null ? avatarFile.getAbsolutePath() : "";
 
-        boolean added = storage.addUser(email, password, nombreCompleto, avatarPath);
+        boolean added = storage.addUser(email, password, nombreCompleto, usuario, avatarPath);
         if (added) {
             JOptionPane.showMessageDialog(frame, "Registro exitoso. Ahora puedes iniciar sesión.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
             navigationHost.showLoginFrame();
