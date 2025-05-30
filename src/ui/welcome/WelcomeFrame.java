@@ -7,7 +7,6 @@ import ui.BaseFrame;
 import utils.I18n;
 import controller.navigation.NavigationHost;
 import controller.user.WelcomeController;
-import java.util.Locale;
 
 /**
  * Ventana de bienvenida para Catffee. Permite seleccionar idioma y comenzar la experiencia.
