@@ -3,6 +3,7 @@ package ui.menu;
 import components.panel.ProductBox;
 import model.ProductData;
 import model.Products;
+import utils.I18n;
 
 import javax.swing.*;
 import java.awt.*;
@@ -84,7 +85,7 @@ public class MenuPanel extends JPanel {
         topBar.setPreferredSize(new Dimension(413, 85));
         topBar.setMaximumSize(new Dimension(413, 85));
 
-        JLabel titleLabel = new JLabel("Carta");
+        JLabel titleLabel = new JLabel(I18n.t("menupanel_title"));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 30));
         titleLabel.setBorder(BorderFactory.createEmptyBorder(23, 31, 23, 213));
@@ -103,13 +104,13 @@ public class MenuPanel extends JPanel {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         container.add(Box.createVerticalStrut(10));
-        container.add(categorySection("Cafés", Products.getCoffeeProducts()));
+        container.add(categorySection(I18n.t("menupanel_category_coffee"), Products.getCoffeeProducts()));
         container.add(Box.createVerticalStrut(20));
-        container.add(categorySection("Bebidas frías", Products.getColdDrinks()));
+        container.add(categorySection(I18n.t("menupanel_category_cold_drinks"), Products.getColdDrinks()));
         container.add(Box.createVerticalStrut(20));
-        container.add(categorySection("Dulces", Products.getDesserts()));
+        container.add(categorySection(I18n.t("menupanel_category_desserts"), Products.getDesserts()));
         container.add(Box.createVerticalStrut(20));
-        container.add(categorySection("Salados", Products.getSaltyFood()));
+        container.add(categorySection(I18n.t("menupanel_category_salty"), Products.getSaltyFood()));
         container.add(Box.createVerticalStrut(100));
 
         JScrollPane scrollPane = new JScrollPane(container);
