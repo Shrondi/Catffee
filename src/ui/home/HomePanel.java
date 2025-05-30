@@ -22,13 +22,15 @@ import java.util.function.Consumer;
 public class HomePanel extends JPanel {
     /** Callback para notificar cuando se añade un producto al pedido. */
     private final Consumer<ProductData> onProductAdded;
+    private final String nombreCompletoUsuario;
 
     /**
      * Crea el panel de inicio.
      * @param onProductAdded función a ejecutar cuando se añade un producto
      */
-    public HomePanel(Consumer<ProductData> onProductAdded) {
+    public HomePanel(Consumer<ProductData> onProductAdded, String nombreCompletoUsuario) {
         this.onProductAdded = onProductAdded;
+        this.nombreCompletoUsuario = nombreCompletoUsuario;
         setLayout(new BorderLayout());
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -85,9 +87,8 @@ public class HomePanel extends JPanel {
         panel.setOpaque(false);
         panel.setAlignmentX(0.5f);
         panel.setAlignmentY(0.5f);
-        String nombre = UserStorage.getInstance().getCurrentUser().getNombreCompleto();
         JLabel welcomeText = new JLabel(
-            String.format("<html><div style='text-align: left;'>" + I18n.t("welcome_user") + "<br><b>%s ☕</b></div></html>", nombre));
+            String.format("<html><div style='text-align: left;'>" + I18n.t("welcome_user") + "<br><b>%s ☕</b></div></html>", nombreCompletoUsuario));
         welcomeText.setForeground(Color.WHITE);
         welcomeText.setFont(new Font("Segoe UI Emoji", Font.BOLD, 32));
         welcomeText.setHorizontalAlignment(SwingConstants.LEFT);
