@@ -21,8 +21,10 @@ import controller.order.ProductOrderController;
 public class ProductCard extends JPanel {
     private int quantity = 1;
     private final JLabel quantityLabel;
+    private ProductData productData;
 
-    public ProductCard(ProductData data, ProductOrderController controller) {
+    public ProductCard(ProductData data, ProductOrderController controller, boolean readOnly) {
+        this.productData = data;
 
         setLayout(new BorderLayout());
         setMaximumSize(new Dimension(360, 70));
@@ -57,6 +59,7 @@ public class ProductCard extends JPanel {
         // Contador
         RoundedButton minus = new RoundedButton("–", 20);
         quantityLabel = new JLabel(String.valueOf(quantity));
+        quantityLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 14));
         RoundedButton plus = new RoundedButton("+", 20);
 
         minus.setBackground(Color.WHITE);
@@ -74,9 +77,18 @@ public class ProductCard extends JPanel {
 
         JPanel counter = new JPanel();
         counter.setOpaque(false);
-        counter.add(minus);
-        counter.add(quantityLabel);
-        counter.add(plus);
+
+        if (readOnly) {
+            // Mantener el espacio de los botones aunque no se vean
+            int btnWidth = 40; // Tamaño estándar de los botones
+            counter.add(Box.createHorizontalStrut(btnWidth));
+            counter.add(quantityLabel);
+            counter.add(Box.createHorizontalStrut(btnWidth));
+        } else {
+            counter.add(minus);
+            counter.add(quantityLabel);
+            counter.add(plus);
+        }
 
         JPanel rightPanel = new JPanel(new BorderLayout());
         rightPanel.setOpaque(false);
@@ -93,4 +105,11 @@ public class ProductCard extends JPanel {
         quantityLabel.setText(String.valueOf(quantity));
     }
 
+    public ProductData getProductData() {
+        return productData;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }

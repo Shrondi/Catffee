@@ -25,6 +25,7 @@ public class ProductBox extends RoundedPanel {
     private static final int HEIGHT = 240;
 
     private final Runnable onAddCallback;
+    private RoundedButton plusBtn;
 
     public ProductBox(ProductData product, Runnable onAddCallback) {
         super(16); // radio de los bordes redondeados
@@ -73,7 +74,7 @@ public class ProductBox extends RoundedPanel {
         priceLabel.setFont(new Font("Poppins", Font.BOLD, 18));
         priceLabel.setForeground(Color.BLACK);
 
-        RoundedButton plusBtn = createPlusButton();
+        plusBtn = createPlusButton();
 
         JPanel bottom = new JPanel(new FlowLayout(FlowLayout.CENTER, 25, 0));
         bottom.setOpaque(false);
@@ -98,5 +99,12 @@ public class ProductBox extends RoundedPanel {
         button.setOpaque(false);
         button.setBorderPainted(false);
         return button;
+    }
+
+    public void setAddEnabled(boolean enabled) {
+        if (plusBtn != null) {
+            plusBtn.setEnabled(enabled);
+            plusBtn.setVisible(enabled);
+        }
     }
 }
