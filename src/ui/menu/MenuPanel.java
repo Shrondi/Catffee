@@ -23,7 +23,6 @@ import java.util.Collections;
 public class MenuPanel extends JPanel {
     /** Callback para notificar cuando se añade un producto al pedido. */
     private final Consumer<ProductData> onProductAdded;
-    private final List<ProductBox> productBoxes = new ArrayList<>();
 
     /**
      * Crea el panel de menú.
@@ -153,7 +152,6 @@ public class MenuPanel extends JPanel {
 
         for (ProductData p : products) {
             ProductBox box = new ProductBox(p, () -> fireProductAdded(p));
-            productBoxes.add(box);
             grid.add(box);
         }
 
@@ -173,15 +171,6 @@ public class MenuPanel extends JPanel {
     private void fireProductAdded(ProductData product) {
         if (onProductAdded != null) {
             onProductAdded.accept(product);
-        }
-    }
-
-    /**
-     * Deshabilita o habilita todos los botones "+" de los productos.
-     */
-    public void setAddEnabled(boolean enabled) {
-        for (ProductBox box : productBoxes) {
-            box.setAddEnabled(enabled);
         }
     }
 }

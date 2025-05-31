@@ -51,7 +51,7 @@ public class OrderPanel extends JPanel {
         controller.addCartListener(this::refreshCartView);
 
         // Asignar el listener al botón pedir después de inicializar controller y pedirBtn
-        pedirBtn.addActionListener(new OrderListener(this, this.controller));
+        pedirBtn.addActionListener(new OrderListener(this));
     }
 
     private JPanel buildTopBar() {
@@ -197,6 +197,9 @@ public class OrderPanel extends JPanel {
 
         revalidate();
         repaint();
+
+         // Tras 1 minuto, restaurar el panel vacío automáticamente
+         new javax.swing.Timer(60000, _ -> resetToEmpty()) {{ setRepeats(false); }}.start();
     }
 
     private JPanel buildEmptyOrderPanel() {
@@ -264,6 +267,17 @@ public class OrderPanel extends JPanel {
             }
             updateTotalLabel();
         }
+        revalidate();
+        repaint();
+    }
+
+    /**
+     * Restaura el panel al estado vacío tras un pedido confirmado, para cuando se vuelve a la vista de pedido.
+     */
+    public void resetToEmpty() {
+        removeAll();
+        add(buildTopBar(), BorderLayout.NORTH);
+        add(emptyCart, BorderLayout.CENTER);
         revalidate();
         repaint();
     }

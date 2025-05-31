@@ -4,8 +4,6 @@ import model.OrderCart;
 import model.ProductData;
 import java.util.List;
 import java.util.ArrayList;
-import ui.home.HomePanel;
-import ui.menu.MenuPanel;
 
 /**
  * Controlador para la lógica del pedido de productos en Catffee.
@@ -17,8 +15,6 @@ import ui.menu.MenuPanel;
 public class ProductOrderController {
     private final OrderCart cart = OrderCart.getInstance();
     private final List<Runnable> listeners = new ArrayList<>();
-    private HomePanel homePanel;
-    private MenuPanel menuPanel;
 
     public ProductOrderController() {}
 
@@ -50,18 +46,5 @@ public class ProductOrderController {
 
     private void notifyListeners() {
         for (Runnable r : listeners) r.run();
-    }
-
-    public void confirmOrder() {
-        if (homePanel != null) homePanel.setAddEnabled(false);
-        if (menuPanel != null) menuPanel.setAddEnabled(false);
-    }
-
-    public void setHomePanel(HomePanel homePanel) {
-        this.homePanel = homePanel;
-    }
-
-    public void setMenuPanel(MenuPanel menuPanel) {
-        this.menuPanel = menuPanel;
     }
 }

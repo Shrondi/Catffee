@@ -78,10 +78,6 @@ public class MainFrame extends ui.BaseFrame {
     private void initMenuPanel() {
         menuPanel = new MenuPanel(this::handleProductAdded);
         cardPanel.add(menuPanel, MENU);
-        if (orderController != null && homePanel != null) {
-            orderController.setHomePanel(homePanel);
-            orderController.setMenuPanel(menuPanel);
-        }
     }
 
     private void initCatsPanel() {
