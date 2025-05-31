@@ -135,7 +135,7 @@ public class OrderPanel extends JPanel {
         totalRow.setBorder(BorderFactory.createEmptyBorder(10, 0, 60, 0));
         footer.add(totalRow);
 
-        JLabel thanks = new JLabel("<html><div style='width:260px; text-align:center;'>¡Miau-chas gracias por tu pedido, " + userName + " ☕!</div></html>");
+        JLabel thanks = new JLabel("<html><div style='width:260px; text-align:center;'>¡Miau-chas gracias por tu pedido, <br>"+ userName + " ☕!</div></html>");
         thanks.setFont(new Font("Sora Light", Font.PLAIN, 16));
         thanks.setAlignmentX(Component.CENTER_ALIGNMENT);
         thanks.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
