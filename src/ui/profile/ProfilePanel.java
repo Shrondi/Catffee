@@ -189,10 +189,13 @@ public class ProfilePanel extends JPanel{
         button.setFocusPainted(false);
         button.setBackground(new Color(245, 245, 245));
         button.setBorder(BorderFactory.createCompoundBorder(
-        BorderFactory.createLineBorder(new Color(220, 220, 220)),
-        BorderFactory.createEmptyBorder(6, 12, 6, 12)));
+            BorderFactory.createLineBorder(new Color(220, 220, 220)),
+            BorderFactory.createEmptyBorder(6, 12, 6, 12)));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setMaximumSize(new Dimension(160, 36));
+        button.setMinimumSize(new Dimension(160, 36));
+        button.setPreferredSize(new Dimension(160, 36));
         button.addActionListener(_ -> dialog.dispose());
         button.addActionListener(new ProfileListener(profileController, lang.code, "idioma", null));
         return button;
