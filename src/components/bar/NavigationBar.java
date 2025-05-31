@@ -23,6 +23,7 @@ public class NavigationBar extends JPanel {
     private static final String[] ICONS = {"home.png", "carta.png", "pedido.png", "gatos.png", "perfil.png"};
     private static final Color SELECTED_COLOR = new Color(255, 150, 50);
     private static final Color UNSELECTED_COLOR = Color.WHITE;
+    private JLabel orderIconLabel;
 
     public NavigationBar(String selectedItem) {
         this.selected = selectedItem;
@@ -70,6 +71,10 @@ public class NavigationBar extends JPanel {
         iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         iconLabel.setForeground(SECTION_KEYS[index].equals(selected) ? SELECTED_COLOR : UNSELECTED_COLOR);
 
+        if ("ORDER".equals(key)) {
+            orderIconLabel = iconLabel;
+        }
+
         JLabel textLabel = new JLabel(label);
         textLabel.setFont(new Font("Poppins Medium", Font.PLAIN, 12));
         textLabel.setForeground(SECTION_KEYS[index].equals(selected) ? SELECTED_COLOR : UNSELECTED_COLOR);
@@ -106,5 +111,30 @@ public class NavigationBar extends JPanel {
             g2.drawRoundRect(i, i, width - 2 * i - 1, height - 2 * i - 1, 0, 0);
         }
         g2.dispose();
+    }
+
+    public void shakeOrderIcon() {
+        if (orderIconLabel == null) return;
+        final int shakeDistance = 5;
+        final int shakeTimes = 16;
+        final int delay = 12;
+        Point originalLocation = orderIconLabel.getLocation();
+        Timer timer = new Timer(delay, null);
+        timer.addActionListener(new java.awt.event.ActionListener() {
+            int count = 0;
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent e) {
+                double angle = 2 * Math.PI * count / shakeTimes;
+                int offsetX = (int) Math.round(Math.sin(angle) * shakeDistance);
+                int offsetY = (int) Math.round(Math.cos(angle) * (shakeDistance / 2.0));
+                orderIconLabel.setLocation(originalLocation.x + offsetX, originalLocation.y + offsetY);
+                count++;
+                if (count > shakeTimes) {
+                    orderIconLabel.setLocation(originalLocation);
+                    timer.stop();
+                }
+            }
+        });
+        timer.start();
     }
 }
