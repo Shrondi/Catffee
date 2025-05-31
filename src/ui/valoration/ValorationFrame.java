@@ -5,6 +5,7 @@ import components.button.RoundedButton;
 import javax.swing.*;
 
 import java.awt.*;
+import utils.I18n;
 
 public class ValorationFrame extends JDialog {
 
@@ -16,7 +17,7 @@ public class ValorationFrame extends JDialog {
     private JLabel errorLabel;
 
     public ValorationFrame(Frame parent) {
-        super(parent, "Valoración", true); // Modal
+        super(parent, I18n.t("valoration_title"), true); // Modal
         setSize(412, 917);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(parent);
@@ -78,7 +79,7 @@ public class ValorationFrame extends JDialog {
         topPanel.setPreferredSize(new Dimension(412, 85));
         topPanel.setMaximumSize(new Dimension(412, 85));
 
-        JLabel titleLabel = new JLabel("Valoración", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel(I18n.t("valoration_title"), SwingConstants.CENTER);
         titleLabel.setForeground(Color.BLACK);
         titleLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 30));
         titleLabel.setBorder(BorderFactory.createEmptyBorder(28, 0, 10, 50));
@@ -95,11 +96,11 @@ public class ValorationFrame extends JDialog {
         intro.setMaximumSize(new Dimension(380, 106));
         intro.setBorder(BorderFactory.createEmptyBorder(16, 10, 16, 20));
 
-        JLabel introTitle = new JLabel("¡Evalúanos! Tu opinión importa");
+        JLabel introTitle = new JLabel(I18n.t("valoration_intro_title"));
         introTitle.setFont(new Font("Roboto Bold", Font.PLAIN, 20));
         introTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel introText = new JLabel("<html><div style='width:300px;'>Valora entre 1 y 5 cada cuestión en base a tus necesidades de la app. </div></html>");
+        JLabel introText = new JLabel(I18n.t("valoration_intro_text"));
         introText.setFont(new Font("Roboto Regular", Font.PLAIN, 16));
         introText.setForeground(Color.GRAY);
         introText.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -118,17 +119,17 @@ public class ValorationFrame extends JDialog {
         questions.setAlignmentX(Component.CENTER_ALIGNMENT);
         questions.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
 
-        String[][] preguntas = {
-            {"1. ¿Te resulta fácil encontrar y explorar los productos de la carta?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
-            {"2. ¿La información sobre cada producto es clara y completa?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
-            {"3. ¿Consideras que el diseño de la aplicación es atractivo y coherente?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
-            {"4. ¿La navegación entre las distintas pantallas es fluida y sin complicaciones?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
-            {"5. ¿La aplicación te permite realizar pedidos de manera sencilla y rápida?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
-            {"6. ¿La información acerca de los gatos te resulta accesible?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"}
+        String[] preguntas = {
+            I18n.t("valoration_q1"),
+            I18n.t("valoration_q2"),
+            I18n.t("valoration_q3"),
+            I18n.t("valoration_q4"),
+            I18n.t("valoration_q5"),
+            I18n.t("valoration_q6")
         };
-
+        String escala = I18n.t("valoration_scale");
         for (int i = 0; i < preguntas.length; i++) {
-            questions.add(createQuestionBox(preguntas[i][0], preguntas[i][1], i));
+            questions.add(createQuestionBox(preguntas[i], escala, i));
             questions.add(Box.createVerticalStrut(20));
         }
 
@@ -136,7 +137,7 @@ public class ValorationFrame extends JDialog {
     }
 
     private RoundedButton finishButton() {
-        RoundedButton finishButton = new RoundedButton("Terminar", 12);
+        RoundedButton finishButton = new RoundedButton(I18n.t("valoration_finish"), 12);
         finishButton.setFont(new Font("Roboto Regular", Font.PLAIN, 16));
         finishButton.setBackground(new Color(0x313131));
         finishButton.setForeground(Color.WHITE);
@@ -156,19 +157,66 @@ public class ValorationFrame extends JDialog {
         // Comprobar que todas las preguntas han sido contestadas
         for (int i = 0; i < NUM_PREGUNTAS; i++) {
             if (respuestas[i] == 0) {
-                errorLabel.setText("Por favor, responde todas las preguntas antes de terminar.");
+                errorLabel.setText(I18n.t("valoration_error"));
                 errorLabel.setVisible(true);
                 return;
             }
         }
         errorLabel.setVisible(false);
-        // Mostrar mensaje de gracias sobre el botón y cerrar tras 2 segundos
-        errorLabel.setText("¡Muchas gracias por tu valoración!");
-        errorLabel.setForeground(new Color(40, 140, 40));
-        errorLabel.setVisible(true);
-        new javax.swing.Timer(2000, _ -> {
+        // Mostrar JDialog bonito sin botones y cerrar tras 2 segundos
+        JDialog dialog = new JDialog(this, "Valoración enviada", true);
+        // Obtener el tamaño de la ventana principal
+        int width = this.getWidth();
+        int height = this.getHeight();
+        JPanel panel = new JPanel(new GridBagLayout());
+        panel.setBackground(Color.WHITE);
+        panel.setPreferredSize(new Dimension(width, height));
+        panel.setMinimumSize(new Dimension(width, height));
+        panel.setMaximumSize(new Dimension(width, height));
+        panel.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(new Color(0xC67C4E), 2, true),
+            BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(0, 0, 30, 0);
+        gbc.anchor = GridBagConstraints.NORTH;
+        // Logo
+        ImageIcon logoIcon = new ImageIcon("resources/images/ui/logo.png");
+        Image logoImg = logoIcon.getImage().getScaledInstance(220, 220, Image.SCALE_SMOOTH);
+        JLabel logoLabel = new JLabel(new ImageIcon(logoImg));
+        logoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(logoLabel, gbc);
+        // Mensaje principal
+        gbc.gridy = 1;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        gbc.anchor = GridBagConstraints.CENTER;
+        JLabel label = new JLabel("<html><div style='width: "+(width-80)+"px; text-align:center; font-size:20px; color:#313131;'><b>" + I18n.t("valoration_thanks") + "</b></div></html>", SwingConstants.CENTER);
+        label.setFont(new Font("Sora Regular", Font.PLAIN, 20));
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(label, gbc);
+        // Mensaje secundario
+        gbc.gridy = 2;
+        gbc.insets = new Insets(10, 0, 0, 0);
+        JLabel secondary = new JLabel("<html><div style='width: "+(width-60)+"px; text-align:center; font-size:15px; color:#888;'>" + I18n.t("valoration_thanks_secondary") + "</div></html>", SwingConstants.CENTER);
+        secondary.setFont(new Font("Sora Regular", Font.PLAIN, 15));
+        secondary.setHorizontalAlignment(SwingConstants.CENTER);
+        panel.add(secondary, gbc);
+        dialog.setUndecorated(true);
+        dialog.setContentPane(panel);
+        dialog.pack();
+        dialog.setSize(width, height);
+        // Centrar dentro del frame principal, pero nunca fuera
+        Point parentLoc = this.getLocationOnScreen();
+        int x = parentLoc.x;
+        int y = parentLoc.y;
+        dialog.setLocation(x, y);
+        new javax.swing.Timer(3500, _ -> {
+            dialog.dispose();
             dispose();
         }) {{ setRepeats(false); }}.start();
+        dialog.setVisible(true);
     }
 
     private JPanel createQuestionBox(String question, String description, int preguntaIdx) {
