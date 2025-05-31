@@ -2,8 +2,6 @@ package controller.user;
 
 import ui.welcome.WelcomeFrame;
 import controller.navigation.NavigationHost;
-import utils.I18n;
-import java.util.Locale;
 import controller.common.LanguageController;
 
 /**
