@@ -3,6 +3,7 @@ package ui.welcome;
 import javax.swing.*;
 import java.awt.*;
 import components.button.RoundedButton;
+import components.panel.RoundedPanel;
 import ui.BaseFrame;
 import utils.I18n;
 import controller.navigation.NavigationHost;
@@ -65,25 +66,50 @@ public class WelcomeFrame extends BaseFrame {
         LangOption[] languages = LangOption.getAvailableLanguages();
 
         languageSelector = new JComboBox<>(languages);
+        languageSelector.setPreferredSize(new Dimension(140, 35));
+        languageSelector.setFont(new Font("seguiemj", Font.PLAIN, 14));
+        languageSelector.setFocusable(false);
+        languageSelector.setOpaque(false);
+        languageSelector.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Ajuste interior
 
-        // Seleccionar el idioma actual que se está mostrando en el combo box
+        // Flecha custom
+        languageSelector.setUI(new javax.swing.plaf.basic.BasicComboBoxUI() {
+            @Override
+            protected JButton createArrowButton() {
+                JButton button = new JButton("▼");
+                button.setBorder(BorderFactory.createEmptyBorder());
+                button.setForeground(new Color(0x252424));
+                button.setFont(new Font("seguiemj", Font.PLAIN, 10));
+                button.setContentAreaFilled(false);
+                button.setFocusPainted(false);
+                button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+                return button;
+            }
+        });
+
         String currentLang = I18n.getCurrentLocale().toString();
         for (LangOption lang : languages) {
             if (lang.code.equals(currentLang)) {
-                languageSelector.setSelectedItem(lang); 
+                languageSelector.setSelectedItem(lang);
                 break;
             }
         }
-        
-        languageSelector.setPreferredSize(new Dimension(100, 25));
-        languageSelector.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 12));
-        
+
         languageSelector.addActionListener(new WelcomeListener(controller));
 
+        // Contenedor redondeado usando tu RoundedPanel
+        RoundedPanel roundedContainer = new RoundedPanel(10, new Color(0xF9F9F9)); // Radio y color de fondo
+        roundedContainer.setLayout(new BorderLayout());
+        roundedContainer.setOpaque(false);
+        roundedContainer.setBorder(new Color(0xD4D7E3), 2); // Borde gris clarito
+        roundedContainer.add(languageSelector, BorderLayout.CENTER);
+        roundedContainer.setPreferredSize(new Dimension(150, 40));
+
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        topPanel.setBorder(BorderFactory.createEmptyBorder(10, 5, 0, 10)); // Margen superior
-        topPanel.setBackground(Color.decode("#F9F9F9"));
-        topPanel.add(languageSelector);
+        topPanel.setBorder(BorderFactory.createEmptyBorder(10, 5, 0, 10));
+        topPanel.setBackground(null);
+        topPanel.setOpaque(false);
+        topPanel.add(roundedContainer);
 
         return topPanel;
     }
