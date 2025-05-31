@@ -31,7 +31,8 @@ public class ProfileListener implements ActionListener, MouseListener {
         if ("logout".equals(actionType)) {
             controller.logout();
         } else if ("idioma".equals(actionType) && parentOption != null) {
-            if (parentOption.getParent() instanceof ui.profile.ProfilePanel panel) {
+            ProfilePanel panel = (ProfilePanel) javax.swing.SwingUtilities.getAncestorOfClass(ProfilePanel.class, parentOption);
+            if (panel != null) {
                 panel.mostrarDialogoIdioma(parentOption);
             }
         } else if ("rate".equals(actionType)) {
