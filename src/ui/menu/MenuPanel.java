@@ -134,7 +134,7 @@ public class MenuPanel extends JPanel {
         section.setLayout(new BoxLayout(section, BoxLayout.Y_AXIS));
 
         JLabel sectionTitle = new JLabel(title);
-        sectionTitle.setFont(new Font("Poppins SemiBold", Font.PLAIN, 25));
+        sectionTitle.setFont(new Font("Poppins Bold", Font.PLAIN, 25));
         sectionTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
         sectionTitle.setBorder(BorderFactory.createEmptyBorder(10, 20, 0, 20));
 

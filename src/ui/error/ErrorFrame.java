@@ -74,7 +74,7 @@ public class ErrorFrame extends BaseFrame {
         retryButton.setBackground(Color.decode("#C67C4E"));
         retryButton.setForeground(Color.WHITE);
         retryButton.setPreferredSize(new Dimension(363, 58));
-        retryButton.setFont(new Font("Sora Semibold", Font.PLAIN, 16));
+        retryButton.setFont(new Font("Poppins Medium", Font.PLAIN, 16));
         retryButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JPanel buttonPanel = new JPanel(); // Panel para contener el botón

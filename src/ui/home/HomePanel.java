@@ -107,7 +107,7 @@ public class HomePanel extends JPanel {
         contentPanel.setBackground(new Color(0xF7F7F7));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         JLabel destacadosLabel = new JLabel(I18n.t("home_featured"));
-        destacadosLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 20));
+        destacadosLabel.setFont(new Font("Sora Bold", Font.PLAIN, 20));
         destacadosLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         destacadosLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 16, 0));
         contentPanel.add(destacadosLabel);

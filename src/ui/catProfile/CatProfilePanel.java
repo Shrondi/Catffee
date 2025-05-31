@@ -113,7 +113,7 @@ public class CatProfilePanel extends JPanel {
         namePanel.setMaximumSize(new Dimension(275, 58));
 
         JLabel nameLabel = new JLabel(profile.getName());
-        nameLabel.setFont(new Font("Fredoka SemiBold", Font.PLAIN, 36));
+        nameLabel.setFont(new Font("Fredoka Medium", Font.PLAIN, 36));
         nameLabel.setForeground(Color.WHITE);
         nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -121,12 +121,12 @@ public class CatProfilePanel extends JPanel {
         namePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         JLabel ageLabel = new JLabel(I18n.t("catprofile_age").replace("{0}", String.valueOf(profile.getAge())));
-        ageLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
+        ageLabel.setFont(new Font("Poppins Medium", Font.PLAIN, 20));
         ageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         String genderKey = profile.getGender().equalsIgnoreCase("Hembra") ? "catprofile_gender_female" : "catprofile_gender_male";
         JLabel genderLabel = new JLabel(I18n.t(genderKey));
-        genderLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 20));
+        genderLabel.setFont(new Font("Poppins Medium", Font.PLAIN, 20));
         genderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         topInfo.add(namePanel);

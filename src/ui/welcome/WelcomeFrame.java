@@ -67,7 +67,7 @@ public class WelcomeFrame extends BaseFrame {
 
         languageSelector = new JComboBox<>(languages);
         languageSelector.setPreferredSize(new Dimension(140, 35));
-        languageSelector.setFont(new Font("seguiemj", Font.PLAIN, 14));
+        languageSelector.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 14));
         languageSelector.setFocusable(false);
         languageSelector.setOpaque(false);
         languageSelector.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10)); // Ajuste interior
@@ -79,7 +79,7 @@ public class WelcomeFrame extends BaseFrame {
                 JButton button = new JButton("▼");
                 button.setBorder(BorderFactory.createEmptyBorder());
                 button.setForeground(new Color(0x252424));
-                button.setFont(new Font("seguiemj", Font.PLAIN, 10));
+                button.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 10));
                 button.setContentAreaFilled(false);
                 button.setFocusPainted(false);
                 button.setCursor(new Cursor(Cursor.HAND_CURSOR));

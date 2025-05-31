@@ -185,7 +185,7 @@ public class ProfilePanel extends JPanel{
 
     private JButton crearBotonIdioma(String iconPath, LangOption lang, JDialog dialog) {
         JButton button = new JButton(lang.label, new ImageIcon(new ImageIcon(iconPath).getImage().getScaledInstance(28, 20, Image.SCALE_SMOOTH)));
-        button.setFont(new Font("Sora", Font.PLAIN, 16));
+        button.setFont(new Font("Sora Regular", Font.PLAIN, 16));
         button.setFocusPainted(false);
         button.setBackground(new Color(245, 245, 245));
         button.setBorder(BorderFactory.createCompoundBorder(
