@@ -114,6 +114,7 @@ public class MainFrame extends ui.BaseFrame {
 
     private void handleProductAdded(ProductData product) {
         orderPanel.addProductCard(product);
+        navBar.shakeOrderIcon();
     }
 
     public void showPanel(String panelName, JPanel panel) {
