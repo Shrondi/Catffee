@@ -21,4 +21,11 @@ public class ProfileController {
             }
         });
     }
+
+    public void logout() {
+        navigationHost.closeCurrentFrame();
+        if (navigationHost instanceof controller.navigation.AppNavigationManager manager) {
+            manager.start();
+        }
+    }
 } 

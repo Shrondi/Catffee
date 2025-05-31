@@ -141,15 +141,15 @@ public class ProfilePanel extends JPanel{
         option.add(left, BorderLayout.WEST);
         option.add(right, BorderLayout.EAST);
 
-        // Si es la opción de idioma, toda la tarjeta es clicable
+        // Si es la opción de idioma, toda la tarjeta es clicable mediante MouseListener
         if (labelText.equals(I18n.t("profile_language"))) {
             option.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            option.addMouseListener(new java.awt.event.MouseAdapter() {
-                @Override
-                public void mouseClicked(java.awt.event.MouseEvent e) {
-                    mostrarDialogoIdioma(option);
-                }
-            });
+            option.addMouseListener(new ProfileListener(profileController, null, "idioma", () -> mostrarDialogoIdioma(option)));
+        }
+        // Si es la opción de cerrar sesión, toda la tarjeta es clicable mediante MouseListener
+        else if (labelText.equals(I18n.t("profile_logout"))) {
+            option.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            option.addMouseListener(new ProfileListener(profileController, null, "logout", null));
         }
 
         return option;
@@ -193,12 +193,12 @@ public class ProfilePanel extends JPanel{
         button.setFocusPainted(false);
         button.setBackground(new Color(245, 245, 245));
         button.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(220, 220, 220)),
-                BorderFactory.createEmptyBorder(6, 12, 6, 12)));
+        BorderFactory.createLineBorder(new Color(220, 220, 220)),
+        BorderFactory.createEmptyBorder(6, 12, 6, 12)));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.addActionListener(_ -> dialog.dispose());
-        button.addActionListener(new ProfileListener(profileController, lang.code));
+        button.addActionListener(new ProfileListener(profileController, lang.code, "idioma", null));
         return button;
     }
 }
