@@ -8,8 +8,6 @@ import java.awt.*;
 
 public class ValorationFrame extends JDialog {
 
-    private JButton backButton;
-
     public ValorationFrame(Frame parent) {
         super(parent, "Valoración", true); // Modal
         setSize(412, 917);
@@ -65,23 +63,6 @@ public class ValorationFrame extends JDialog {
         topPanel.setPreferredSize(new Dimension(412, 85));
         topPanel.setMaximumSize(new Dimension(412, 85));
 
-        JPanel backPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 0));
-        backPanel.setOpaque(false);
-        backPanel.setBorder(BorderFactory.createEmptyBorder(30, 25, 0, 0));
-
-        ImageIcon icon = new ImageIcon("resources/images/ui/back_icon.png");
-        Image scaled = icon.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
-        backButton = new JButton(new ImageIcon(scaled));
-        backButton.setContentAreaFilled(false);
-        backButton.setBorderPainted(false);
-        backButton.setFocusPainted(false);
-        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        backButton.setPreferredSize(new Dimension(35, 35));
-        backButton.setMaximumSize(new Dimension(35, 35));
-
-        backPanel.add(backButton);
-        topPanel.add(backPanel, BorderLayout.WEST);
-
         JLabel titleLabel = new JLabel("Valoración", SwingConstants.CENTER);
         titleLabel.setForeground(Color.BLACK);
         titleLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 30));
@@ -99,7 +80,7 @@ public class ValorationFrame extends JDialog {
         intro.setMaximumSize(new Dimension(380, 106));
         intro.setBorder(BorderFactory.createEmptyBorder(16, 20, 16, 20));
 
-        JLabel introTitle = new JLabel("Evaluación final de nuestra interfaz");
+        JLabel introTitle = new JLabel("¡Evalúanos! Tu opinión importa");
         introTitle.setFont(new Font("Roboto Bold", Font.PLAIN, 20));
         introTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
 
