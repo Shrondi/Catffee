@@ -4,6 +4,7 @@ import components.button.RoundedButton;
 import model.ProductData;
 import components.popup.PopupMessage;
 import java.awt.Window;
+import utils.I18n;
 
 import javax.swing.*;
 import java.awt.*;
@@ -90,7 +91,7 @@ public class ProductBox extends RoundedPanel {
         button.addActionListener(_ -> {
             if (onAddCallback != null) onAddCallback.run();
             Window parentWindow = SwingUtilities.getWindowAncestor(this);
-            PopupMessage.show(parentWindow, "Producto añadido", 1200);
+            PopupMessage.show(parentWindow, I18n.t("product_added_popup"), 1200);
         });
         button.setFont(new Font("Poppins", Font.BOLD, 15));
         button.setBackground(new Color(0xC67C4E));
