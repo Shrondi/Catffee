@@ -144,18 +144,23 @@ public class ProfilePanel extends JPanel{
         // Si es la opción de idioma, toda la tarjeta es clicable mediante MouseListener
         if (labelText.equals(I18n.t("profile_language"))) {
             option.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            option.addMouseListener(new ProfileListener(profileController, null, "idioma", () -> mostrarDialogoIdioma(option)));
+            option.addMouseListener(new ProfileListener(profileController, null, "idioma", option));
         }
         // Si es la opción de cerrar sesión, toda la tarjeta es clicable mediante MouseListener
         else if (labelText.equals(I18n.t("profile_logout"))) {
             option.setCursor(new Cursor(Cursor.HAND_CURSOR));
             option.addMouseListener(new ProfileListener(profileController, null, "logout", null));
         }
+        // Si es la opción de valorar
+        else if (labelText.equals(I18n.t("profile_rate"))) {
+            option.setCursor(new Cursor(Cursor.HAND_CURSOR));
+            option.addMouseListener(new ProfileListener(profileController, null, "rate", null));
+        }
 
         return option;
     }
 
-    private void mostrarDialogoIdioma(JComponent parentOption) {
+    public void mostrarDialogoIdioma(JComponent parentOption) {
         JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(parentOption), I18n.t("profile_select_lang"), true);
         dialog.setUndecorated(true);
         dialog.setSize(260, 160);
