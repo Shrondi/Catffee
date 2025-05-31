@@ -3,7 +3,6 @@ package ui.home;
 import components.panel.ProductBox;
 import model.ProductData;
 import model.Products;
-import utils.UserStorage;
 import utils.I18n;
 
 import javax.swing.*;
