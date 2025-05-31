@@ -4,6 +4,7 @@ import components.panel.RoundedPanel;
 import components.button.RoundedButton;
 import components.panel.GradientPanel;
 import utils.I18n;
+import components.bar.TopBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,16 +46,7 @@ public class CatsPanel extends JPanel {
      * @return JPanel de la barra superior
      */
     private JPanel buildTopBar() {
-        JPanel topPanel = new JPanel();
-        topPanel.setBackground(Color.decode("#252424"));
-        topPanel.setPreferredSize(new Dimension(413, 85));
-        topPanel.setLayout(new BorderLayout());
-        JLabel titleLabel = new JLabel(I18n.t("cats_title"));
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 30));
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(23, 30, 23, 288));
-        topPanel.add(titleLabel, BorderLayout.WEST);
-        return topPanel;
+        return new TopBar(I18n.t("cats_title"));
     }
 
     /**

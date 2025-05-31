@@ -9,6 +9,7 @@ import ui.BaseFrame;
 import controller.navigation.NavigationHost;
 import controller.user.RegisterController;
 import utils.I18n;
+import components.bar.TopBar;
 
 /**
  * Ventana de registro de usuario para Catffee.
@@ -91,18 +92,7 @@ public class RegisterFrame extends BaseFrame {
     }
 
     private JPanel topTitle() {
-        JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(Color.decode("#252424"));
-        topPanel.setPreferredSize(new Dimension(413, 85));
-        topPanel.setMaximumSize(new Dimension(413, 85));
-
-        JLabel titleLabel = new JLabel(I18n.t("register_title"));
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 30));
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(23, 31, 23, 213));
-
-        topPanel.add(titleLabel, BorderLayout.CENTER);
-        return topPanel;
+        return new TopBar(I18n.t("register_register"));
     }
 
     private JPanel backButton() {

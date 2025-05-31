@@ -6,6 +6,7 @@ import utils.UserStorage;
 import controller.navigation.NavigationHost;
 import controller.profile.ProfileController;
 import utils.LangOption;
+import components.bar.TopBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,17 +32,7 @@ public class ProfilePanel extends JPanel{
      * Crea la barra superior con el título.
      */
     private JPanel createTopBar() {
-        JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(Color.decode("#252424"));
-        topPanel.setPreferredSize(new Dimension(413, 85));
-
-        JLabel titleLabel = new JLabel(I18n.t("profile_title"));
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 30));
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(23, 30, 23, 0));
-
-        topPanel.add(titleLabel, BorderLayout.WEST);
-        return topPanel;
+        return new TopBar(I18n.t("profile_title"));
     }
 
     /**

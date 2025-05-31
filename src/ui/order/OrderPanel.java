@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import controller.order.ProductOrderController;
 import utils.I18n;
+import components.bar.TopBar;
 
 /**
  * Panel de pedido para Catffee. Muestra los productos añadidos al carrito y permite modificar cantidades y finalizar el pedido.
@@ -47,17 +48,7 @@ public class OrderPanel extends JPanel {
     }
 
     private JPanel buildTopBar() {
-        JPanel topPanel = new JPanel();
-        topPanel.setBackground(Color.decode("#252424"));
-        topPanel.setPreferredSize(new Dimension(413, 85));
-        topPanel.setMaximumSize(new Dimension(413, 85));
-        topPanel.setLayout(new BorderLayout());
-        JLabel titleLabel = new JLabel(I18n.t("order_title"));
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Sora Semibold", Font.PLAIN, 30));
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(25, 39, 24, 250));
-        topPanel.add(titleLabel, BorderLayout.CENTER);
-        return topPanel;
+        return new TopBar(I18n.t("order_title"));
     }
 
     private JScrollPane scrollableItemPanel() {

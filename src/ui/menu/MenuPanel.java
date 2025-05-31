@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 import java.util.function.Consumer;
+import components.bar.TopBar;
 
 /**
  * Panel de menú principal de Catffee. Muestra las categorías de productos y permite añadir productos al pedido.
@@ -80,18 +81,7 @@ public class MenuPanel extends JPanel {
      * @return JPanel de la barra superior
      */
     private JPanel topBar() {
-        JPanel topBar = new JPanel(new BorderLayout());
-        topBar.setBackground(Color.decode("#252424"));
-        topBar.setPreferredSize(new Dimension(413, 85));
-        topBar.setMaximumSize(new Dimension(413, 85));
-
-        JLabel titleLabel = new JLabel(I18n.t("menupanel_title"));
-        titleLabel.setForeground(Color.WHITE);
-        titleLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 30));
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(23, 31, 23, 213));
-        topBar.add(titleLabel, BorderLayout.CENTER);
-
-        return topBar;
+        return new TopBar(I18n.t("menupanel_title"));
     }
 
     /**
