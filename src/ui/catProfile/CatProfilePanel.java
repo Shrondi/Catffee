@@ -28,7 +28,7 @@ public class CatProfilePanel extends JPanel {
         add(background, BorderLayout.CENTER);
 
         background.add(buildImagePanel(profile.getImagePaths()));
-        background.add(Box.createVerticalStrut(20));
+        background.add(Box.createVerticalStrut(-10));
         background.add(buildInfoPanel(profile));
     }
 
@@ -90,8 +90,9 @@ public class CatProfilePanel extends JPanel {
         topInfo.setLayout(new BoxLayout(topInfo, BoxLayout.Y_AXIS));
         topInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
         topInfo.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        topInfo.setPreferredSize(new Dimension(347, 161));
-        topInfo.setMaximumSize(new Dimension(347, 161));
+        topInfo.setMinimumSize(new Dimension(347, 150));
+        topInfo.setPreferredSize(new Dimension(347, 150));
+        topInfo.setMaximumSize(new Dimension(347, 150));
 
         RoundedPanel namePanel = new RoundedPanel(10, new Color(255, 255, 255, 150)) {
             @Override
@@ -157,9 +158,9 @@ public class CatProfilePanel extends JPanel {
         idealPanel.add(idealLabel, BorderLayout.CENTER);
 
         infoPanel.add(topInfo);
-        infoPanel.add(Box.createVerticalStrut(20));
+        infoPanel.add(Box.createVerticalStrut(10));
         infoPanel.add(aboutPanel);
-        infoPanel.add(Box.createVerticalStrut(20));
+        infoPanel.add(Box.createVerticalStrut(10));
         infoPanel.add(idealPanel);
 
         return infoPanel;
