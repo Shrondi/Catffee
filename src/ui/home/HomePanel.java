@@ -7,6 +7,8 @@ import utils.I18n;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -22,6 +24,7 @@ public class HomePanel extends JPanel {
     /** Callback para notificar cuando se añade un producto al pedido. */
     private final Consumer<ProductData> onProductAdded;
     private final String nombreCompletoUsuario;
+    private final List<ProductBox> productBoxes = new ArrayList<>();
 
     /**
      * Crea el panel de inicio.
@@ -141,8 +144,19 @@ public class HomePanel extends JPanel {
             Products.getColdDrinks().get(4)      // Pink Paw
         };
         for (ProductData product : destacados) {
-            grid.add(new ProductBox(product, () -> fireProductAdded(product)));
+            ProductBox box = new ProductBox(product, () -> fireProductAdded(product));
+            productBoxes.add(box);
+            grid.add(box);
         }
         return grid;
+    }
+
+    /**
+     * Deshabilita o habilita todos los botones "+" de los productos destacados.
+     */
+    public void setAddEnabled(boolean enabled) {
+        for (ProductBox box : productBoxes) {
+            box.setAddEnabled(enabled);
+        }
     }
 }
