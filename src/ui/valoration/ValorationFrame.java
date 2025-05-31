@@ -8,6 +8,13 @@ import java.awt.*;
 
 public class ValorationFrame extends JDialog {
 
+    // Guardar la selección de cada pregunta
+    private final int NUM_PREGUNTAS = 6;
+    private final int[] respuestas = new int[NUM_PREGUNTAS]; // 0 = no respondida, 1-5 = valor
+
+    // Label de error para mostrar advertencias
+    private JLabel errorLabel;
+
     public ValorationFrame(Frame parent) {
         super(parent, "Valoración", true); // Modal
         setSize(412, 917);
@@ -32,6 +39,14 @@ public class ValorationFrame extends JDialog {
         contentPanel.add(Box.createVerticalStrut(20));
         contentPanel.add(questionsPanel());
 
+        errorLabel = new JLabel("");
+        errorLabel.setForeground(new Color(200, 50, 50));
+        errorLabel.setFont(new Font("Roboto Regular", Font.PLAIN, 15));
+        errorLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        errorLabel.setBorder(BorderFactory.createEmptyBorder(10, 0, 10, 0));
+        errorLabel.setVisible(false);
+        contentPanel.add(errorLabel);
+        contentPanel.add(Box.createVerticalStrut(5));
         RoundedButton finish = finishButton();
         finish.setAlignmentX(Component.CENTER_ALIGNMENT);
         contentPanel.add(finish);
@@ -78,7 +93,7 @@ public class ValorationFrame extends JDialog {
         intro.setAlignmentX(Component.CENTER_ALIGNMENT);
         intro.setPreferredSize(new Dimension(380, 106));
         intro.setMaximumSize(new Dimension(380, 106));
-        intro.setBorder(BorderFactory.createEmptyBorder(16, 20, 16, 20));
+        intro.setBorder(BorderFactory.createEmptyBorder(16, 10, 16, 20));
 
         JLabel introTitle = new JLabel("¡Evalúanos! Tu opinión importa");
         introTitle.setFont(new Font("Roboto Bold", Font.PLAIN, 20));
@@ -103,7 +118,6 @@ public class ValorationFrame extends JDialog {
         questions.setAlignmentX(Component.CENTER_ALIGNMENT);
         questions.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
 
-
         String[][] preguntas = {
             {"1. ¿Te resulta fácil encontrar y explorar los productos de la carta?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
             {"2. ¿La información sobre cada producto es clara y completa?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
@@ -113,8 +127,8 @@ public class ValorationFrame extends JDialog {
             {"6. ¿La información acerca de los gatos te resulta accesible?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"}
         };
 
-        for (String[] p : preguntas) {
-            questions.add(createQuestionBox(p[0], p[1]));
+        for (int i = 0; i < preguntas.length; i++) {
+            questions.add(createQuestionBox(preguntas[i][0], preguntas[i][1], i));
             questions.add(Box.createVerticalStrut(20));
         }
 
@@ -134,10 +148,30 @@ public class ValorationFrame extends JDialog {
         finishButton.setPreferredSize(new Dimension(342, 44));
         finishButton.setMaximumSize(new Dimension(342, 44));
         finishButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        finishButton.addActionListener(_ -> mostrarDialogoGracias());
         return finishButton;
     }
 
-    private JPanel createQuestionBox(String question, String description) {
+    private void mostrarDialogoGracias() {
+        // Comprobar que todas las preguntas han sido contestadas
+        for (int i = 0; i < NUM_PREGUNTAS; i++) {
+            if (respuestas[i] == 0) {
+                errorLabel.setText("Por favor, responde todas las preguntas antes de terminar.");
+                errorLabel.setVisible(true);
+                return;
+            }
+        }
+        errorLabel.setVisible(false);
+        // Mostrar mensaje de gracias sobre el botón y cerrar tras 2 segundos
+        errorLabel.setText("¡Muchas gracias por tu valoración!");
+        errorLabel.setForeground(new Color(40, 140, 40));
+        errorLabel.setVisible(true);
+        new javax.swing.Timer(2000, _ -> {
+            dispose();
+        }) {{ setRepeats(false); }}.start();
+    }
+
+    private JPanel createQuestionBox(String question, String description, int preguntaIdx) {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setOpaque(false);
@@ -152,18 +186,45 @@ public class ValorationFrame extends JDialog {
         buttons.setOpaque(false);
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        for (int i = 1; i <= 5; i++) {
-            RoundedButton btn = new RoundedButton(String.valueOf(i), 8);
-            btn.setPreferredSize(new Dimension(65, 40));
-            btn.setFont(new Font("Roboto Bold", Font.PLAIN, 16));
-            btn.setBackground(new Color(0xFF, 0xFF, 0xFF));
-            btn.setForeground(Color.BLACK);
-            btn.setContentAreaFilled(false);
-            btn.setOpaque(false);
-            btn.setBorderPainted(false);
-            btn.setBorderColor(new Color(0x31, 0x31, 0x31));
-            btn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-            buttons.add(btn);
+        RoundedButton[] btns = new RoundedButton[5];
+        final Color selectedBg = new Color(0x313131);
+        final Color selectedFg = Color.WHITE;
+        final Color selectedBorder = new Color(0xC67C4E);
+        final Color normalBg = new Color(0xFF, 0xFF, 0xFF);
+        final Color normalFg = Color.BLACK;
+        final Color normalBorder = new Color(0x31, 0x31, 0x31);
+
+        for (int i = 0; i < 5; i++) {
+            btns[i] = new RoundedButton(String.valueOf(i+1), 8);
+            btns[i].setPreferredSize(new Dimension(65, 40));
+            btns[i].setFont(new Font("Roboto Bold", Font.PLAIN, 16));
+            btns[i].setBackground(normalBg);
+            btns[i].setForeground(normalFg);
+            btns[i].setContentAreaFilled(false);
+            btns[i].setOpaque(false);
+            btns[i].setBorderPainted(false);
+            btns[i].setBorderColor(normalBorder);
+            btns[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
+            final int idx = i;
+            btns[i].addActionListener(e -> {
+                for (int j = 0; j < 5; j++) {
+                    if (j == idx) {
+                        btns[j].setBackground(selectedBg);
+                        btns[j].setForeground(selectedFg);
+                        btns[j].setBorderColor(selectedBorder);
+                    } else {
+                        btns[j].setBackground(normalBg);
+                        btns[j].setForeground(normalFg);
+                        btns[j].setBorderColor(normalBorder);
+                    }
+                }
+                respuestas[preguntaIdx] = idx + 1;
+                // Ocultar error si se responde tras fallo
+                if (errorLabel != null && errorLabel.isVisible()) {
+                    errorLabel.setVisible(false);
+                }
+            });
+            buttons.add(btns[i]);
         }
 
         panel.add(qLabel);
