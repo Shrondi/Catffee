@@ -67,7 +67,7 @@ public class ProductBox extends RoundedPanel {
     }
 
     private JPanel createBottomPanel(double price) {
-        JLabel priceLabel = new JLabel(Double.toString(price)+"€");
+        JLabel priceLabel = new JLabel(String.format("%.2f €", price));
         priceLabel.setFont(new Font("Poppins", Font.BOLD, 18));
         priceLabel.setForeground(Color.BLACK);
 
