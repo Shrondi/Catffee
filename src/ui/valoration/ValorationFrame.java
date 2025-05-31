@@ -6,15 +6,15 @@ import javax.swing.*;
 
 import java.awt.*;
 
-public class ValorationFrame extends JFrame {
+public class ValorationFrame extends JDialog {
 
     private JButton backButton;
 
-    public ValorationFrame() {
-        setTitle("Valoración");
+    public ValorationFrame(Frame parent) {
+        super(parent, "Valoración", true); // Modal
         setSize(412, 917);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        setLocationRelativeTo(parent);
         setResizable(false);
 
         setContentPane(buildMainPanel());
@@ -103,7 +103,7 @@ public class ValorationFrame extends JFrame {
         introTitle.setFont(new Font("Roboto Bold", Font.PLAIN, 20));
         introTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel introText = new JLabel("<html><div style='width:300px;'>Valora entre 1 y 5 cada cuestión en base a tus necesidades de la app.</div></html>");
+        JLabel introText = new JLabel("<html><div style='width:300px;'>Valora entre 1 y 5 cada cuestión en base a tus necesidades de la app. </div></html>");
         introText.setFont(new Font("Roboto Regular", Font.PLAIN, 16));
         introText.setForeground(Color.GRAY);
         introText.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -124,18 +124,12 @@ public class ValorationFrame extends JFrame {
 
 
         String[][] preguntas = {
-            {"1. ¿Te resulta fácil encontrar y explorar los productos de la carta?",
-             "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
-            {"2. ¿La información sobre cada producto es clara y completa?",
-             "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
-            {"3. ¿Consideras que el diseño de la aplicación es atractivo y coherente?",
-             "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
-            {"4. ¿La navegación entre las distintas pantallas es fluida y sin complicaciones?",
-             "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
-            {"5. ¿La aplicación te permite realizar pedidos de manera sencilla y rápida?",
-             "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
-            {"6. ¿La información acerca de los gatos te resulta accesible?",
-             "1= Muy en desacuerdo, 5 = Muy de acuerdo"}
+            {"1. ¿Te resulta fácil encontrar y explorar los productos de la carta?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
+            {"2. ¿La información sobre cada producto es clara y completa?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
+            {"3. ¿Consideras que el diseño de la aplicación es atractivo y coherente?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
+            {"4. ¿La navegación entre las distintas pantallas es fluida y sin complicaciones?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
+            {"5. ¿La aplicación te permite realizar pedidos de manera sencilla y rápida?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"},
+            {"6. ¿La información acerca de los gatos te resulta accesible?", "1= Muy en desacuerdo, 5 = Muy de acuerdo"}
         };
 
         for (String[] p : preguntas) {
