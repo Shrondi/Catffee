@@ -136,13 +136,13 @@ public class OrderPanel extends JPanel {
         footer.add(totalRow);
 
         JLabel thanks = new JLabel("<html><div style='width:260px; text-align:center;'>¡Miau-chas gracias por tu pedido, " + userName + " ☕!</div></html>");
-        thanks.setFont(new Font("Sora Regular", Font.PLAIN, 16));
+        thanks.setFont(new Font("Sora Light", Font.PLAIN, 16));
         thanks.setAlignmentX(Component.CENTER_ALIGNMENT);
         thanks.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         footer.add(thanks);
 
         JLabel waitMsg = new JLabel("<html><div style='width:260px; text-align:center;'>Mientras esperas tómate un momento para conocer a nuestros adorables gatitos.</div></html>");
-        waitMsg.setFont(new Font("Sora Regular", Font.PLAIN, 14));
+        waitMsg.setFont(new Font("Sora Light", Font.PLAIN, 16));
         waitMsg.setAlignmentX(Component.CENTER_ALIGNMENT);
         waitMsg.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         footer.add(waitMsg);
