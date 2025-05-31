@@ -10,6 +10,8 @@ import java.awt.*;
 import java.util.List;
 import java.util.function.Consumer;
 import components.bar.TopBar;
+import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Panel de menú principal de Catffee. Muestra las categorías de productos y permite añadir productos al pedido.
@@ -21,6 +23,7 @@ import components.bar.TopBar;
 public class MenuPanel extends JPanel {
     /** Callback para notificar cuando se añade un producto al pedido. */
     private final Consumer<ProductData> onProductAdded;
+    private final List<ProductBox> productBoxes = new ArrayList<>();
 
     /**
      * Crea el panel de menú.
@@ -149,7 +152,9 @@ public class MenuPanel extends JPanel {
         grid.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
         for (ProductData p : products) {
-            grid.add(new ProductBox(p, () -> fireProductAdded(p)));
+            ProductBox box = new ProductBox(p, () -> fireProductAdded(p));
+            productBoxes.add(box);
+            grid.add(box);
         }
 
         section.add(sectionTitle);
@@ -168,6 +173,15 @@ public class MenuPanel extends JPanel {
     private void fireProductAdded(ProductData product) {
         if (onProductAdded != null) {
             onProductAdded.accept(product);
+        }
+    }
+
+    /**
+     * Deshabilita o habilita todos los botones "+" de los productos.
+     */
+    public void setAddEnabled(boolean enabled) {
+        for (ProductBox box : productBoxes) {
+            box.setAddEnabled(enabled);
         }
     }
 }

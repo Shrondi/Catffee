@@ -30,10 +30,13 @@ public class MainFrame extends ui.BaseFrame {
     private CardLayout cardLayout;
     private JPanel cardPanel;
     private OrderPanel orderPanel;
+    private HomePanel homePanel;
+    private MenuPanel menuPanel;
     private String currentSection = "Inicio";
     private NavigationBar navBar;
     private final NavigationHost navigationHost;
     private final UserStorage.User currentUser;
+    private ProductOrderController orderController;
 
     public static final String HOME = "HOME";
     public static final String MENU = "MENU";
@@ -62,19 +65,23 @@ public class MainFrame extends ui.BaseFrame {
     }
 
     private void initHomePanel() {
-        HomePanel homePanel = new HomePanel(this::handleProductAdded, currentUser.getNombreCompleto());
+        homePanel = new HomePanel(this::handleProductAdded, currentUser.getNombreCompleto());
         cardPanel.add(homePanel, HOME);
     }
 
     private void initOrderPanel() {
-        ProductOrderController orderController = new ProductOrderController();
-        orderPanel = new OrderPanel(orderController);
+        orderController = new ProductOrderController();
+        orderPanel = new OrderPanel(orderController, currentUser.getNombreCompleto());
         cardPanel.add(orderPanel, ORDER);
     }
 
     private void initMenuPanel() {
-        MenuPanel menuPanel = new MenuPanel(this::handleProductAdded);
+        menuPanel = new MenuPanel(this::handleProductAdded);
         cardPanel.add(menuPanel, MENU);
+        if (orderController != null && homePanel != null) {
+            orderController.setHomePanel(homePanel);
+            orderController.setMenuPanel(menuPanel);
+        }
     }
 
     private void initCatsPanel() {
