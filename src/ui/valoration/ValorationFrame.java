@@ -33,6 +33,10 @@ public class ValorationFrame extends JFrame {
         contentPanel.add(intro);
         contentPanel.add(Box.createVerticalStrut(20));
         contentPanel.add(questionsPanel());
+
+        RoundedButton finish = finishButton();
+        finish.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contentPanel.add(finish);
         contentPanel.add(Box.createVerticalStrut(20));
 
         JPanel gridWrapper = new JPanel(new GridBagLayout());
@@ -140,6 +144,22 @@ public class ValorationFrame extends JFrame {
         }
 
         return questions;
+    }
+
+    private RoundedButton finishButton() {
+        RoundedButton finishButton = new RoundedButton("Terminar", 12);
+        finishButton.setFont(new Font("Roboto Regular", Font.PLAIN, 16));
+        finishButton.setBackground(new Color(0x313131));
+        finishButton.setForeground(Color.WHITE);
+        finishButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        finishButton.setBorderPainted(false);
+        finishButton.setFocusPainted(false);
+        finishButton.setContentAreaFilled(false);
+        finishButton.setOpaque(false);
+        finishButton.setPreferredSize(new Dimension(342, 44));
+        finishButton.setMaximumSize(new Dimension(342, 44));
+        finishButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        return finishButton;
     }
 
     private JPanel createQuestionBox(String question, String description) {
