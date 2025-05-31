@@ -90,6 +90,7 @@ public class CatProfilePanel extends JPanel {
         topInfo.setLayout(new BoxLayout(topInfo, BoxLayout.Y_AXIS));
         topInfo.setAlignmentX(Component.CENTER_ALIGNMENT);
         topInfo.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        topInfo.setBorder(Color.BLACK, 1);
         topInfo.setMinimumSize(new Dimension(347, 150));
         topInfo.setPreferredSize(new Dimension(347, 150));
         topInfo.setMaximumSize(new Dimension(347, 150));
@@ -120,7 +121,7 @@ public class CatProfilePanel extends JPanel {
         namePanel.add(nameLabel, BorderLayout.CENTER);
         namePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel ageLabel = new JLabel(I18n.t("catprofile_age").replace("{0}", String.valueOf(profile.getAge())));
+        JLabel ageLabel = new JLabel(String.format("%s %s", profile.getAge(), I18n.t("catprofile_age")));
         ageLabel.setFont(new Font("Poppins Medium", Font.PLAIN, 20));
         ageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -139,6 +140,7 @@ public class CatProfilePanel extends JPanel {
         RoundedPanel aboutPanel = new RoundedPanel(10, Color.WHITE);
         aboutPanel.setLayout(new BorderLayout());
         aboutPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        aboutPanel.setBorder(Color.BLACK, 1);
         aboutPanel.setPreferredSize(new Dimension(347, 158));
         aboutPanel.setMaximumSize(new Dimension(347, 158));
 
@@ -151,6 +153,7 @@ public class CatProfilePanel extends JPanel {
         idealPanel.setLayout(new BorderLayout());
         idealPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         idealPanel.setPreferredSize(new Dimension(347, 100));
+        idealPanel.setBorder(Color.BLACK, 1);
         idealPanel.setMaximumSize(new Dimension(347, 100));
 
         JLabel idealLabel = new JLabel("<html><b>" + I18n.t("catprofile_ideal") + "</b><br>" + profile.getIdeal() + "</html>");
