@@ -5,18 +5,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
+import javax.swing.JComponent;
+import ui.valoration.ValorationFrame;
 
 public class ProfileListener implements ActionListener, MouseListener {
     private final ProfileController controller;
     private final String langCode;
     private final String actionType; // "idioma" o "logout"
-    private final Runnable onIdioma;
+    private final JComponent parentOption;
 
-    public ProfileListener(ProfileController controller, String langCode, String actionType, Runnable onIdioma) {
+    public ProfileListener(ProfileController controller, String langCode, String actionType, JComponent parentOption) {
         this.controller = controller;
         this.langCode = langCode;
         this.actionType = actionType;
-        this.onIdioma = onIdioma;
+        this.parentOption = parentOption;
     }
 
     @Override
@@ -28,8 +30,16 @@ public class ProfileListener implements ActionListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
         if ("logout".equals(actionType)) {
             controller.logout();
-        } else if (onIdioma != null) {
-            onIdioma.run();
+        } else if ("idioma".equals(actionType) && parentOption != null) {
+            if (parentOption.getParent() instanceof ui.profile.ProfilePanel panel) {
+                panel.mostrarDialogoIdioma(parentOption);
+            }
+        } else if ("rate".equals(actionType)) {
+            java.awt.Frame parentFrame = null;
+            if (parentOption != null) {
+                parentFrame = (java.awt.Frame) javax.swing.SwingUtilities.getWindowAncestor(parentOption);
+            }
+            new ValorationFrame(parentFrame).setVisible(true);
         }
     }
     @Override public void mousePressed(MouseEvent e) {}
