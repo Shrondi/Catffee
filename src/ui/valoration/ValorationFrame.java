@@ -3,6 +3,7 @@ package ui.valoration;
 import components.panel.RoundedPanel;
 import components.button.RoundedButton;
 import javax.swing.*;
+
 import java.awt.*;
 
 public class ValorationFrame extends JFrame {
@@ -20,28 +21,34 @@ public class ValorationFrame extends JFrame {
     }
 
     private JScrollPane buildMainPanel() {
-        JPanel mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setBackground(Color.WHITE);
-        contentPanel.setPreferredSize(new Dimension(412, 917));
-        contentPanel.setMaximumSize(new Dimension(412, 917));
+        contentPanel.setMaximumSize(new Dimension(412, Integer.MAX_VALUE));
 
         contentPanel.add(topBar());
         contentPanel.add(Box.createVerticalStrut(20));
-        contentPanel.add(introPanel());
+        JPanel intro = introPanel();
+        intro.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contentPanel.add(intro);
         contentPanel.add(Box.createVerticalStrut(20));
         contentPanel.add(questionsPanel());
         contentPanel.add(Box.createVerticalStrut(20));
 
+        JPanel gridWrapper = new JPanel(new GridBagLayout());
+        gridWrapper.setBackground(Color.WHITE);
+        
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.anchor = GridBagConstraints.CENTER;
+        gridWrapper.add(contentPanel, gbc);
 
-        JScrollPane scrollPane = new JScrollPane(contentPanel);
+        JScrollPane scrollPane = new JScrollPane(gridWrapper);
         scrollPane.setBorder(null);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPane.getVerticalScrollBar().setPreferredSize(new Dimension(0, 0));
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         scrollPane.setOpaque(false);
         scrollPane.getViewport().setOpaque(false);
 
@@ -92,7 +99,7 @@ public class ValorationFrame extends JFrame {
         introTitle.setFont(new Font("Roboto Bold", Font.PLAIN, 20));
         introTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel introText = new JLabel("<html>Valora entre 1 y 5 cada cuestión en base a tus necesidades de la app.</html>");
+        JLabel introText = new JLabel("<html><div style='width:300px;'>Valora entre 1 y 5 cada cuestión en base a tus necesidades de la app.</div></html>");
         introText.setFont(new Font("Roboto Regular", Font.PLAIN, 16));
         introText.setForeground(Color.GRAY);
         introText.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -110,6 +117,7 @@ public class ValorationFrame extends JFrame {
         questions.setBackground(Color.WHITE);
         questions.setAlignmentX(Component.CENTER_ALIGNMENT);
         questions.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
+
 
         String[][] preguntas = {
             {"1. ¿Te resulta fácil encontrar y explorar los productos de la carta?",
@@ -140,12 +148,12 @@ public class ValorationFrame extends JFrame {
         panel.setOpaque(false);
         panel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel qLabel = new JLabel("<html><b>" + question + "</b><br><i>" + description + "</i></html>");
+        JLabel qLabel = new JLabel("<html><div style='width:300px;'><b>" + question + "</b><i>" + description + "</i></div></html>");
         qLabel.setFont(new Font("Roboto Regular", Font.PLAIN, 16));
         qLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         qLabel.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
-        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
+        JPanel buttons = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 15));
         buttons.setOpaque(false);
         buttons.setAlignmentX(Component.CENTER_ALIGNMENT);
 
