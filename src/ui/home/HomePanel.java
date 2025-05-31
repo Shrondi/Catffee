@@ -88,9 +88,9 @@ public class HomePanel extends JPanel {
         panel.setAlignmentX(0.5f);
         panel.setAlignmentY(0.5f);
         JLabel welcomeText = new JLabel(
-            String.format("<html><div style='text-align: left;'>" + I18n.t("welcome_user") + "<br><b>%s ☕</b></div></html>", nombreCompletoUsuario));
+            String.format("<html><div style='text-align: left;'>" + I18n.t("welcome_user") + "<br>%s ☕</div></html>", nombreCompletoUsuario));
         welcomeText.setForeground(Color.WHITE);
-        welcomeText.setFont(new Font("Segoe UI Emoji", Font.BOLD, 32));
+        welcomeText.setFont(new Font("Sora SemiBold", Font.PLAIN, 32));
         welcomeText.setHorizontalAlignment(SwingConstants.LEFT);
         welcomeText.setVerticalAlignment(SwingConstants.BOTTOM);
         welcomeText.setBorder(BorderFactory.createEmptyBorder(0, 40, 40, 0));
