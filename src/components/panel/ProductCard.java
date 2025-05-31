@@ -37,12 +37,18 @@ public class ProductCard extends JPanel {
         desc.setFont(new Font("Sora", Font.PLAIN, 12));
         desc.setForeground(Color.GRAY);
 
+        // Etiqueta de precio individual
+        JLabel price = new JLabel(String.format("%.2f €", data.getPrice()));
+        price.setFont(new Font("Sora", Font.PLAIN, 12));
+        price.setForeground(new Color(80, 80, 80));
+
         JPanel infoPanel = new JPanel();
         infoPanel.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
         infoPanel.setOpaque(false);
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
         infoPanel.add(name);
         infoPanel.add(desc);
+        infoPanel.add(price);
 
         // Imagen
         JLabel img = new JLabel(new ImageIcon(new ImageIcon(data.getImagePath()).getImage().getScaledInstance(54, 54, Image.SCALE_SMOOTH)));
