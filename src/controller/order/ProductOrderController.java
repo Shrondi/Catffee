@@ -15,6 +15,8 @@ import java.util.ArrayList;
 public class ProductOrderController {
     private final OrderCart cart = OrderCart.getInstance();
     private final List<Runnable> listeners = new ArrayList<>();
+    private boolean pedidoConfirmado = false;
+    private int numeroPedido = -1;
 
     public ProductOrderController() {}
 
@@ -46,5 +48,34 @@ public class ProductOrderController {
 
     private void notifyListeners() {
         for (Runnable r : listeners) r.run();
+    }
+
+    public void marcarPedidoConfirmado() {
+        pedidoConfirmado = true;
+    }
+
+    public void resetPedidoConfirmado() {
+        pedidoConfirmado = false;
+    }
+
+    public boolean isPedidoConfirmado() {
+        return pedidoConfirmado;
+    }
+
+    public void generarNumeroPedido() {
+        numeroPedido = (int)(Math.random() * 900000) + 100000; // 6 dígitos
+    }
+
+    public int getNumeroPedido() {
+        return numeroPedido;
+    }
+
+    public void resetNumeroPedido() {
+        numeroPedido = -1;
+    }
+
+    public void clearCart() {
+        cart.clear();
+        notifyListeners();
     }
 }

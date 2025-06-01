@@ -87,4 +87,9 @@ public class OrderCart {
             this.quantity = quantity;
         }
     }
+
+    public void clear() {
+        items.clear();
+        total = 0.0;
+    }
 }

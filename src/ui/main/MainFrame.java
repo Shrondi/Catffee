@@ -111,8 +111,13 @@ public class MainFrame extends ui.BaseFrame {
     }
 
     public void showPanel(String panelName) {
+        // Si estamos saliendo de ORDER y el pedido fue confirmado, reseteamos el panel
+        if (currentSection.equals(ORDER) && !panelName.equals(ORDER) && orderPanel.isPedidoConfirmado()) {
+            orderPanel.resetToEmpty();
+        }
         cardLayout.show(cardPanel, panelName);
         updateNavBar(panelName);
+        currentSection = panelName;
     }
 
     private void handleProductAdded(ProductData product) {

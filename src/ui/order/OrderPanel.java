@@ -32,6 +32,8 @@ public class OrderPanel extends JPanel {
     private JPanel pricePanel = footerPanel();
     private RoundedButton pedirBtn;
 
+    private final OrderListener orderListener;
+
     public OrderPanel(ProductOrderController controller, String userName) {
         this.controller = controller;
         this.userName = userName;
@@ -40,7 +42,15 @@ public class OrderPanel extends JPanel {
         add(buildTopBar(), BorderLayout.NORTH);
 
         // Cuando la clase se crea el carrito esta vacio:
-        add(emptyCart, BorderLayout.CENTER);
+        if (controller.getCartItems().isEmpty()) {
+            add(emptyCart, BorderLayout.CENTER);
+        } else {
+            add(productPanel, BorderLayout.CENTER);
+            southPanel.removeAll();
+            southPanel.add(pricePanel);
+            add(southPanel, BorderLayout.SOUTH);
+            refreshCartView();
+        }
 
         // Aunque al principio no se muestre, añadimos ya el panel hijo del precio al padre
         southPanel.setLayout(new BoxLayout(southPanel, BoxLayout.Y_AXIS));
@@ -51,7 +61,9 @@ public class OrderPanel extends JPanel {
         controller.addCartListener(this::refreshCartView);
 
         // Asignar el listener al botón pedir después de inicializar controller y pedirBtn
-        pedirBtn.addActionListener(new OrderListener(this));
+        pedirBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        orderListener = new OrderListener(this, controller);
+        pedirBtn.addActionListener(orderListener);
     }
 
     private JPanel buildTopBar() {
@@ -106,6 +118,13 @@ public class OrderPanel extends JPanel {
         pedirBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
         pedirBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+        // Eliminar listeners antiguos antes de añadir uno nuevo
+        for (var listener : pedirBtn.getActionListeners()) {
+            pedirBtn.removeActionListener(listener);
+        }
+
+        pedirBtn.addActionListener(orderListener);
+
         footer.add(sep);
         footer.add(totalRow);
         footer.add(pedirBtn);
@@ -157,6 +176,9 @@ public class OrderPanel extends JPanel {
         southPanel.revalidate();
         southPanel.repaint();
 
+        // Generar número de pedido en el controller
+        controller.generarNumeroPedido();
+
         // Regenerar los productos en modo readOnly
         itemsPanel.removeAll();
         for (var item : controller.getCartItems()) {
@@ -183,7 +205,7 @@ public class OrderPanel extends JPanel {
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setBorder(BorderFactory.createEmptyBorder(10, 0, 0, 0));
 
-        JLabel number = new JLabel("#Numero");
+        JLabel number = new JLabel("#" + controller.getNumeroPedido());
         number.setFont(new Font("Sora Regular", Font.PLAIN, 16));
         number.setForeground(Color.GRAY);
         number.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -198,8 +220,6 @@ public class OrderPanel extends JPanel {
         revalidate();
         repaint();
 
-         // Tras 1 minuto, restaurar el panel vacío automáticamente
-         new javax.swing.Timer(60000, _ -> resetToEmpty()) {{ setRepeats(false); }}.start();
     }
 
     private JPanel buildEmptyOrderPanel() {
@@ -276,9 +296,24 @@ public class OrderPanel extends JPanel {
      */
     public void resetToEmpty() {
         removeAll();
+
+        southPanel.removeAll();
+        pricePanel = footerPanel();
+        southPanel.add(pricePanel);
+
+        southPanel.revalidate();
+        southPanel.repaint();
+
         add(buildTopBar(), BorderLayout.NORTH);
         add(emptyCart, BorderLayout.CENTER);
+        controller.resetPedidoConfirmado();
+        controller.clearCart();
+
         revalidate();
         repaint();
+    }
+
+    public boolean isPedidoConfirmado() {
+        return controller.isPedidoConfirmado();
     }
 }
