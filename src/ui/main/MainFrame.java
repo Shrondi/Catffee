@@ -2,7 +2,7 @@ package ui.main;
 
 import ui.menu.MenuPanel;
 import ui.home.HomePanel;
-import ui.cats.CatsPanel;
+import ui.cats.CatMenuPanel;
 import ui.order.OrderPanel;
 import ui.profile.ProfilePanel;
 import model.ProductData;
@@ -83,7 +83,7 @@ public class MainFrame extends ui.BaseFrame {
     }
 
     private void initCatsPanel() {
-        CatsPanel catsPanel = new CatsPanel();
+        CatMenuPanel catsPanel = new CatMenuPanel();
         CatProfileController catProfileController = new CatProfileController(this);
         catsPanel.setCatAdoptListener(catProfileController);
         cardPanel.add(catsPanel, CATS);

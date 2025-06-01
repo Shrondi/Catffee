@@ -17,7 +17,7 @@ import java.net.URL;
  * @author Carlos Lucena Robles - f92luroc@uco.es
  * @date 2024-05-30
  */
-public class CatsPanel extends JPanel {
+public class CatMenuPanel extends JPanel {
 
     /** Listener para eventos de adopción de gato. */
     private CatAdoptListener adoptListener;
@@ -32,7 +32,7 @@ public class CatsPanel extends JPanel {
     /**
      * Crea el panel de gatos.
      */
-    public CatsPanel() {
+    public CatMenuPanel() {
         setLayout(new BorderLayout());
         GradientPanel background = new GradientPanel(new Color(0xBD6E36), new Color(0xCDCDCD), true);
         background.setLayout(new BorderLayout());
