@@ -128,75 +128,22 @@ public class RegisterController {
     }
 
     private void mostrarDialogoRegistroExitoso() {
-        // Crear un JDialog moderno y visualmente atractivo
-        JDialog dialog = new JDialog(frame, utils.I18n.t("register_success_title"), true);
-        int width = frame.getWidth();
-        int height = frame.getHeight();
-        JPanel panel = new JPanel(new GridBagLayout()) {
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                // Degradado suave de fondo
-                Graphics2D g2d = (Graphics2D) g;
-                Color color1 = new Color(255, 245, 230);
-                Color color2 = new Color(255, 220, 180);
-                GradientPaint gp = new GradientPaint(0, 0, color1, 0, getHeight(), color2);
-                g2d.setPaint(gp);
-                g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 40, 40);
-            }
-        };
-        panel.setOpaque(false);
-        panel.setPreferredSize(new Dimension(width, height));
-        panel.setMinimumSize(new Dimension(width, height));
-        panel.setMaximumSize(new Dimension(width, height));
-        panel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(new Color(0xC67C4E), 2, true),
-            BorderFactory.createEmptyBorder(10, 10, 10, 10)
-        ));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(0, 0, 30, 0);
-        gbc.anchor = GridBagConstraints.NORTH;
-        // Icono de check animado
-        ImageIcon checkIcon = new ImageIcon(getClass().getClassLoader().getResource("images/ui/logo.png")); // Debes añadir este gif animado
-        JLabel checkLabel = new JLabel(checkIcon);
-        checkLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(checkLabel, gbc);
-        // Título
-        gbc.gridy = 1;
-        gbc.insets = new Insets(0, 0, 0, 0);
-        gbc.anchor = GridBagConstraints.CENTER;
-        JLabel title = new JLabel("<html><div style='width: "+(width-80)+"px; text-align:center; font-size:26px; color:#C67C4E;'><b>" + utils.I18n.t("register_success_title") + "</b></div></html>", SwingConstants.CENTER);
-        title.setFont(new Font("Sora SemiBold", Font.PLAIN, 26));
-        title.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(title, gbc);
-        // Mensaje principal
-        gbc.gridy = 2;
-        JLabel msg = new JLabel("<html><div style='width: "+(width-80)+"px; text-align:center; font-size:17px; color:#313131;'>" + utils.I18n.t("register_success_msg") + "</div></html>", SwingConstants.CENTER);
-        msg.setFont(new Font("Sora Regular", Font.PLAIN, 17));
-        msg.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(msg, gbc);
-        // Mensaje secundario
-        gbc.gridy = 3;
-        gbc.insets = new Insets(10, 0, 0, 0);
-        JLabel secondary = new JLabel("<html><div style='width: "+(width-60)+"px; text-align:center; font-size:14px; color:#888;'>" + utils.I18n.t("register_success_secondary") + "</div></html>", SwingConstants.CENTER);
-        secondary.setFont(new Font("Sora Regular", Font.PLAIN, 14));
-        secondary.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(secondary, gbc);
-        dialog.setUndecorated(true);
-        dialog.setContentPane(panel);
-        dialog.pack();
-        dialog.setSize(width, height);
-        // Centrar dentro del frame principal
-        Point parentLoc = frame.getLocationOnScreen();
-        int x = parentLoc.x;
-        int y = parentLoc.y;
-        dialog.setLocation(x, y);
-        new javax.swing.Timer(3000, _ -> {
-            dialog.dispose();
-            navigationHost.showLoginFrame();
-        }) {{ setRepeats(false); }}.start();
+        // Crear un CustomInfoDialog reutilizable
+        Icon checkIcon = null;
+        java.net.URL checkUrl = getClass().getClassLoader().getResource("images/ui/check_success.gif");
+        if (checkUrl != null) {
+            ImageIcon icon = new ImageIcon(checkUrl);
+            checkIcon = icon;
+        }
+        components.dialog.InfoDialog dialog = new components.dialog.InfoDialog(
+            frame,
+            utils.I18n.t("register_success_title"),
+            utils.I18n.t("register_success_msg"),
+            utils.I18n.t("register_success_secondary"),
+            checkIcon,
+            3000
+        );
         dialog.setVisible(true);
+        navigationHost.showLoginFrame();
     }
 } 
