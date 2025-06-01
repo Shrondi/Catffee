@@ -5,7 +5,6 @@ import utils.UserStorage;
 import controller.navigation.NavigationHost;
 import javax.swing.*;
 import java.io.File;
-import java.awt.*;
 
 /**
  * Controlador para la lógica de registro de usuario en Catffee.
@@ -59,22 +58,38 @@ public class RegisterController {
 
             boolean hasError = false;
 
+            // Validación de usuario: solo letras y números
             if (usuario.isEmpty()) {
                 frame.setUsuarioError("El nombre de usuario es obligatorio.");
                 hasError = true;
+            } else if (!usuario.matches("^[a-zA-Z0-9]+$")) {
+                frame.setUsuarioError("El usuario solo puede contener letras y números.");
+                hasError = true;
             }
+
             if (nombreCompleto.isEmpty()) {
                 frame.setNombreCompletoError("El nombre completo es obligatorio.");
                 hasError = true;
             }
+
+            // Validación de email
             if (email.isEmpty()) {
                 frame.setCorreoError("El email es obligatorio.");
                 hasError = true;
+            } else if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+                frame.setCorreoError("El email no es válido.");
+                hasError = true;
             }
+
+            // Validación de contraseña
             if (password.isEmpty()) {
                 frame.setPasswordError("La contraseña es obligatoria.");
                 hasError = true;
+            } else if (!password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
+                frame.setPasswordError("La contraseña debe tener al menos 8 caracteres, una letra y un número.");
+                hasError = true;
             }
+
             if (confirmPassword.isEmpty()) {
                 frame.setRepeatPasswordError("Repite la contraseña.");
                 hasError = true;
