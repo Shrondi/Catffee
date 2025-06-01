@@ -9,13 +9,13 @@ import java.awt.*;
 import utils.I18n;
 import components.dialog.InfoDialog;
 
-public class ValorationFrame extends JDialog {
+public class ValorationDialog extends JDialog {
 
     private final int NUM_PREGUNTAS = 6;
     private final ValorationController controller;
     private JLabel errorLabel;
 
-    public ValorationFrame(Frame parent) {
+    public ValorationDialog(Frame parent) {
         super(parent, I18n.getTranslation("valoration_title"), true); // Modal
         this.controller = new ValorationController(NUM_PREGUNTAS);
         setSize(412, 917);

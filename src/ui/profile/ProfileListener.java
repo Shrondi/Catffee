@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseEvent;
 import javax.swing.JComponent;
-import ui.valoration.ValorationFrame;
+import ui.valoration.ValorationDialog;
 
 public class ProfileListener implements ActionListener, MouseListener {
     private final ProfileController controller;
@@ -40,7 +40,7 @@ public class ProfileListener implements ActionListener, MouseListener {
             if (parentOption != null) {
                 parentFrame = (java.awt.Frame) javax.swing.SwingUtilities.getWindowAncestor(parentOption);
             }
-            new ValorationFrame(parentFrame).setVisible(true);
+            new ValorationDialog(parentFrame).setVisible(true);
         }
     }
     @Override public void mousePressed(MouseEvent e) {}
