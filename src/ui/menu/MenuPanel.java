@@ -10,8 +10,6 @@ import java.awt.*;
 import java.util.List;
 import java.util.function.Consumer;
 import components.bar.TopBar;
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * Panel de menú principal de Catffee. Muestra las categorías de productos y permite añadir productos al pedido.
