@@ -19,28 +19,28 @@ public class CatProfileFactory {
     public static CatProfile getByName(String name) {
         switch (name.toUpperCase()) {
             case "ABI" -> {
-                return CatProfiles.abi();
+                return CatProfileList.abi();
             }
             case "ALFIL" -> {
-                return CatProfiles.alfil();
+                return CatProfileList.alfil();
             }
             case "CHERRY" -> {
-                return CatProfiles.cherry();
+                return CatProfileList.cherry();
             }
             case "FLUSH" -> {
-                return CatProfiles.flush();
+                return CatProfileList.flush();
             }
             case "GULLIVER" -> {
-                return CatProfiles.gulliver();
+                return CatProfileList.gulliver();
             }
             case "MAZINGER" -> {
-                return CatProfiles.mazinger();
+                return CatProfileList.mazinger();
             }
             case "MEMBRILLO" -> {
-                return CatProfiles.membrillo();
+                return CatProfileList.membrillo();
             }
             case "SYLVESTRE" -> {
-                return CatProfiles.sylvestre();
+                return CatProfileList.sylvestre();
             }
             default -> {
                 return null;
