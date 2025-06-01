@@ -1,6 +1,7 @@
 package ui.valoration;
 
 import components.panel.RoundedPanel;
+import controller.valoration.ValorationController;
 import components.button.RoundedButton;
 import javax.swing.*;
 
@@ -9,20 +10,17 @@ import utils.I18n;
 
 public class ValorationFrame extends JDialog {
 
-    // Guardar la selección de cada pregunta
     private final int NUM_PREGUNTAS = 6;
-    private final int[] respuestas = new int[NUM_PREGUNTAS]; // 0 = no respondida, 1-5 = valor
-
-    // Label de error para mostrar advertencias
+    private final ValorationController controller;
     private JLabel errorLabel;
 
     public ValorationFrame(Frame parent) {
         super(parent, I18n.t("valoration_title"), true); // Modal
+        this.controller = new ValorationController(NUM_PREGUNTAS);
         setSize(412, 917);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(parent);
         setResizable(false);
-
         setContentPane(buildMainPanel());
     }
 
@@ -154,13 +152,10 @@ public class ValorationFrame extends JDialog {
     }
 
     private void mostrarDialogoGracias() {
-        // Comprobar que todas las preguntas han sido contestadas
-        for (int i = 0; i < NUM_PREGUNTAS; i++) {
-            if (respuestas[i] == 0) {
-                errorLabel.setText(I18n.t("valoration_error"));
-                errorLabel.setVisible(true);
-                return;
-            }
+        if (!controller.todasRespondidas()) {
+            errorLabel.setText(I18n.t("valoration_error"));
+            errorLabel.setVisible(true);
+            return;
         }
         errorLabel.setVisible(false);
         // Mostrar JDialog bonito sin botones y cerrar tras 2 segundos
@@ -266,8 +261,7 @@ public class ValorationFrame extends JDialog {
                         btns[j].setBorderColor(normalBorder);
                     }
                 }
-                respuestas[preguntaIdx] = idx + 1;
-                // Ocultar error si se responde tras fallo
+                controller.setRespuesta(preguntaIdx, idx + 1);
                 if (errorLabel != null && errorLabel.isVisible()) {
                     errorLabel.setVisible(false);
                 }
