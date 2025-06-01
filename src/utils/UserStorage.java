@@ -36,7 +36,7 @@ public class UserStorage {
     // Acceso a la instancia singleton
     public static UserStorage getInstance() {
         if (instance == null) {
-            utils.ErrorUtil.mostrarErrorCritico("Error crítico al registrar usuario");
+            utils.Error.mostrarErrorCritico("Error crítico al registrar usuario");
             throw new IllegalStateException("UserStorage no ha sido inicializado. Llama primero a init(filename).");
         }
         return instance;
@@ -59,10 +59,10 @@ public class UserStorage {
                 }
             }
         } catch (FileNotFoundException e) {
-            utils.ErrorUtil.mostrarErrorCritico("Archivo de usuarios no encontrado: " + filename);
+            utils.Error.mostrarErrorCritico("Archivo de usuarios no encontrado: " + filename);
             throw new RuntimeException("Archivo de usuarios no encontrado: " + filename, e);
         } catch (IOException e) {
-            utils.ErrorUtil.mostrarErrorCritico("Error crítico al registrar usuario");
+            utils.Error.mostrarErrorCritico("Error crítico al registrar usuario");
             System.err.println("Error al cargar usuarios: " + e.getMessage());
         }
     }
@@ -86,7 +86,7 @@ public class UserStorage {
             return true;
         } catch (IOException e) {
             System.err.println("Error al guardar usuario: " + e.getMessage());
-            utils.ErrorUtil.mostrarErrorCritico("Error crítico al registrar usuario");
+            utils.Error.mostrarErrorCritico("Error crítico al registrar usuario");
             // Si fallo, removemos del mapa para evitar inconsistencia
             users.remove(user.email.toLowerCase());
             usernameToEmail.remove(user.user.toLowerCase());

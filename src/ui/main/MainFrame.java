@@ -59,7 +59,7 @@ public class MainFrame extends ui.BaseFrame {
             initCatsPanel();
             initProfilePanel();
         } catch (Exception e) {
-            utils.ErrorUtil.mostrarErrorCritico("Error crítico al inicializar la ventana principal");
+            utils.Error.mostrarErrorCritico("Error crítico al inicializar la ventana principal");
             e.printStackTrace();
         }
         add(cardPanel, BorderLayout.CENTER);

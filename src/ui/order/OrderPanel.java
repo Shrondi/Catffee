@@ -265,7 +265,7 @@ public class OrderPanel extends JPanel {
             controller.addProductToOrder(product);
             refreshCartView();
         } catch (Exception e) {
-            utils.ErrorUtil.mostrarErrorCritico("Error crítico al añadir producto al carrito");
+            utils.Error.mostrarErrorCritico("Error crítico al añadir producto al carrito");
             e.printStackTrace();
         }
     }

@@ -105,7 +105,7 @@ public class RegisterController {
                 frame.setCorreoError("Error al registrar usuario.");
             }
         } catch (Exception e) {
-            utils.ErrorUtil.mostrarErrorCritico("Error crítico al registrar usuario");
+            utils.Error.mostrarErrorCritico("Error crítico al registrar usuario");
             e.printStackTrace();
         }
     }
