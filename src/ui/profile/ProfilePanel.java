@@ -91,7 +91,6 @@ public class ProfilePanel extends JPanel{
                     profileIcon = new ImageIcon(avatarPath);
                 }
                 if (profileIcon == null || profileIcon.getIconWidth() == -1) {
-                    utils.Error.mostrarErrorCritico("No se pudo cargar el avatar");
                     throw new Exception("No se pudo cargar el avatar");
                 }
             } catch (Exception e) {
