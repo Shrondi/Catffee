@@ -1,4 +1,4 @@
-package model;
+package model.cat;
 
 /**
  * Fábrica para obtener perfiles de gatos por nombre.

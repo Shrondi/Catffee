@@ -1,8 +1,8 @@
 package controller.cat;
 
 import ui.cats.CatAdoptListener;
-import model.CatProfile;
-import model.CatProfileFactory;
+import model.cat.CatProfile;
+import model.cat.CatProfileFactory;
 import ui.catProfile.CatProfilePanel;
 import ui.main.MainFrame;
 

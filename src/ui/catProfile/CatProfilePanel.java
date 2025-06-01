@@ -1,12 +1,12 @@
 package ui.catProfile;
 
 import components.panel.*;
+import model.cat.CatProfile;
 import utils.I18n;
 
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
-import model.CatProfile;
 
 /**
  * Panel para mostrar el perfil detallado de un gato en Catffee.
