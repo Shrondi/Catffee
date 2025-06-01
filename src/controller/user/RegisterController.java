@@ -5,6 +5,7 @@ import utils.UserStorage;
 import controller.navigation.NavigationHost;
 import javax.swing.*;
 import java.io.File;
+import java.net.URL;
 
 /**
  * Controlador para la lógica de registro de usuario en Catffee.
@@ -37,7 +38,7 @@ public class RegisterController {
         return storage.userExists(user);
     }
 
-    public boolean addUser(String email, String password, String nombreCompleto, String user, String avatarPath) {
+    public boolean addUser(String email, String password, String nombreCompleto, String user, URL avatarPath) {
         return storage.addUser(email, password, nombreCompleto, user, avatarPath);
     }
 
@@ -58,66 +59,69 @@ public class RegisterController {
 
             boolean hasError = false;
 
+
             // Validación de usuario: solo letras y números
             if (usuario.isEmpty()) {
-                frame.setUsuarioError("El nombre de usuario es obligatorio.");
+                frame.setUsuarioError(utils.I18n.getTranslation("register_error_user_required"));
                 hasError = true;
             } else if (!usuario.matches("^[a-zA-Z0-9]+$")) {
-                frame.setUsuarioError("El usuario solo puede contener letras y números.");
+                frame.setUsuarioError(utils.I18n.getTranslation("register_error_user_invalid"));
+                hasError = true;
+            }
+
+            if (userExists(usuario)){
+                frame.setUsuarioError(utils.I18n.getTranslation("register_error_user_exists"));
                 hasError = true;
             }
 
             if (nombreCompleto.isEmpty()) {
-                frame.setNombreCompletoError("El nombre completo es obligatorio.");
+                frame.setNombreCompletoError(utils.I18n.getTranslation("register_error_name_required"));
                 hasError = true;
             }
 
             // Validación de email
             if (email.isEmpty()) {
-                frame.setCorreoError("El email es obligatorio.");
+                frame.setCorreoError(utils.I18n.getTranslation("register_error_email_required"));
                 hasError = true;
             } else if (!email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
-                frame.setCorreoError("El email no es válido.");
+                frame.setCorreoError(utils.I18n.getTranslation("register_error_email_invalid"));
                 hasError = true;
             }
 
             // Validación de contraseña
             if (password.isEmpty()) {
-                frame.setPasswordError("La contraseña es obligatoria.");
+                frame.setPasswordError(utils.I18n.getTranslation("register_error_password_required"));
                 hasError = true;
             } else if (!password.matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$")) {
-                frame.setPasswordError("La contraseña debe tener al menos 8 caracteres, una letra y un número.");
+                frame.setPasswordError(utils.I18n.getTranslation("register_error_password_invalid"));
                 hasError = true;
             }
 
             if (confirmPassword.isEmpty()) {
-                frame.setRepeatPasswordError("Repite la contraseña.");
+                frame.setRepeatPasswordError(utils.I18n.getTranslation("register_error_repeat_password_required"));
                 hasError = true;
             }
+            
             if (hasError) return;
 
             if (!password.equals(confirmPassword)) {
-                frame.setRepeatPasswordError("Las contraseñas no coinciden.");
+                frame.setRepeatPasswordError(utils.I18n.getTranslation("register_error_passwords_no_match"));
                 return;
             }
 
             if (emailExists(email)) {
-                frame.setCorreoError("El email ya está registrado.");
+                frame.setCorreoError(utils.I18n.getTranslation("register_error_email_exists"));
                 return;
             }
+            
 
-            if (userExists(usuario)){
-                frame.setUsuarioError("El nombre de usuario ya está en uso.");
-                return;
-            }
-
-            String avatarPath = avatarFile != null ? avatarFile.getAbsolutePath() : "";
+            URL avatarPath = avatarFile != null ? avatarFile.toURI().toURL() : null;
 
             boolean added = addUser(email, password, nombreCompleto, usuario, avatarPath);
             if (added) {
                 mostrarDialogoRegistroExitoso();
             } else {
-                frame.setCorreoError("Error al registrar usuario.");
+                frame.setCorreoError(utils.I18n.getTranslation("register_error_generic"));
             }
         } catch (Exception e) {
             utils.Error.mostrarErrorCritico("Error crítico al registrar usuario");
