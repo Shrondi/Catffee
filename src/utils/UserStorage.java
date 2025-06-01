@@ -1,6 +1,7 @@
 package utils;
 
 import java.io.*;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -45,6 +46,7 @@ public class UserStorage {
     // Carga usuarios del archivo en el mapa
     private void loadUsersFromFile() {
         users.clear();
+        usernameToEmail.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -54,8 +56,15 @@ public class UserStorage {
                     String password = parts[1];
                     String nombreCompleto = parts[2];
                     String user = parts[3];
-                    String avatarPath = parts[4];
+                    String avatarPathStr = parts[4];
+                    URL avatarPath;
+                    try {
+                        avatarPath = new URL(avatarPathStr);
+                    } catch (Exception e) {
+                        avatarPath = new File(avatarPathStr).toURI().toURL();
+                    }
                     users.put(email, new User(email, password, nombreCompleto, user, avatarPath));
+                    usernameToEmail.put(user.toLowerCase(), email);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -67,7 +76,7 @@ public class UserStorage {
         }
     }
 
-    public synchronized boolean addUser(String email, String password, String nombreCompleto, String user, String avatarPath) {
+    public synchronized boolean addUser(String email, String password, String nombreCompleto, String user, URL avatarPath) {
         String key = email.toLowerCase();
         if (users.containsKey(key) || usernameToEmail.containsKey(user.toLowerCase())) {
             return false;
@@ -113,9 +122,9 @@ public class UserStorage {
         private final String password;
         private final String nombreCompleto;
         private final String user;
-        private final String avatarPath;
+        private final URL avatarPath;
 
-        User(String email, String password, String nombreCompleto, String user, String avatarPath) {
+        User(String email, String password, String nombreCompleto, String user, URL avatarPath) {
             this.email = email;
             this.password = password;
             this.nombreCompleto = nombreCompleto;
@@ -139,7 +148,7 @@ public class UserStorage {
             return user;
         }
 
-        public String getAvatarPath() {
+        public URL getAvatarPath() {
             return avatarPath;
         }
     }

@@ -7,6 +7,7 @@ import utils.I18n;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 import java.util.List;
 import java.util.function.Consumer;
 import components.bar.TopBar;
@@ -43,7 +44,7 @@ public class MenuPanel extends JPanel {
         layeredPane.setPreferredSize(new Dimension(412, 917));
 
         // Fondo con imagen
-        JLabel backgroundLabel = background(getClass().getClassLoader().getResource("images/ui/menu_bg.jpeg").getPath(), 412, 917);
+        JLabel backgroundLabel = background(getClass().getClassLoader().getResource("images/ui/menu_bg.jpeg"), 412, 917);
         layeredPane.add(backgroundLabel, Integer.valueOf(0));
 
         // Contenido principal transparente sobre el fondo
@@ -67,7 +68,7 @@ public class MenuPanel extends JPanel {
      * @param height Alto
      * @return JLabel con la imagen
      */
-    private JLabel background(String imagePath, int width, int height) {
+    private JLabel background(URL imagePath, int width, int height) {
         ImageIcon icon = new ImageIcon(imagePath);
         Image scaled = icon.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         JLabel label = new JLabel(new ImageIcon(scaled));

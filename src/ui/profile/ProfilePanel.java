@@ -10,6 +10,10 @@ import components.bar.TopBar;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
+import java.io.File;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class ProfilePanel extends JPanel{
 
@@ -50,11 +54,11 @@ public class ProfilePanel extends JPanel{
         panel.add(Box.createVerticalStrut(100));
 
         // Opciones
-        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/translate.png").getPath(), I18n.getTranslation("profile_language")));
+        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/translate.png"), I18n.getTranslation("profile_language")));
         panel.add(Box.createVerticalStrut(20));
-        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/heart.png").getPath(), I18n.getTranslation("profile_rate")));
+        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/heart.png"), I18n.getTranslation("profile_rate")));
         panel.add(Box.createVerticalStrut(20));
-        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/log_out.png").getPath(), I18n.getTranslation("profile_logout")));
+        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/log_out.png"), I18n.getTranslation("profile_logout")));
 
         return panel;
     }
@@ -71,14 +75,34 @@ public class ProfilePanel extends JPanel{
         profileCard.setMaximumSize(new Dimension(420, 160));
         profileCard.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
-        String avatarPath = currentUser.getAvatarPath();
-        ImageIcon profileIcon = new ImageIcon(getClass().getClassLoader().getResource("images/ui/profile_placeholder.png"));
-        if (!avatarPath.isEmpty()) {
-            profileIcon = new ImageIcon(avatarPath);
+        URL avatarPath = currentUser.getAvatarPath();
+        ImageIcon profileIcon = null;
+
+        if (avatarPath != null) {
+            try {
+                if ("file".equals(avatarPath.getProtocol())) {
+                    File avatarFile = new File(avatarPath.toURI());
+                    if (avatarFile.exists()) {
+                        profileIcon = new ImageIcon(avatarFile.getAbsolutePath());
+                    } else {
+                        throw new Exception("El archivo no existe");
+                    }
+                } else {
+                    profileIcon = new ImageIcon(avatarPath);
+                }
+                if (profileIcon == null || profileIcon.getIconWidth() == -1) {
+                    utils.Error.mostrarErrorCritico("No se pudo cargar el avatar");
+                    throw new Exception("No se pudo cargar el avatar");
+                }
+            } catch (Exception e) {
+                profileIcon = new ImageIcon(getClass().getClassLoader().getResource("images/ui/profile_placeholder.png"));
+            }
+        } else {
+            profileIcon = new ImageIcon(getClass().getClassLoader().getResource("images/ui/profile_placeholder.png"));
         }
+
         Image profileImg = profileIcon.getImage().getScaledInstance(120, 120, Image.SCALE_SMOOTH);
         JLabel profilePic = new JLabel(new ImageIcon(profileImg));
-
         String nombre = currentUser.getNombreCompleto();
         String user = currentUser.getUser();
         JLabel nameBlock = new JLabel(
@@ -93,7 +117,7 @@ public class ProfilePanel extends JPanel{
     /**
      * Crea una opción de menú en el perfil (idioma, valorar, cerrar sesión).
      */
-    private RoundedPanel createOption(String iconPath, String labelText) {
+    private RoundedPanel createOption(URL iconPath, String labelText) {
         RoundedPanel option = new RoundedPanel(30);
         option.setBackground(Color.WHITE);
         option.setLayout(new BorderLayout());
@@ -172,9 +196,9 @@ public class ProfilePanel extends JPanel{
         content.add(title);
 
         LangOption[] languages = LangOption.getAvailableLanguages();
-        String[] icons = {
-            getClass().getClassLoader().getResource("images/ui/flag_es.png").getPath(),
-            getClass().getClassLoader().getResource("images/ui/flag_en.png").getPath()
+        URL[] icons = {
+            getClass().getClassLoader().getResource("images/ui/flag_es.png"),
+            getClass().getClassLoader().getResource("images/ui/flag_en.png")
         };
         for (int i = 0; i < languages.length; i++) {
             JButton button = crearBotonIdioma(icons[i], languages[i], dialog);
@@ -186,7 +210,7 @@ public class ProfilePanel extends JPanel{
         dialog.setVisible(true);
     }
 
-    private JButton crearBotonIdioma(String iconPath, LangOption lang, JDialog dialog) {
+    private JButton crearBotonIdioma(URL iconPath, LangOption lang, JDialog dialog) {
         JButton button = new JButton(lang.label, new ImageIcon(new ImageIcon(iconPath).getImage().getScaledInstance(28, 20, Image.SCALE_SMOOTH)));
         button.setFont(new Font("Sora Regular", Font.PLAIN, 16));
         button.setFocusPainted(false);
