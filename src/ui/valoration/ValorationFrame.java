@@ -214,7 +214,7 @@ public class ValorationFrame extends JDialog {
             btns[i].setBorderColor(normalBorder);
             btns[i].setCursor(new Cursor(Cursor.HAND_CURSOR));
             final int idx = i;
-            btns[i].addActionListener(e -> {
+            btns[i].addActionListener(_ -> {
                 for (int j = 0; j < 5; j++) {
                     if (j == idx) {
                         btns[j].setBackground(selectedBg);
