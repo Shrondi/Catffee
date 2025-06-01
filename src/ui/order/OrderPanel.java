@@ -260,9 +260,14 @@ public class OrderPanel extends JPanel {
     }
 
     // --- Lógica visual: solo delega en el modelo y actualiza la UI ---
-    public void addProductCard(ProductData data) {
-        controller.addProductToOrder(data);
-        refreshCartView();
+    public void addProductCard(ProductData product) {
+        try {
+            controller.addProductToOrder(product);
+            refreshCartView();
+        } catch (Exception e) {
+            utils.ErrorUtil.mostrarErrorCritico("Error crítico al añadir producto al carrito");
+            e.printStackTrace();
+        }
     }
 
     private void updateTotalLabel() {

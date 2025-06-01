@@ -52,15 +52,17 @@ public class MainFrame extends ui.BaseFrame {
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
         setBackground(Color.decode("#F9F9F9"));
-
-        initHomePanel();
-        initOrderPanel();
-        initMenuPanel();
-        initCatsPanel();
-        initProfilePanel();
-        
+        try {
+            initHomePanel();
+            initOrderPanel();
+            initMenuPanel();
+            initCatsPanel();
+            initProfilePanel();
+        } catch (Exception e) {
+            utils.ErrorUtil.mostrarErrorCritico("Error crítico al inicializar la ventana principal");
+            e.printStackTrace();
+        }
         add(cardPanel, BorderLayout.CENTER);
-
         initNavigationBar();
     }
 

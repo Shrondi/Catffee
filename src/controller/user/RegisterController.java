@@ -43,65 +43,70 @@ public class RegisterController {
     }
 
     public void registrarUsuario() {
-        // Limpiar errores
-        frame.setUsuarioError("");
-        frame.setNombreCompletoError("");
-        frame.setCorreoError("");
-        frame.setPasswordError("");
-        frame.setRepeatPasswordError("");
+        try {
+            // Limpiar errores
+            frame.setUsuarioError("");
+            frame.setNombreCompletoError("");
+            frame.setCorreoError("");
+            frame.setPasswordError("");
+            frame.setRepeatPasswordError("");
 
-        String email = frame.getCorreo();
-        String password = frame.getPassword();
-        String confirmPassword = frame.getRepeatPassword();
-        String usuario = frame.getUsuario();
-        String nombreCompleto = frame.getNombreCompleto();
+            String email = frame.getCorreo();
+            String password = frame.getPassword();
+            String confirmPassword = frame.getRepeatPassword();
+            String usuario = frame.getUsuario();
+            String nombreCompleto = frame.getNombreCompleto();
 
-        boolean hasError = false;
+            boolean hasError = false;
 
-        if (usuario.isEmpty()) {
-            frame.setUsuarioError("El nombre de usuario es obligatorio.");
-            hasError = true;
-        }
-        if (nombreCompleto.isEmpty()) {
-            frame.setNombreCompletoError("El nombre completo es obligatorio.");
-            hasError = true;
-        }
-        if (email.isEmpty()) {
-            frame.setCorreoError("El email es obligatorio.");
-            hasError = true;
-        }
-        if (password.isEmpty()) {
-            frame.setPasswordError("La contraseña es obligatoria.");
-            hasError = true;
-        }
-        if (confirmPassword.isEmpty()) {
-            frame.setRepeatPasswordError("Repite la contraseña.");
-            hasError = true;
-        }
-        if (hasError) return;
+            if (usuario.isEmpty()) {
+                frame.setUsuarioError("El nombre de usuario es obligatorio.");
+                hasError = true;
+            }
+            if (nombreCompleto.isEmpty()) {
+                frame.setNombreCompletoError("El nombre completo es obligatorio.");
+                hasError = true;
+            }
+            if (email.isEmpty()) {
+                frame.setCorreoError("El email es obligatorio.");
+                hasError = true;
+            }
+            if (password.isEmpty()) {
+                frame.setPasswordError("La contraseña es obligatoria.");
+                hasError = true;
+            }
+            if (confirmPassword.isEmpty()) {
+                frame.setRepeatPasswordError("Repite la contraseña.");
+                hasError = true;
+            }
+            if (hasError) return;
 
-        if (!password.equals(confirmPassword)) {
-            frame.setRepeatPasswordError("Las contraseñas no coinciden.");
-            return;
-        }
+            if (!password.equals(confirmPassword)) {
+                frame.setRepeatPasswordError("Las contraseñas no coinciden.");
+                return;
+            }
 
-        if (emailExists(email)) {
-            frame.setCorreoError("El email ya está registrado.");
-            return;
-        }
+            if (emailExists(email)) {
+                frame.setCorreoError("El email ya está registrado.");
+                return;
+            }
 
-        if (userExists(usuario)){
-            frame.setUsuarioError("El nombre de usuario ya está en uso.");
-            return;
-        }
+            if (userExists(usuario)){
+                frame.setUsuarioError("El nombre de usuario ya está en uso.");
+                return;
+            }
 
-        String avatarPath = avatarFile != null ? avatarFile.getAbsolutePath() : "";
+            String avatarPath = avatarFile != null ? avatarFile.getAbsolutePath() : "";
 
-        boolean added = addUser(email, password, nombreCompleto, usuario, avatarPath);
-        if (added) {
-            mostrarDialogoRegistroExitoso();
-        } else {
-            frame.setCorreoError("Error al registrar usuario.");
+            boolean added = addUser(email, password, nombreCompleto, usuario, avatarPath);
+            if (added) {
+                mostrarDialogoRegistroExitoso();
+            } else {
+                frame.setCorreoError("Error al registrar usuario.");
+            }
+        } catch (Exception e) {
+            utils.ErrorUtil.mostrarErrorCritico("Error crítico al registrar usuario");
+            e.printStackTrace();
         }
     }
 
