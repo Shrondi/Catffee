@@ -60,7 +60,7 @@ public class ErrorFrame extends BaseFrame {
     }
 
     private void addCatLabel(JPanel mainPanel) {
-        ImageIcon catIcon = new ImageIcon("resources/images/ui/error.png");
+        ImageIcon catIcon = new ImageIcon(getClass().getClassLoader().getResource("images/ui/error.png"));
         Image catImage = catIcon.getImage().getScaledInstance(389, 389, Image.SCALE_SMOOTH);
         catIcon = new ImageIcon(catImage);
         JLabel catLabel = new JLabel(catIcon);

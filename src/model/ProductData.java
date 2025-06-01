@@ -1,5 +1,7 @@
 package model;
 
+import java.net.URL;
+
 /**
  * Modelo de datos para un producto de Catffee.
  * Incluye nombre, descripción, precio e imagen.
@@ -12,7 +14,7 @@ public class ProductData {
     private final String name;
     private final String description;
     private final double price;
-    private final String imagePath;
+    private final URL imagePath;
 
     private ProductData(Builder builder) {
         this.name = builder.name;
@@ -24,13 +26,13 @@ public class ProductData {
     public String getName() { return name; }
     public String getDescription() { return description; }
     public double getPrice() { return price; }
-    public String getImagePath() { return imagePath; }
+    public URL getImagePath() { return imagePath; }
 
     public static class Builder {
         private String name;
         private String description;
         private double price;
-        private String imagePath;
+        private URL imagePath;
 
         public Builder setName(String name) {
             this.name = name;
@@ -47,7 +49,7 @@ public class ProductData {
             return this;
         }
 
-        public Builder setImagePath(String imagePath) {
+        public Builder setImagePath(URL imagePath) {
             this.imagePath = imagePath;
             return this;
         }

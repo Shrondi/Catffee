@@ -59,7 +59,8 @@ public class UserStorage {
                 }
             }
         } catch (FileNotFoundException e) {
-            System.out.println("Creado nuevo archivo");
+            utils.ErrorUtil.mostrarErrorCritico("Archivo de usuarios no encontrado: " + filename);
+            throw new RuntimeException("Archivo de usuarios no encontrado: " + filename, e);
         } catch (IOException e) {
             utils.ErrorUtil.mostrarErrorCritico("Error crítico al registrar usuario");
             System.err.println("Error al cargar usuarios: " + e.getMessage());

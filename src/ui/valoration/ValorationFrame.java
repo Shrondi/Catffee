@@ -178,7 +178,7 @@ public class ValorationFrame extends JDialog {
         gbc.insets = new Insets(0, 0, 30, 0);
         gbc.anchor = GridBagConstraints.NORTH;
         // Logo
-        ImageIcon logoIcon = new ImageIcon("resources/images/ui/logo.png");
+        ImageIcon logoIcon = new ImageIcon(getClass().getClassLoader().getResource("images/ui/logo.png"));
         Image logoImg = logoIcon.getImage().getScaledInstance(220, 220, Image.SCALE_SMOOTH);
         JLabel logoLabel = new JLabel(new ImageIcon(logoImg));
         logoLabel.setHorizontalAlignment(SwingConstants.CENTER);

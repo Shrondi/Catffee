@@ -1,5 +1,7 @@
 package model;
 
+import java.net.URL;
+
 /**
  * Representa el perfil de un gato en Catffee.
  * Incluye nombre, edad, género, descripción, ideal y rutas de imágenes.
@@ -14,7 +16,7 @@ public class CatProfile {
     private final String gender;
     private final String about;
     private final String ideal;
-    private final String[] imagePaths;
+    private final URL[] imagePaths;
 
     private CatProfile(Builder builder) {
         this.name = builder.name;
@@ -30,7 +32,7 @@ public class CatProfile {
     public String getGender() { return gender; }
     public String getAbout() { return about; }
     public String getIdeal() { return ideal; }
-    public String[] getImagePaths() { return imagePaths; }
+    public URL[] getImagePaths() { return imagePaths; }
 
     /**
      * Builder para crear instancias de CatProfile.
@@ -41,7 +43,7 @@ public class CatProfile {
         private String gender;
         private String about;
         private String ideal;
-        private String[] imagePaths;
+        private URL[] imagePaths;
 
         public Builder name(String name) {
             this.name = name;
@@ -68,7 +70,7 @@ public class CatProfile {
             return this;
         }
 
-        public Builder imagePaths(String... imagePaths) {
+        public Builder imagePaths(URL... imagePaths) {
             this.imagePaths = imagePaths;
             return this;
         }
@@ -78,6 +80,9 @@ public class CatProfile {
          * @return CatProfile creado
          */
         public CatProfile build() {
+            if (name == null || age == null || gender == null || about == null || ideal == null || imagePaths == null) {
+                throw new IllegalStateException("Todos los campos son obligatorios");
+            }
             return new CatProfile(this);
         }
     }

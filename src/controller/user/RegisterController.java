@@ -159,7 +159,7 @@ public class RegisterController {
         gbc.insets = new Insets(0, 0, 30, 0);
         gbc.anchor = GridBagConstraints.NORTH;
         // Icono de check animado
-        ImageIcon checkIcon = new ImageIcon("resources/images/ui/check_success.gif"); // Debes añadir este gif animado
+        ImageIcon checkIcon = new ImageIcon(getClass().getClassLoader().getResource("images/ui/check_success.gif")); // Debes añadir este gif animado
         JLabel checkLabel = new JLabel(checkIcon);
         checkLabel.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(checkLabel, gbc);

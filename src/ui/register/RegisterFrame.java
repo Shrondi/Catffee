@@ -100,7 +100,7 @@ public class RegisterFrame extends BaseFrame {
         backPanel.setBorder(BorderFactory.createEmptyBorder(17, 14, 0, 363));
         backPanel.setMaximumSize(new Dimension(412, 50));
 
-        ImageIcon icon = new ImageIcon("resources/images/ui/back_icon.png");
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("images/ui/back_icon.png"));
         Image scaled = icon.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
         backButton = new JButton(new ImageIcon(scaled));
         backButton.setContentAreaFilled(false);
@@ -146,7 +146,7 @@ public class RegisterFrame extends BaseFrame {
         JPanel header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.Y_AXIS));
 
-        ImageIcon icon = new ImageIcon("resources/images/ui/profile_placeholder.png");
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("images/ui/profile_placeholder.png"));
         Image scaled = icon.getImage().getScaledInstance(140, 140, Image.SCALE_SMOOTH);
         avatarLabel = new JLabel(new ImageIcon(scaled));
         avatarLabel.setAlignmentX(Component.CENTER_ALIGNMENT);

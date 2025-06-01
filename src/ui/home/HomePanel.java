@@ -69,7 +69,7 @@ public class HomePanel extends JPanel {
      * @return JLabel con la imagen
      */
     private JLabel headerImage() {
-        ImageIcon icon = new ImageIcon("resources/images/ui/cabecera_bienvenida.png");
+        ImageIcon icon = new ImageIcon(getClass().getClassLoader().getResource("images/ui/cabecera_bienvenida.png"));
         Image scaled = icon.getImage().getScaledInstance(412, 330, Image.SCALE_SMOOTH);
         JLabel label = new JLabel(new ImageIcon(scaled));
         label.setAlignmentX(0.5f);

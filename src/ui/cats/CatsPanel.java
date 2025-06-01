@@ -8,7 +8,7 @@ import components.bar.TopBar;
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.net.URL;
 /**
  * Panel de visualización de gatos disponibles para adopción en Catffee.
  * Permite mostrar tarjetas de gatos y gestionar la adopción.
@@ -67,15 +67,15 @@ public class CatsPanel extends JPanel {
         descriptionPanel.setBorder(Color.BLACK, 1);
         contentPanel.add(descriptionPanel);
         String[] cats = { "Alfil", "Cherry", "Abi", "Flush", "Gulliver", "Membrillo", "Mazinger", "Sylvestre" };
-        String[] images = {
-            "resources/images/cats/alfil/alfil1.png",
-            "resources/images/cats/cherry/cherry1.png",
-            "resources/images/cats/abi/abi1.png",
-            "resources/images/cats/flush/flush1.png",
-            "resources/images/cats/gulliver/gulliver1.png",
-            "resources/images/cats/membrillo/membrillo1.png",
-            "resources/images/cats/mazinger/mazinger1.png",
-            "resources/images/cats/sylvestre/sylvestre1.png"
+        URL[] images = {
+            getClass().getClassLoader().getResource("images/cats/alfil/alfil1.png"),
+            getClass().getClassLoader().getResource("images/cats/cherry/cherry1.png"),
+            getClass().getClassLoader().getResource("images/cats/abi/abi1.png"),
+            getClass().getClassLoader().getResource("images/cats/flush/flush1.png"),
+            getClass().getClassLoader().getResource("images/cats/gulliver/gulliver1.png"),
+            getClass().getClassLoader().getResource("images/cats/membrillo/membrillo1.png"),
+            getClass().getClassLoader().getResource("images/cats/mazinger/mazinger1.png"),
+            getClass().getClassLoader().getResource("images/cats/sylvestre/sylvestre1.png")
         };
         JPanel gridPanel = new JPanel(new GridBagLayout());
         gridPanel.setOpaque(false);
@@ -115,7 +115,7 @@ public class CatsPanel extends JPanel {
      * @param name Nombre del gato
      * @return JPanel con la tarjeta del gato
      */
-    private JPanel buildCatCard(String imagePath, String name) {
+    private JPanel buildCatCard(URL imagePath, String name) {
         RoundedPanel card = new RoundedPanel(16);
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
         card.setPreferredSize(new Dimension(180, 240));

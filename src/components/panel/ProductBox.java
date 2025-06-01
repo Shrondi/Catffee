@@ -5,7 +5,7 @@ import model.ProductData;
 import components.popup.PopupMessage;
 import java.awt.Window;
 import utils.I18n;
-
+import java.net.URL;
 import javax.swing.*;
 import java.awt.*;
 
@@ -52,7 +52,7 @@ public class ProductBox extends RoundedPanel {
         setBorder(BorderFactory.createEmptyBorder());
     }
 
-    private JLabel createImageLabel(String path) {
+    private JLabel createImageLabel(URL path) {
         ImageIcon icon = new ImageIcon(path);
         Image scaled = icon.getImage().getScaledInstance(140, 130, Image.SCALE_SMOOTH);
         JLabel label = new JLabel(new ImageIcon(scaled));

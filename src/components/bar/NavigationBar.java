@@ -90,7 +90,7 @@ public class NavigationBar extends JPanel {
     }
 
     private ImageIcon loadIcon(String fileName, int width, int height) {
-        ImageIcon original = new ImageIcon("resources/icons/" + fileName);
+        ImageIcon original = new ImageIcon(getClass().getClassLoader().getResource("icons/" + fileName));
         Image scaled = original.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(scaled);
     }
