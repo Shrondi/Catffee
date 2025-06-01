@@ -4,8 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 import components.button.RoundedButton;
-import model.ProductData;
 import controller.order.ProductOrderController;
+import model.product.ProductData;
 
 /**
  * Componente visual para mostrar un producto en el pedido de Catffee.

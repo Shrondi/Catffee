@@ -2,10 +2,11 @@ package ui.order;
 
 import components.button.RoundedButton;
 import components.panel.ProductCard;
-import model.ProductData;
+
 import javax.swing.*;
 import java.awt.*;
 import controller.order.ProductOrderController;
+import model.product.ProductData;
 import utils.I18n;
 import components.bar.TopBar;
 import ui.order.OrderListener;

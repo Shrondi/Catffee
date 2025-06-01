@@ -1,7 +1,8 @@
 package controller.order;
 
 import model.OrderCart;
-import model.ProductData;
+import model.product.ProductData;
+
 import java.util.List;
 import java.util.ArrayList;
 

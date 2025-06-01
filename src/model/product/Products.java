@@ -1,6 +1,8 @@
-package model;
+package model.product;
 
 import java.util.List;
+
+import model.product.ProductData.Builder;
 import utils.I18n;
 
 /**

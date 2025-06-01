@@ -3,6 +3,8 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 
+import model.product.ProductData;
+
 /**
  * Carrito de pedidos para Catffee. Permite añadir, quitar y consultar productos del pedido actual.
  * Implementa el patrón Singleton.

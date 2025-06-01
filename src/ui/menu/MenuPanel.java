@@ -1,8 +1,8 @@
 package ui.menu;
 
 import components.panel.ProductBox;
-import model.ProductData;
-import model.Products;
+import model.product.ProductData;
+import model.product.Products;
 import utils.I18n;
 
 import javax.swing.*;

@@ -1,8 +1,9 @@
 package components.panel;
 
 import components.button.RoundedButton;
-import model.ProductData;
 import components.popup.PopupMessage;
+import model.product.ProductData;
+
 import java.awt.Window;
 import utils.I18n;
 import java.net.URL;
