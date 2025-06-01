@@ -50,11 +50,11 @@ public class ProfilePanel extends JPanel{
         panel.add(Box.createVerticalStrut(100));
 
         // Opciones
-        panel.add(createOption("resources/images/ui/translate.png", I18n.t("profile_language")));
+        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/translate.png").getPath(), I18n.t("profile_language")));
         panel.add(Box.createVerticalStrut(20));
-        panel.add(createOption("resources/images/ui/heart.png", I18n.t("profile_rate")));
+        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/heart.png").getPath(), I18n.t("profile_rate")));
         panel.add(Box.createVerticalStrut(20));
-        panel.add(createOption("resources/images/ui/log_out.png", I18n.t("profile_logout")));
+        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/log_out.png").getPath(), I18n.t("profile_logout")));
 
         return panel;
     }
@@ -72,7 +72,7 @@ public class ProfilePanel extends JPanel{
         profileCard.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         String avatarPath = currentUser.getAvatarPath();
-        ImageIcon profileIcon = new ImageIcon("resources/images/ui/profile_placeholder.png");
+        ImageIcon profileIcon = new ImageIcon(getClass().getClassLoader().getResource("images/ui/profile_placeholder.png"));
         if (!avatarPath.isEmpty()) {
             profileIcon = new ImageIcon(avatarPath);
         }
@@ -111,7 +111,7 @@ public class ProfilePanel extends JPanel{
         textLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 18));
 
         // Componente derecho (flecha)
-        ImageIcon arrowIcon = new ImageIcon("resources/images/ui/next_icon.png");
+        ImageIcon arrowIcon = new ImageIcon(getClass().getClassLoader().getResource("images/ui/next_icon.png"));
         Image scaledArrow = arrowIcon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         JLabel arrowLabel = new JLabel(new ImageIcon(scaledArrow));
         arrowLabel.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -172,7 +172,10 @@ public class ProfilePanel extends JPanel{
         content.add(title);
 
         LangOption[] languages = LangOption.getAvailableLanguages();
-        String[] icons = {"resources/images/ui/flag_es.png", "resources/images/ui/flag_en.png"};
+        String[] icons = {
+            getClass().getClassLoader().getResource("images/ui/flag_es.png").getPath(),
+            getClass().getClassLoader().getResource("images/ui/flag_en.png").getPath()
+        };
         for (int i = 0; i < languages.length; i++) {
             JButton button = crearBotonIdioma(icons[i], languages[i], dialog);
             content.add(button);

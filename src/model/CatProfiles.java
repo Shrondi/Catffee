@@ -23,9 +23,9 @@ public class CatProfiles {
             .about(I18n.t("catprofile_abi_about"))
             .ideal(I18n.t("catprofile_abi_ideal"))
             .imagePaths(
-                "resources/images/cats/abi/abi1.png",
-                "resources/images/cats/abi/abi2.png",
-                "resources/images/cats/abi/abi3.png"
+                CatProfiles.class.getClassLoader().getResource("images/cats/abi/abi1.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/abi/abi2.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/abi/abi3.png")
             )
             .build();
     }
@@ -42,9 +42,9 @@ public class CatProfiles {
             .about(I18n.t("catprofile_alfil_about"))
             .ideal(I18n.t("catprofile_alfil_ideal"))
             .imagePaths(
-                "resources/images/cats/alfil/alfil1.png",
-                "resources/images/cats/alfil/alfil2.png",
-                "resources/images/cats/alfil/alfil3.png"
+                CatProfiles.class.getClassLoader().getResource("images/cats/alfil/alfil1.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/alfil/alfil2.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/alfil/alfil3.png")
             )
             .build();
     }
@@ -61,9 +61,9 @@ public class CatProfiles {
             .about(I18n.t("catprofile_cherry_about"))
             .ideal(I18n.t("catprofile_cherry_ideal"))
             .imagePaths(
-                "resources/images/cats/cherry/cherry1.png",
-                "resources/images/cats/cherry/cherry2.png",
-                "resources/images/cats/cherry/cherry3.png"
+                CatProfiles.class.getClassLoader().getResource("images/cats/cherry/cherry1.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/cherry/cherry2.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/cherry/cherry3.png")
             )
             .build();
     }
@@ -80,9 +80,9 @@ public class CatProfiles {
             .about(I18n.t("catprofile_flush_about"))
             .ideal(I18n.t("catprofile_flush_ideal"))
             .imagePaths(
-                "resources/images/cats/flush/flush1.png",
-                "resources/images/cats/flush/flush2.png",
-                "resources/images/cats/flush/flush3.png"
+                CatProfiles.class.getClassLoader().getResource("images/cats/flush/flush1.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/flush/flush2.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/flush/flush3.png")
             )
             .build();
     }
@@ -99,9 +99,9 @@ public class CatProfiles {
             .about(I18n.t("catprofile_gulliver_about"))
             .ideal(I18n.t("catprofile_gulliver_ideal"))
             .imagePaths(
-                "resources/images/cats/gulliver/gulliver1.png",
-                "resources/images/cats/gulliver/gulliver2.png",
-                "resources/images/cats/gulliver/gulliver3.png"
+                CatProfiles.class.getClassLoader().getResource("images/cats/gulliver/gulliver1.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/gulliver/gulliver2.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/gulliver/gulliver3.png")
             )
             .build();
     }
@@ -118,9 +118,9 @@ public class CatProfiles {
             .about(I18n.t("catprofile_mazinger_about"))
             .ideal(I18n.t("catprofile_mazinger_ideal"))
             .imagePaths(
-                "resources/images/cats/mazinger/mazinger1.png",
-                "resources/images/cats/mazinger/mazinger2.png",
-                "resources/images/cats/mazinger/mazinger3.png"
+                CatProfiles.class.getClassLoader().getResource("images/cats/mazinger/mazinger1.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/mazinger/mazinger2.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/mazinger/mazinger3.png")
             )
             .build();
     }
@@ -137,9 +137,9 @@ public class CatProfiles {
             .about(I18n.t("catprofile_membrillo_about"))
             .ideal(I18n.t("catprofile_membrillo_ideal"))
             .imagePaths(
-                "resources/images/cats/membrillo/membrillo1.png",
-                "resources/images/cats/membrillo/membrillo2.png",
-                "resources/images/cats/membrillo/membrillo3.png"
+                CatProfiles.class.getClassLoader().getResource("images/cats/membrillo/membrillo1.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/membrillo/membrillo2.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/membrillo/membrillo3.png")
             )
             .build();
     }
@@ -156,9 +156,9 @@ public class CatProfiles {
             .about(I18n.t("catprofile_sylvestre_about"))
             .ideal(I18n.t("catprofile_sylvestre_ideal"))
             .imagePaths(
-                "resources/images/cats/sylvestre/sylvestre1.png",
-                "resources/images/cats/sylvestre/sylvestre2.png",
-                "resources/images/cats/sylvestre/sylvestre3.png"
+                CatProfiles.class.getClassLoader().getResource("images/cats/sylvestre/sylvestre1.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/sylvestre/sylvestre2.png"),
+                CatProfiles.class.getClassLoader().getResource("images/cats/sylvestre/sylvestre3.png")
             )
             .build();
     }

@@ -5,6 +5,7 @@ import utils.I18n;
 
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 import model.CatProfile;
 
 /**
@@ -42,7 +43,7 @@ public class CatProfilePanel extends JPanel {
         });
     }
 
-    private JPanel buildImagePanel(String[] imagePaths) {
+    private JPanel buildImagePanel(URL[] imagePaths) {
         JPanel container = new JPanel(new BorderLayout());
         container.setOpaque(false);
         container.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 20));
@@ -51,7 +52,7 @@ public class CatProfilePanel extends JPanel {
         imageRow.setLayout(new BoxLayout(imageRow, BoxLayout.X_AXIS));
         imageRow.setOpaque(false);
 
-        for (String path : imagePaths) {
+        for (URL path : imagePaths) {
             ImageIcon icon = new ImageIcon(path);
             Image scaled = icon.getImage().getScaledInstance(334, 334, Image.SCALE_SMOOTH);
             JLabel label = new JLabel(new ImageIcon(scaled));
