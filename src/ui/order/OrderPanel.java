@@ -67,7 +67,7 @@ public class OrderPanel extends JPanel {
     }
 
     private JPanel buildTopBar() {
-        return new TopBar(I18n.t("order_title"));
+        return new TopBar(I18n.getTranslation("order_title"));
     }
 
     private JScrollPane scrollableItemPanel() {
@@ -100,7 +100,7 @@ public class OrderPanel extends JPanel {
         JPanel totalRow = new JPanel(new BorderLayout());
         totalRow.setOpaque(false);
 
-        JLabel totalText = new JLabel(I18n.t("order_total"));
+        JLabel totalText = new JLabel(I18n.getTranslation("order_total"));
         totalText.setFont(new Font("Sora SemiBold", Font.PLAIN, 20));
         totalLabel = new JLabel("0.00 €");
         totalLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 15));
@@ -108,7 +108,7 @@ public class OrderPanel extends JPanel {
         totalRow.add(totalLabel, BorderLayout.EAST);
         totalRow.setBorder(BorderFactory.createEmptyBorder(10, 0, 60, 0));
 
-        pedirBtn = new RoundedButton(I18n.t("order_order"), 25);
+        pedirBtn = new RoundedButton(I18n.getTranslation("order_order"), 25);
         pedirBtn.setMaximumSize(new Dimension(330, 56));
         pedirBtn.setBackground(new Color(193, 124, 77));
         pedirBtn.setForeground(Color.WHITE);
@@ -145,7 +145,7 @@ public class OrderPanel extends JPanel {
 
         JPanel totalRow = new JPanel(new BorderLayout());
         totalRow.setOpaque(false);
-        JLabel totalText = new JLabel(I18n.t("order_total"));
+        JLabel totalText = new JLabel(I18n.getTranslation("order_total"));
         totalText.setFont(new Font("Sora SemiBold", Font.PLAIN, 20));
         JLabel totalValue = new JLabel(String.format("%.2f €", controller.getTotal()));
         totalValue.setFont(new Font("Sora SemiBold", Font.PLAIN, 15));
@@ -241,7 +241,7 @@ public class OrderPanel extends JPanel {
         contentPanel.add(Box.createVerticalStrut(38));
 
         // Texto principal
-        JLabel mainText = new JLabel(I18n.t("order_empty_title"));
+        JLabel mainText = new JLabel(I18n.getTranslation("order_empty_title"));
         mainText.setFont(new Font("Poppins SemiBold", Font.PLAIN, 28));
         mainText.setForeground(Color.decode("#000000"));
         mainText.setBorder(BorderFactory.createEmptyBorder(0, 90, 10, 85));
@@ -249,7 +249,7 @@ public class OrderPanel extends JPanel {
         contentPanel.add(mainText);
 
         // Texto secundario
-        JLabel secondaryText = new JLabel("<html><div style='text-align: center;'>" + I18n.t("order_empty_desc") + "</div></html>");
+        JLabel secondaryText = new JLabel("<html><div style='text-align: center;'>" + I18n.getTranslation("order_empty_desc") + "</div></html>");
         secondaryText.setFont(new Font("Poppins Regular", Font.PLAIN, 17));
         secondaryText.setBorder(BorderFactory.createEmptyBorder(10, 90, 10, 88));
         secondaryText.setForeground(Color.decode("#000000"));

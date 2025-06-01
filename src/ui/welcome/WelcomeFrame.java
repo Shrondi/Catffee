@@ -124,7 +124,7 @@ public class WelcomeFrame extends BaseFrame {
     }
 
     private JLabel addWelcomeText() {
-        JLabel welcomeText = new JLabel("<html><div style='text-align: center'>" + I18n.t("welcome_title") + "</div></html>");
+        JLabel welcomeText = new JLabel("<html><div style='text-align: center'>" + I18n.getTranslation("welcome_title") + "</div></html>");
         welcomeText.setFont(new Font("Fredoka SemiBold", Font.PLAIN, 40));
         welcomeText.setPreferredSize(new Dimension(380, 145));
         
@@ -140,7 +140,7 @@ public class WelcomeFrame extends BaseFrame {
     }
 
     private JLabel addDescriptionText() {
-        JLabel descriptionText = new JLabel("<html><div style='text-align: center'>" + I18n.t("welcome_desc") + "</div></html>");
+        JLabel descriptionText = new JLabel("<html><div style='text-align: center'>" + I18n.getTranslation("welcome_desc") + "</div></html>");
         descriptionText.setFont(new Font("Fredoka Regular", Font.PLAIN, 24));
         descriptionText.setPreferredSize(new Dimension(300, 146));
         descriptionText.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -150,7 +150,7 @@ public class WelcomeFrame extends BaseFrame {
 
     private JPanel addStartButton() {
 
-        startButton = new RoundedButton(I18n.t("welcome_start"), 16);
+        startButton = new RoundedButton(I18n.getTranslation("welcome_start"), 16);
         startButton.setBackground(Color.decode("#C67C4E"));
         startButton.setForeground(Color.WHITE);
         startButton.setBorderPainted(false);

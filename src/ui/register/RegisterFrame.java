@@ -65,8 +65,8 @@ public class RegisterFrame extends BaseFrame {
         repeatPasswordField = new RoundedPasswordField(20);
 
         // Configurar labels de encabezado
-        usuarioLabelHeader = new JLabel(I18n.t("register_placeholder_username"));
-        nombreLabelHeader = new JLabel(I18n.t("register_name"));
+        usuarioLabelHeader = new JLabel(I18n.getTranslation("register_placeholder_username"));
+        nombreLabelHeader = new JLabel(I18n.getTranslation("register_name"));
 
         JPanel container = new JPanel();
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
@@ -92,7 +92,7 @@ public class RegisterFrame extends BaseFrame {
     }
 
     private JPanel topTitle() {
-        return new TopBar(I18n.t("register_register"));
+        return new TopBar(I18n.getTranslation("register_register"));
     }
 
     private JPanel backButton() {
@@ -121,19 +121,19 @@ public class RegisterFrame extends BaseFrame {
         panel.add(headerInfo());
         panel.add(Box.createVerticalStrut(10));
 
-        panel.add(createLabeledField(I18n.t("register_username"), usuarioField));
+        panel.add(createLabeledField(I18n.getTranslation("register_username"), usuarioField));
         panel.add(Box.createVerticalStrut(10));
 
-        panel.add(createLabeledField(I18n.t("register_name"), nombreCompletoField));
+        panel.add(createLabeledField(I18n.getTranslation("register_name"), nombreCompletoField));
         panel.add(Box.createVerticalStrut(10));
 
-        panel.add(createLabeledField(I18n.t("register_email"), correoField));
+        panel.add(createLabeledField(I18n.getTranslation("register_email"), correoField));
         panel.add(Box.createVerticalStrut(10));
 
-        panel.add(createLabeledField(I18n.t("register_password"), passwordField));
+        panel.add(createLabeledField(I18n.getTranslation("register_password"), passwordField));
         panel.add(Box.createVerticalStrut(10));
 
-        panel.add(createLabeledField(I18n.t("register_repeat"), repeatPasswordField));
+        panel.add(createLabeledField(I18n.getTranslation("register_repeat"), repeatPasswordField));
         panel.add(Box.createVerticalStrut(20));
 
         panel.add(registerButton());
@@ -216,7 +216,7 @@ public class RegisterFrame extends BaseFrame {
     }
 
     private RoundedButton registerButton() {
-        registerButton = new RoundedButton(I18n.t("register_register"), 16);
+        registerButton = new RoundedButton(I18n.getTranslation("register_register"), 16);
         registerButton.setFont(new Font("Roboto Regular", Font.PLAIN, 14));
         registerButton.setBackground(Color.decode("#313131"));
         registerButton.setForeground(Color.WHITE);

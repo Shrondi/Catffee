@@ -61,7 +61,7 @@ public class RegisterListener extends MouseAdapter implements ActionListener {
 
         private void update() {
             String text = field.getText().trim();
-            label.setText(text.isEmpty() ? I18n.t("register_placeholder_username") : "@" + text);
+            label.setText(text.isEmpty() ? I18n.getTranslation("register_placeholder_username") : "@" + text);
         }
 
         public void changedUpdate(DocumentEvent e) { update(); }
@@ -80,7 +80,7 @@ public class RegisterListener extends MouseAdapter implements ActionListener {
 
         private void update() {
             String text = field.getText().trim();
-            label.setText(text.isEmpty() ? I18n.t("register_name") : text);
+            label.setText(text.isEmpty() ? I18n.getTranslation("register_name") : text);
         }
 
         public void changedUpdate(DocumentEvent e) { update(); }

@@ -11,7 +11,7 @@ public class I18n {
         bundle = ResourceBundle.getBundle("bundles.Bundle", currentLocale);
     }
 
-    public static String t(String key) {
+    public static String getTranslation(String key) {
         return bundle.getString(key);
     }
 

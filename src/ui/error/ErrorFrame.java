@@ -40,7 +40,7 @@ public class ErrorFrame extends BaseFrame {
     }
 
     private void addTitleLabel(JPanel mainPanel) {
-        JLabel titleLabel = new JLabel(I18n.t("error_title"));
+        JLabel titleLabel = new JLabel(I18n.getTranslation("error_title"));
         titleLabel.setFont(new Font("Poppins SemiBold", Font.PLAIN, 30));
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         
@@ -48,7 +48,7 @@ public class ErrorFrame extends BaseFrame {
     }
 
     private void addMessageLabel(JPanel mainPanel) {
-        JLabel messageLabel = new JLabel("<html><div style='text-align: center;'>" + I18n.t("error_msg") + "</div></html>");
+        JLabel messageLabel = new JLabel("<html><div style='text-align: center;'>" + I18n.getTranslation("error_msg") + "</div></html>");
         messageLabel.setFont(new Font("Poppins Regular", Font.PLAIN, 22));
         messageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -70,7 +70,7 @@ public class ErrorFrame extends BaseFrame {
     }
 
     private void addRetryButton() {
-        RoundedButton retryButton = new RoundedButton(I18n.t("error_retry"), 50);
+        RoundedButton retryButton = new RoundedButton(I18n.getTranslation("error_retry"), 50);
         retryButton.setBackground(Color.decode("#C67C4E"));
         retryButton.setForeground(Color.WHITE);
         retryButton.setPreferredSize(new Dimension(363, 58));

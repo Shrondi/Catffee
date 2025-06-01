@@ -16,8 +16,8 @@ public class LangOption {
 
     public static LangOption[] getAvailableLanguages() {
         return new LangOption[] {
-            new LangOption("es_ES", I18n.t("profile_spanish")),
-            new LangOption("en_GB", I18n.t("profile_english"))
+            new LangOption("es_ES", I18n.getTranslation("profile_spanish")),
+            new LangOption("en_GB", I18n.getTranslation("profile_english"))
         };
     }
 } 

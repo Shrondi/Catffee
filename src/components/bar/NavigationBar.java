@@ -32,11 +32,11 @@ public class NavigationBar extends JPanel {
         setLayout(new GridLayout(1, SECTION_KEYS.length));
         setPreferredSize(new Dimension(0, 60));
         String[] sectionTexts = {
-            I18n.t("nav_home"),
-            I18n.t("nav_menu"),
-            I18n.t("nav_order"),
-            I18n.t("nav_cats"),
-            I18n.t("nav_profile")
+            I18n.getTranslation("nav_home"),
+            I18n.getTranslation("nav_menu"),
+            I18n.getTranslation("nav_order"),
+            I18n.getTranslation("nav_cats"),
+            I18n.getTranslation("nav_profile")
         };
         for (int i = 0; i < SECTION_KEYS.length; i++) {
             add(createNavItem(SECTION_KEYS[i], sectionTexts[i], ICONS[i], i));

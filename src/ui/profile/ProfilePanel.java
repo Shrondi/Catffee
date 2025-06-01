@@ -32,7 +32,7 @@ public class ProfilePanel extends JPanel{
      * Crea la barra superior con el título.
      */
     private JPanel createTopBar() {
-        return new TopBar(I18n.t("profile_title"));
+        return new TopBar(I18n.getTranslation("profile_title"));
     }
 
     /**
@@ -50,11 +50,11 @@ public class ProfilePanel extends JPanel{
         panel.add(Box.createVerticalStrut(100));
 
         // Opciones
-        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/translate.png").getPath(), I18n.t("profile_language")));
+        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/translate.png").getPath(), I18n.getTranslation("profile_language")));
         panel.add(Box.createVerticalStrut(20));
-        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/heart.png").getPath(), I18n.t("profile_rate")));
+        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/heart.png").getPath(), I18n.getTranslation("profile_rate")));
         panel.add(Box.createVerticalStrut(20));
-        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/log_out.png").getPath(), I18n.t("profile_logout")));
+        panel.add(createOption(getClass().getClassLoader().getResource("images/ui/log_out.png").getPath(), I18n.getTranslation("profile_logout")));
 
         return panel;
     }
@@ -133,17 +133,17 @@ public class ProfilePanel extends JPanel{
         option.add(right, BorderLayout.EAST);
 
         // Si es la opción de idioma, toda la tarjeta es clicable mediante MouseListener
-        if (labelText.equals(I18n.t("profile_language"))) {
+        if (labelText.equals(I18n.getTranslation("profile_language"))) {
             option.setCursor(new Cursor(Cursor.HAND_CURSOR));
             option.addMouseListener(new ProfileListener(profileController, null, "idioma", option));
         }
         // Si es la opción de cerrar sesión, toda la tarjeta es clicable mediante MouseListener
-        else if (labelText.equals(I18n.t("profile_logout"))) {
+        else if (labelText.equals(I18n.getTranslation("profile_logout"))) {
             option.setCursor(new Cursor(Cursor.HAND_CURSOR));
             option.addMouseListener(new ProfileListener(profileController, null, "logout", null));
         }
         // Si es la opción de valorar
-        else if (labelText.equals(I18n.t("profile_rate"))) {
+        else if (labelText.equals(I18n.getTranslation("profile_rate"))) {
             option.setCursor(new Cursor(Cursor.HAND_CURSOR));
             option.addMouseListener(new ProfileListener(profileController, null, "rate", null));
         }
@@ -152,7 +152,7 @@ public class ProfilePanel extends JPanel{
     }
 
     public void mostrarDialogoIdioma(JComponent parentOption) {
-        JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(parentOption), I18n.t("profile_select_lang"), true);
+        JDialog dialog = new JDialog((Frame) SwingUtilities.getWindowAncestor(parentOption), I18n.getTranslation("profile_select_lang"), true);
         dialog.setUndecorated(true);
         dialog.setSize(260, 160);
         Point location = parentOption.getLocationOnScreen();
@@ -165,7 +165,7 @@ public class ProfilePanel extends JPanel{
         content.setBorder(BorderFactory.createLineBorder(new Color(220, 220, 220), 2, true));
         content.setLayout(new BoxLayout(content, BoxLayout.Y_AXIS));
 
-        JLabel title = new JLabel(I18n.t("profile_select_lang"));
+        JLabel title = new JLabel(I18n.getTranslation("profile_select_lang"));
         title.setFont(new Font("Sora SemiBold", Font.PLAIN, 18));
         title.setAlignmentX(Component.CENTER_ALIGNMENT);
         title.setBorder(BorderFactory.createEmptyBorder(16, 0, 12, 0));

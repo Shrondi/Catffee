@@ -81,7 +81,7 @@ public class MenuPanel extends JPanel {
      * @return JPanel de la barra superior
      */
     private JPanel topBar() {
-        return new TopBar(I18n.t("menupanel_title"));
+        return new TopBar(I18n.getTranslation("menupanel_title"));
     }
 
     /**
@@ -94,13 +94,13 @@ public class MenuPanel extends JPanel {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         container.add(Box.createVerticalStrut(10));
-        container.add(categorySection(I18n.t("menupanel_category_coffee"), Products.getCoffeeProducts()));
+        container.add(categorySection(I18n.getTranslation("menupanel_category_coffee"), Products.getCoffeeProducts()));
         container.add(Box.createVerticalStrut(20));
-        container.add(categorySection(I18n.t("menupanel_category_cold_drinks"), Products.getColdDrinks()));
+        container.add(categorySection(I18n.getTranslation("menupanel_category_cold_drinks"), Products.getColdDrinks()));
         container.add(Box.createVerticalStrut(20));
-        container.add(categorySection(I18n.t("menupanel_category_desserts"), Products.getDesserts()));
+        container.add(categorySection(I18n.getTranslation("menupanel_category_desserts"), Products.getDesserts()));
         container.add(Box.createVerticalStrut(20));
-        container.add(categorySection(I18n.t("menupanel_category_salty"), Products.getSaltyFood()));
+        container.add(categorySection(I18n.getTranslation("menupanel_category_salty"), Products.getSaltyFood()));
         container.add(Box.createVerticalStrut(100));
 
         JScrollPane scrollPane = new JScrollPane(container);

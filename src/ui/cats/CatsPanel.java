@@ -46,7 +46,7 @@ public class CatsPanel extends JPanel {
      * @return JPanel de la barra superior
      */
     private JPanel buildTopBar() {
-        return new TopBar(I18n.t("cats_title"));
+        return new TopBar(I18n.getTranslation("cats_title"));
     }
 
     /**
@@ -58,7 +58,7 @@ public class CatsPanel extends JPanel {
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setOpaque(false);
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        JLabel description = new JLabel(I18n.t("cats_desc"));
+        JLabel description = new JLabel(I18n.getTranslation("cats_desc"));
         description.setFont(new Font("Fredoka Regular", Font.PLAIN, 20));
         RoundedPanel descriptionPanel = new RoundedPanel(15, Color.WHITE);
         descriptionPanel.setMaximumSize(new Dimension(378, 119));
@@ -131,7 +131,7 @@ public class CatsPanel extends JPanel {
         nameLabel.setForeground(Color.decode("#000000"));
         nameLabel.setBorder(BorderFactory.createEmptyBorder(0, 16, 0, 22));
         nameLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        RoundedButton adoptButton = new RoundedButton(I18n.t("adopt"), 20);
+        RoundedButton adoptButton = new RoundedButton(I18n.getTranslation("adopt"), 20);
         adoptButton.setBackground(Color.decode("#C67C4E"));
         adoptButton.setForeground(Color.WHITE);
         adoptButton.setAlignmentX(Component.CENTER_ALIGNMENT);

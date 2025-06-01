@@ -122,12 +122,12 @@ public class CatProfilePanel extends JPanel {
         namePanel.add(nameLabel, BorderLayout.CENTER);
         namePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel ageLabel = new JLabel(String.format("%s %s", profile.getAge(), I18n.t("catprofile_age")));
+        JLabel ageLabel = new JLabel(String.format("%s %s", profile.getAge(), I18n.getTranslation("catprofile_age")));
         ageLabel.setFont(new Font("Poppins Medium", Font.PLAIN, 20));
         ageLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         String genderKey = profile.getGender().equalsIgnoreCase("Hembra") ? "catprofile_gender_female" : "catprofile_gender_male";
-        JLabel genderLabel = new JLabel(I18n.t(genderKey));
+        JLabel genderLabel = new JLabel(I18n.getTranslation(genderKey));
         genderLabel.setFont(new Font("Poppins Medium", Font.PLAIN, 20));
         genderLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -145,7 +145,7 @@ public class CatProfilePanel extends JPanel {
         aboutPanel.setPreferredSize(new Dimension(347, 158));
         aboutPanel.setMaximumSize(new Dimension(347, 158));
 
-        JLabel aboutLabel = new JLabel("<html><b>" + I18n.t("catprofile_about") + "</b><br>" + profile.getAbout() + "</html>");
+        JLabel aboutLabel = new JLabel("<html><b>" + I18n.getTranslation("catprofile_about") + "</b><br>" + profile.getAbout() + "</html>");
         aboutLabel.setFont(new Font("Fredoka Regular", Font.PLAIN, 20));
         aboutPanel.add(aboutLabel, BorderLayout.CENTER);
 
@@ -157,7 +157,7 @@ public class CatProfilePanel extends JPanel {
         idealPanel.setBorder(Color.BLACK, 1);
         idealPanel.setMaximumSize(new Dimension(347, 100));
 
-        JLabel idealLabel = new JLabel("<html><b>" + I18n.t("catprofile_ideal") + "</b><br>" + profile.getIdeal() + "</html>");
+        JLabel idealLabel = new JLabel("<html><b>" + I18n.getTranslation("catprofile_ideal") + "</b><br>" + profile.getIdeal() + "</html>");
         idealLabel.setFont(new Font("Fredoka Regular", Font.PLAIN, 20));
         idealPanel.add(idealLabel, BorderLayout.CENTER);
 

@@ -16,7 +16,7 @@ public class ValorationFrame extends JDialog {
     private JLabel errorLabel;
 
     public ValorationFrame(Frame parent) {
-        super(parent, I18n.t("valoration_title"), true); // Modal
+        super(parent, I18n.getTranslation("valoration_title"), true); // Modal
         this.controller = new ValorationController(NUM_PREGUNTAS);
         setSize(412, 917);
         setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -78,7 +78,7 @@ public class ValorationFrame extends JDialog {
         topPanel.setPreferredSize(new Dimension(412, 85));
         topPanel.setMaximumSize(new Dimension(412, 85));
 
-        JLabel titleLabel = new JLabel(I18n.t("valoration_title"), SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel(I18n.getTranslation("valoration_title"), SwingConstants.CENTER);
         titleLabel.setForeground(Color.BLACK);
         titleLabel.setFont(new Font("Sora SemiBold", Font.PLAIN, 30));
         titleLabel.setBorder(BorderFactory.createEmptyBorder(28, 0, 10, 50));
@@ -95,11 +95,11 @@ public class ValorationFrame extends JDialog {
         intro.setMaximumSize(new Dimension(380, 106));
         intro.setBorder(BorderFactory.createEmptyBorder(16, 10, 16, 20));
 
-        JLabel introTitle = new JLabel(I18n.t("valoration_intro_title"));
+        JLabel introTitle = new JLabel(I18n.getTranslation("valoration_intro_title"));
         introTitle.setFont(new Font("Roboto Bold", Font.PLAIN, 20));
         introTitle.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel introText = new JLabel(I18n.t("valoration_intro_text"));
+        JLabel introText = new JLabel(I18n.getTranslation("valoration_intro_text"));
         introText.setFont(new Font("Roboto Regular", Font.PLAIN, 16));
         introText.setForeground(Color.GRAY);
         introText.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -119,14 +119,14 @@ public class ValorationFrame extends JDialog {
         questions.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
 
         String[] preguntas = {
-            I18n.t("valoration_q1"),
-            I18n.t("valoration_q2"),
-            I18n.t("valoration_q3"),
-            I18n.t("valoration_q4"),
-            I18n.t("valoration_q5"),
-            I18n.t("valoration_q6")
+            I18n.getTranslation("valoration_q1"),
+            I18n.getTranslation("valoration_q2"),
+            I18n.getTranslation("valoration_q3"),
+            I18n.getTranslation("valoration_q4"),
+            I18n.getTranslation("valoration_q5"),
+            I18n.getTranslation("valoration_q6")
         };
-        String escala = I18n.t("valoration_scale");
+        String escala = I18n.getTranslation("valoration_scale");
         for (int i = 0; i < preguntas.length; i++) {
             questions.add(createQuestionBox(preguntas[i], escala, i));
             questions.add(Box.createVerticalStrut(20));
@@ -136,7 +136,7 @@ public class ValorationFrame extends JDialog {
     }
 
     private RoundedButton finishButton() {
-        RoundedButton finishButton = new RoundedButton(I18n.t("valoration_finish"), 12);
+        RoundedButton finishButton = new RoundedButton(I18n.getTranslation("valoration_finish"), 12);
         finishButton.setFont(new Font("Roboto Regular", Font.PLAIN, 16));
         finishButton.setBackground(new Color(0x313131));
         finishButton.setForeground(Color.WHITE);
@@ -154,7 +154,7 @@ public class ValorationFrame extends JDialog {
 
     private void mostrarDialogoGracias() {
         if (!controller.todasRespondidas()) {
-            errorLabel.setText(I18n.t("valoration_error"));
+            errorLabel.setText(I18n.getTranslation("valoration_error"));
             errorLabel.setVisible(true);
             return;
         }
@@ -169,9 +169,9 @@ public class ValorationFrame extends JDialog {
         }
         InfoDialog dialog = new components.dialog.InfoDialog(
             this,
-            I18n.t("valoration_success_title"),
-            I18n.t("valoration_success_msg"),
-            I18n.t("valoration_success_secondary"),
+            I18n.getTranslation("valoration_success_title"),
+            I18n.getTranslation("valoration_success_msg"),
+            I18n.getTranslation("valoration_success_secondary"),
             logoIcon,
             3500
         );

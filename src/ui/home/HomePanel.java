@@ -87,7 +87,7 @@ public class HomePanel extends JPanel {
         panel.setAlignmentX(0.5f);
         panel.setAlignmentY(0.5f);
         JLabel welcomeText = new JLabel(
-            String.format("<html><div style='text-align: left;'>" + I18n.t("welcome_user") + "<br>%s</div></html>", nombreCompletoUsuario));
+            String.format("<html><div style='text-align: left;'>" + I18n.getTranslation("welcome_user") + "<br>%s</div></html>", nombreCompletoUsuario));
         welcomeText.setForeground(Color.WHITE);
         welcomeText.setFont(new Font("Sora SemiBold", Font.PLAIN, 32));
         welcomeText.setHorizontalAlignment(SwingConstants.LEFT);
@@ -106,7 +106,7 @@ public class HomePanel extends JPanel {
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setBackground(new Color(0xF7F7F7));
         contentPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        JLabel destacadosLabel = new JLabel(I18n.t("home_featured"));
+        JLabel destacadosLabel = new JLabel(I18n.getTranslation("home_featured"));
         destacadosLabel.setFont(new Font("Sora Bold", Font.PLAIN, 20));
         destacadosLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         destacadosLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 16, 0));

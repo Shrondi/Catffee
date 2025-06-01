@@ -137,9 +137,9 @@ public class RegisterController {
         }
         components.dialog.InfoDialog dialog = new components.dialog.InfoDialog(
             frame,
-            utils.I18n.t("register_success_title"),
-            utils.I18n.t("register_success_msg"),
-            utils.I18n.t("register_success_secondary"),
+            utils.I18n.getTranslation("register_success_title"),
+            utils.I18n.getTranslation("register_success_msg"),
+            utils.I18n.getTranslation("register_success_secondary"),
             checkIcon,
             3000
         );
