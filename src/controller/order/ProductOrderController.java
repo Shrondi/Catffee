@@ -1,7 +1,7 @@
 package controller.order;
 
 import model.order.OrderCart;
-import model.product.ProductData;
+import model.product.Product;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -21,12 +21,12 @@ public class ProductOrderController {
 
     public ProductOrderController() {}
 
-    public void addProductToOrder(ProductData product) {
+    public void addProductToOrder(Product product) {
         cart.addProduct(product);
         notifyListeners();
     }
 
-    public void decrementProductFromOrder(ProductData product) {
+    public void decrementProductFromOrder(Product product) {
         cart.decrementProduct(product);
         notifyListeners();
     }

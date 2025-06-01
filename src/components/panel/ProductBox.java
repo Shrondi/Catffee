@@ -2,7 +2,7 @@ package components.panel;
 
 import components.button.RoundedButton;
 import components.popup.PopupMessage;
-import model.product.ProductData;
+import model.product.Product;
 
 import java.awt.Window;
 import utils.I18n;
@@ -29,7 +29,7 @@ public class ProductBox extends RoundedPanel {
     private final Runnable onAddCallback;
     private RoundedButton plusBtn;
 
-    public ProductBox(ProductData product, Runnable onAddCallback) {
+    public ProductBox(Product product, Runnable onAddCallback) {
         super(16); // radio de los bordes redondeados
 
         this.onAddCallback = onAddCallback;

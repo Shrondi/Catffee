@@ -1,8 +1,8 @@
 package ui.menu;
 
 import components.panel.ProductBox;
-import model.product.ProductData;
-import model.product.Products;
+import model.product.Product;
+import model.product.ProductList;
 import utils.I18n;
 
 import javax.swing.*;
@@ -20,13 +20,13 @@ import components.bar.TopBar;
  */
 public class MenuPanel extends JPanel {
     /** Callback para notificar cuando se añade un producto al pedido. */
-    private final Consumer<ProductData> onProductAdded;
+    private final Consumer<Product> onProductAdded;
 
     /**
      * Crea el panel de menú.
      * @param onProductAdded función a ejecutar cuando se añade un producto
      */
-    public MenuPanel(Consumer<ProductData> onProductAdded) {
+    public MenuPanel(Consumer<Product> onProductAdded) {
         this.onProductAdded = onProductAdded;
         setLayout(new BorderLayout());
         add(mainPanel(), BorderLayout.CENTER);
@@ -94,13 +94,13 @@ public class MenuPanel extends JPanel {
         container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
         container.add(Box.createVerticalStrut(10));
-        container.add(categorySection(I18n.getTranslation("menupanel_category_coffee"), Products.getCoffeeProducts()));
+        container.add(categorySection(I18n.getTranslation("menupanel_category_coffee"), ProductList.getCoffeeProducts()));
         container.add(Box.createVerticalStrut(20));
-        container.add(categorySection(I18n.getTranslation("menupanel_category_cold_drinks"), Products.getColdDrinks()));
+        container.add(categorySection(I18n.getTranslation("menupanel_category_cold_drinks"), ProductList.getColdDrinks()));
         container.add(Box.createVerticalStrut(20));
-        container.add(categorySection(I18n.getTranslation("menupanel_category_desserts"), Products.getDesserts()));
+        container.add(categorySection(I18n.getTranslation("menupanel_category_desserts"), ProductList.getDesserts()));
         container.add(Box.createVerticalStrut(20));
-        container.add(categorySection(I18n.getTranslation("menupanel_category_salty"), Products.getSaltyFood()));
+        container.add(categorySection(I18n.getTranslation("menupanel_category_salty"), ProductList.getSaltyFood()));
         container.add(Box.createVerticalStrut(100));
 
         JScrollPane scrollPane = new JScrollPane(container);
@@ -128,7 +128,7 @@ public class MenuPanel extends JPanel {
      * @param products Lista de productos
      * @return JPanel de la categoría
      */
-    private JPanel categorySection(String title, List<ProductData> products) {
+    private JPanel categorySection(String title, List<Product> products) {
         JPanel section = new JPanel();
         section.setOpaque(false);
         section.setLayout(new BoxLayout(section, BoxLayout.Y_AXIS));
@@ -148,7 +148,7 @@ public class MenuPanel extends JPanel {
         grid.setOpaque(false);
         grid.setBorder(BorderFactory.createEmptyBorder(0, 20, 0, 20));
 
-        for (ProductData p : products) {
+        for (Product p : products) {
             ProductBox box = new ProductBox(p, () -> fireProductAdded(p));
             grid.add(box);
         }
@@ -166,7 +166,7 @@ public class MenuPanel extends JPanel {
      * Llama al callback cuando se añade un producto.
      * @param product producto añadido
      */
-    private void fireProductAdded(ProductData product) {
+    private void fireProductAdded(Product product) {
         if (onProductAdded != null) {
             onProductAdded.accept(product);
         }

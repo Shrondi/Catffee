@@ -6,7 +6,7 @@ import components.panel.ProductCard;
 import javax.swing.*;
 import java.awt.*;
 import controller.order.ProductOrderController;
-import model.product.ProductData;
+import model.product.Product;
 import utils.I18n;
 import components.bar.TopBar;
 import ui.order.OrderListener;
@@ -261,7 +261,7 @@ public class OrderPanel extends JPanel {
     }
 
     // --- Lógica visual: solo delega en el modelo y actualiza la UI ---
-    public void addProductCard(ProductData product) {
+    public void addProductCard(Product product) {
         try {
             controller.addProductToOrder(product);
             refreshCartView();

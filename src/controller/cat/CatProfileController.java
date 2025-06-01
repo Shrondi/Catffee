@@ -1,8 +1,8 @@
 package controller.cat;
 
 import ui.cats.CatAdoptListener;
-import model.cat.CatProfile;
-import model.cat.CatProfileFactory;
+import model.cat.Cat;
+import model.cat.CatFactory;
 import ui.catProfile.CatProfilePanel;
 import ui.main.MainFrame;
 
@@ -22,7 +22,7 @@ public class CatProfileController implements CatAdoptListener {
 
     @Override
     public void onAdoptCat(String catName) {
-        CatProfile profile = CatProfileFactory.getByName(catName);
+        Cat profile = CatFactory.getByName(catName);
         if (profile != null) {
             CatProfilePanel panel = new CatProfilePanel(profile);
             mainFrame.showPanel("CAT_PROFILE", panel);

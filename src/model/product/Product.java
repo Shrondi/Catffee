@@ -10,13 +10,13 @@ import java.net.URL;
  * @author Carlos Lucena Robles - f92luroc@uco.es
  * @date 2024-05-30
  */
-public class ProductData {
+public class Product {
     private final String name;
     private final String description;
     private final double price;
     private final URL imagePath;
 
-    private ProductData(Builder builder) {
+    private Product(Builder builder) {
         this.name = builder.name;
         this.description = builder.description;
         this.price = builder.price;
@@ -54,12 +54,12 @@ public class ProductData {
             return this;
         }
 
-        public ProductData build() {
+        public Product build() {
             // Aquí puedes validar que los campos obligatorios estén completos
             if (name == null || price == 0.0 || imagePath == null) {
                 throw new IllegalStateException("name, price y imagePath son obligatorios");
             }
-            return new ProductData(this);
+            return new Product(this);
         }
     }
 }

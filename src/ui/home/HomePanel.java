@@ -1,8 +1,8 @@
 package ui.home;
 
 import components.panel.ProductBox;
-import model.product.ProductData;
-import model.product.Products;
+import model.product.Product;
+import model.product.ProductList;
 import utils.I18n;
 
 import javax.swing.*;
@@ -20,14 +20,14 @@ import java.util.function.Consumer;
  */
 public class HomePanel extends JPanel {
     /** Callback para notificar cuando se añade un producto al pedido. */
-    private final Consumer<ProductData> onProductAdded;
+    private final Consumer<Product> onProductAdded;
     private final String nombreCompletoUsuario;
 
     /**
      * Crea el panel de inicio.
      * @param onProductAdded función a ejecutar cuando se añade un producto
      */
-    public HomePanel(Consumer<ProductData> onProductAdded, String nombreCompletoUsuario) {
+    public HomePanel(Consumer<Product> onProductAdded, String nombreCompletoUsuario) {
         this.onProductAdded = onProductAdded;
         this.nombreCompletoUsuario = nombreCompletoUsuario;
         setLayout(new BorderLayout());
@@ -43,7 +43,7 @@ public class HomePanel extends JPanel {
      * Llama al callback cuando se añade un producto.
      * @param product producto añadido
      */
-    private void fireProductAdded(ProductData product) {
+    private void fireProductAdded(Product product) {
         if (onProductAdded != null) {
             onProductAdded.accept(product);
         }
@@ -132,15 +132,15 @@ public class HomePanel extends JPanel {
         grid.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         // Selección de productos destacados desde Products.java
-        ProductData[] destacados = new ProductData[] {
-            Products.getCoffeeProducts().get(0), // Meowcha
-            Products.getCoffeeProducts().get(1), // Catpuccino
-            Products.getDesserts().get(2),       // Gatogalletas
-            Products.getDesserts().get(0),       // Pawffins
-            Products.getSaltyFood().get(0),      // Empanacat
-            Products.getColdDrinks().get(4)      // Pink Paw
+        Product[] destacados = new Product[] {
+            ProductList.getCoffeeProducts().get(0), // Meowcha
+            ProductList.getCoffeeProducts().get(1), // Catpuccino
+            ProductList.getDesserts().get(2),       // Gatogalletas
+            ProductList.getDesserts().get(0),       // Pawffins
+            ProductList.getSaltyFood().get(0),      // Empanacat
+            ProductList.getColdDrinks().get(4)      // Pink Paw
         };
-        for (ProductData product : destacados) {
+        for (Product product : destacados) {
             ProductBox box = new ProductBox(product, () -> fireProductAdded(product));
             grid.add(box);
         }

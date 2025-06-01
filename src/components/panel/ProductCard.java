@@ -5,7 +5,7 @@ import java.awt.*;
 
 import components.button.RoundedButton;
 import controller.order.ProductOrderController;
-import model.product.ProductData;
+import model.product.Product;
 
 /**
  * Componente visual para mostrar un producto en el pedido de Catffee.
@@ -21,9 +21,9 @@ import model.product.ProductData;
 public class ProductCard extends JPanel {
     private int quantity = 1;
     private final JLabel quantityLabel;
-    private ProductData productData;
+    private Product productData;
 
-    public ProductCard(ProductData data, ProductOrderController controller, boolean readOnly) {
+    public ProductCard(Product data, ProductOrderController controller, boolean readOnly) {
         this.productData = data;
 
         setLayout(new BorderLayout());
@@ -105,7 +105,7 @@ public class ProductCard extends JPanel {
         quantityLabel.setText(String.valueOf(quantity));
     }
 
-    public ProductData getProductData() {
+    public Product getProductData() {
         return productData;
     }
 

@@ -3,7 +3,7 @@ package model.order;
 import java.util.HashMap;
 import java.util.Map;
 
-import model.product.ProductData;
+import model.product.Product;
 
 /**
  * Carrito de pedidos para Catffee. Permite añadir, quitar y consultar productos del pedido actual.
@@ -31,7 +31,7 @@ public class OrderCart {
      * Añade un producto al carrito.
      * @param data Producto a añadir
      */
-    public void addProduct(ProductData data) {
+    public void addProduct(Product data) {
         String key = data.getName();
         if (items.containsKey(key)) {
             CartItem item = items.get(key);
@@ -48,7 +48,7 @@ public class OrderCart {
      * Decrementa la cantidad de un producto en el carrito.
      * @param data Producto a decrementar
      */
-    public void decrementProduct(ProductData data) {
+    public void decrementProduct(Product data) {
         String key = data.getName();
         if (items.containsKey(key)) {
             CartItem item = items.get(key);
@@ -82,9 +82,9 @@ public class OrderCart {
      * Representa un ítem del carrito.
      */
     public static class CartItem {
-        public ProductData data;
+        public Product data;
         public int quantity;
-        public CartItem(ProductData data, int quantity) {
+        public CartItem(Product data, int quantity) {
             this.data = data;
             this.quantity = quantity;
         }

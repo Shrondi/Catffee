@@ -7,7 +7,7 @@ import ui.order.OrderPanel;
 import ui.profile.ProfilePanel;
 import components.bar.NavigationBar;
 import controller.order.ProductOrderController;
-import model.product.ProductData;
+import model.product.Product;
 import controller.cat.CatProfileController;
 import controller.navigation.NavigationHost;
 import controller.navigation.PanelNavigationManager;
@@ -122,7 +122,7 @@ public class MainFrame extends ui.BaseFrame {
         currentSection = panelName;
     }
 
-    private void handleProductAdded(ProductData product) {
+    private void handleProductAdded(Product product) {
         orderPanel.addProductCard(product);
         navBar.shakeOrderIcon();
     }

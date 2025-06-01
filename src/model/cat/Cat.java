@@ -10,7 +10,7 @@ import java.net.URL;
  * @author Carlos Lucena Robles - f92luroc@uco.es
  * @date 2024-05-30
  */
-public class CatProfile {
+public class Cat {
     private final String name;
     private final String age;
     private final String gender;
@@ -18,7 +18,7 @@ public class CatProfile {
     private final String ideal;
     private final URL[] imagePaths;
 
-    private CatProfile(Builder builder) {
+    private Cat(Builder builder) {
         this.name = builder.name;
         this.age = builder.age;
         this.gender = builder.gender;
@@ -79,11 +79,11 @@ public class CatProfile {
          * Construye el CatProfile.
          * @return CatProfile creado
          */
-        public CatProfile build() {
+        public Cat build() {
             if (name == null || age == null || gender == null || about == null || ideal == null || imagePaths == null) {
                 throw new IllegalStateException("Todos los campos son obligatorios");
             }
-            return new CatProfile(this);
+            return new Cat(this);
         }
     }
 }

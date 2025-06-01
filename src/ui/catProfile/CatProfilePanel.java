@@ -1,7 +1,7 @@
 package ui.catProfile;
 
 import components.panel.*;
-import model.cat.CatProfile;
+import model.cat.Cat;
 import utils.I18n;
 
 import javax.swing.*;
@@ -22,7 +22,7 @@ public class CatProfilePanel extends JPanel {
      * Crea el panel de perfil de gato.
      * @param profile Perfil del gato a mostrar
      */
-    public CatProfilePanel(CatProfile profile) {
+    public CatProfilePanel(Cat profile) {
 
         GradientPanel background = new GradientPanel(new Color(0xBD6E36), new Color(0xCDCDCD), true);
         background.setLayout(new BoxLayout(background, BoxLayout.Y_AXIS));
@@ -37,7 +37,7 @@ public class CatProfilePanel extends JPanel {
      * Crea y muestra el panel de perfil de gato en un hilo de Swing.
      * @param profile Perfil del gato
      */
-    public static void create(CatProfile profile) {
+    public static void create(Cat profile) {
         SwingUtilities.invokeLater(() -> {
             new CatProfilePanel(profile).setVisible(true);
         });
@@ -80,7 +80,7 @@ public class CatProfilePanel extends JPanel {
         return container;
     }
 
-    private JPanel buildInfoPanel(CatProfile profile) {
+    private JPanel buildInfoPanel(Cat profile) {
         JPanel infoPanel = new JPanel();
         infoPanel.setOpaque(false);
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
