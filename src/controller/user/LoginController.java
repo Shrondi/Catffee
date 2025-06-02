@@ -45,7 +45,7 @@ public class LoginController {
             loginFrame.errorLabel.setVisible(false);
             navigationHost.showMainFrame(currentUser);
         } else {
-            loginFrame.errorLabel.setText("El correo y/o la contraseña son incorrectos");
+            loginFrame.errorLabel.setText(utils.I18n.getTranslation("login_error_invalid_credentials"));
             loginFrame.errorLabel.setVisible(true);
         }
     }
